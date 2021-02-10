@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CarShop.ConsoleApp
 {
@@ -10,10 +11,7 @@ namespace CarShop.ConsoleApp
 
             do
             {
-                Console.WriteLine("############################################");
-                Console.WriteLine("##              CarShop                   ##");
-                Console.WriteLine("############################################");
-                Console.WriteLine("");
+                EscreverCabecalho();
 
                 Console.Write("Bem vindo! Qual o seu nome? ");
                 string nome = Console.ReadLine();
@@ -33,48 +31,23 @@ namespace CarShop.ConsoleApp
 
                 if (opcao == 1)
                 {
-                    Console.WriteLine("Carregando modelos disponíveis... Um instante.");
-                    Console.WriteLine();
-
-                    Console.WriteLine("Por favor, informe modelos em que possui interesse:");
-
-                    string[] modelos = new string[99_999_999];
-                    for (int i = 0; i < modelos.Length; i++)
-                    {
-                        modelos[i] = Console.ReadLine();
-
-                        Console.WriteLine("Há mais modelos que gostaria de informar? (S/N)");
-                        string resposta = Console.ReadLine();
-                        if (resposta == "S")
-                        {
-                            //TODO: Ajustar array, guardar última posição
-                        }
-                        else //N
-                        {
-                            //Sair do for
-                            break;
-                        }
-                    }
-                    Console.WriteLine();
-
-                    Console.WriteLine("Ótimo! Você informou os seguintes modelos: ");
-                    for (int i = 0; i < modelos.Length; i++)
-                    {
-                        Console.WriteLine($"1º modelo: {modelos[i]}");
-                    }
+                    //Opcao1_ComArray();
+                    Opcao1_ComList();
                 }
-
-                else if (opcao == 3)
+                else if (opcao == 2)
                 {
-                    Console.WriteLine("Carregando agenda, por favor, aguarde.");
+                    //Console.Clear();
+                    EscreverCabecalho();
+                    
+                    Console.WriteLine("Carregando fabricantes... Um instante.");
                 }
                 else if (opcao == 4)
                 {
-                    Console.WriteLine("Checando disponibilidade da oficina, aguarde.");
+
                 }
                 else if (opcao == 5)
                 {
-                    Console.WriteLine("Foi um prazer atendê-lo, volte sempre!");
+
                 }
                 else
                 {
@@ -82,6 +55,84 @@ namespace CarShop.ConsoleApp
                 }
 
             } while (opcaoInvalida);
+        }
+
+        static void EscreverCabecalho()
+        {
+            Console.Clear();
+            Console.WriteLine("############################################");
+            Console.WriteLine("##      CarShop - Os melhores carros!     ##");
+            Console.WriteLine("############################################");
+            Console.WriteLine("");
+        }
+
+        static void Opcao1_ComArray()
+        {
+            EscreverCabecalho();
+
+            Console.WriteLine("Carregando modelos disponíveis... Um instante.");
+            Console.WriteLine();
+
+            Console.WriteLine("Por favor, informe modelos em que possui interesse:");
+
+            //int ultimaPosicao = 1;
+            string[] modelos = new string[1];
+            for (int i = 0; i < modelos.Length; i++)
+            {
+                modelos[i] = Console.ReadLine();
+
+                Console.WriteLine("Há mais modelos que gostaria de informar? (S/N)");
+                string resposta = Console.ReadLine();
+                if (resposta == "S")
+                {
+                    //TODO: Ajustar array, guardar última posição
+
+                    //ultimaPosicao++;
+                    Array.Resize(ref modelos, modelos.Length + 1);
+                }
+                else //N
+                {
+                    //Sair do for
+                    break;
+                }
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("Ótimo! Você informou os seguintes modelos: ");
+            for (int i = 0; i < modelos.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}º modelo: {modelos[i]}");
+            }
+        }
+
+        static void Opcao1_ComList()
+        {
+            EscreverCabecalho();
+
+            Console.WriteLine("OPCAO COM LIST");
+            Console.WriteLine("Carregando modelos disponíveis... Um instante.");
+            Console.WriteLine();
+
+            Console.WriteLine("Por favor, informe modelos em que possui interesse:");
+
+            List<string> modelosList = new List<string>();
+            
+            string resposta;
+            do
+            {
+                modelosList.Add(Console.ReadLine());
+
+                Console.WriteLine("Há mais modelos que gostaria de informar? (S/N)");
+                resposta = Console.ReadLine();
+
+            } while (resposta == "S");
+            Console.WriteLine();
+
+            Console.WriteLine("Ótimo! Você informou os seguintes modelos: ");
+            for (int i = 0; i < modelosList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}º modelo: {modelosList[i]}");
+            }
         }
     }
 }
