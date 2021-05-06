@@ -36,9 +36,13 @@
             "styles": [
                 "node_modules/bootstrap/scss/bootstrap.scss",
                 "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+                "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+                "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
                 "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+                "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
