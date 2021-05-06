@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShop.ConsoleApp", "CarShop.ConsoleApp\CarShop.ConsoleApp.csproj", "{6E5EE98B-E702-4097-A8A6-ECFC19FF4262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShop.Core", "CarShop.Core\CarShop.Core.csproj", "{310113E9-B0E5-4BFB-AC5D-752F3F0C6175}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShop.WebAPI", "CarShop.WebAPI\CarShop.WebAPI.csproj", "{4FCE0166-D56E-4D93-B46C-3108B8AD890E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6E5EE98B-E702-4097-A8A6-ECFC19FF4262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E5EE98B-E702-4097-A8A6-ECFC19FF4262}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E5EE98B-E702-4097-A8A6-ECFC19FF4262}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E5EE98B-E702-4097-A8A6-ECFC19FF4262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310113E9-B0E5-4BFB-AC5D-752F3F0C6175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310113E9-B0E5-4BFB-AC5D-752F3F0C6175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310113E9-B0E5-4BFB-AC5D-752F3F0C6175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310113E9-B0E5-4BFB-AC5D-752F3F0C6175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FCE0166-D56E-4D93-B46C-3108B8AD890E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FCE0166-D56E-4D93-B46C-3108B8AD890E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FCE0166-D56E-4D93-B46C-3108B8AD890E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FCE0166-D56E-4D93-B46C-3108B8AD890E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
