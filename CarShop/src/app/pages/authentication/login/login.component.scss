@@ -1,15 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 @import "../../../shared/styles/variables";
+@import "../../../shared/styles/flags";
 
 $component-active-bg: $login-base-color3;
 
-// $form-check-input-checked-bg-color: black;
-// $input-btn-focus-color: rgba(black, 0.25);
-// $form-check-input-indeterminate-bg-color: black;
-
-// $input-focus-border-color: black;
-// $form-switch-focus-color: black;
-
 @import "bootstrap";
+
+.grid {
+    width: 650px;
+    position: relative;
+}
 
 
 .background {
@@ -21,7 +22,7 @@ $component-active-bg: $login-base-color3;
 
     border-radius: inherit;
     overflow: hidden;
-    z-index: 1;
+    z-index: -1;
 
     background: url(#{$background-url}) no-repeat;
     background-attachment: fixed; 
@@ -44,7 +45,6 @@ $component-active-bg: $login-base-color3;
 }
 
 .container {
-    width: 650px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -57,13 +57,14 @@ $component-active-bg: $login-base-color3;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-    & > *:not(:first-child) {
-        z-index: 2;
-    }
-
     .content {
         margin-top: 40px;
         padding: 15px;
+
+        h3 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
 
         .input-group-text {
             background: $login-base-color3;
@@ -74,6 +75,50 @@ $component-active-bg: $login-base-color3;
         .form-control {
             border-color: $login-base-color2;
             border-left: 0;
+        }
+
+        .dropdown-menu {
+            background-color: transparent;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            overflow: hidden;
+
+            .background {
+                background-position-y: -40px;
+                opacity: .95;
+            }
+
+            .dropdown-item {
+                font-weight: 400;
+            }
+
+            .dropdown-item:hover, .dropdown-item:focus {
+                background-color: rgba($login-base-color2, .3);
+            }
+
+            .dropdown-item:active {
+                background-color: rgba($login-base-color3, .9) !important;
+                color: $login-base-color;
+            }
+
+            .dropdown-item.selected {
+                background-color: rgba($login-base-color, .9);
+
+                box-shadow: 0 0 3px 0 rgb(0 0 0 / 20%), 0 0 10px 0 rgb(0 0 0 / 19%);
+                -webkit-box-shadow: 0 0 3px 0 rgb(0 0 0 / 20%), 0 0 10px 0 rgb(0 0 0 / 19%);
+                -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+
+                &:after {
+                    position: absolute;
+                    right: 10px;
+                    padding-top: 2px;
+                    
+                    content: '\f00c';
+                    font-family: "Font Awesome 5 Free";
+                    font-size: 0.8rem;
+                    color: rgb(116 214 60);
+                }
+            }
         }
     }
 }
@@ -117,7 +162,41 @@ $component-active-bg: $login-base-color3;
     }
 }
 
+.form-switch {
+    .form-check-input {
+        width: 2.5rem;
+        height: 1.25rem;
+        margin-right: 0.5rem;
+    }
+
+    .form-check-label {
+        font-size: 1.1rem;
+    }
+}
+
+.btn-language {
+    $color-contrast-light: 'white';
+    @include button-variant(darken(rgba($login-base-color, .4), 80%), darken(darken(rgba($login-base-color, .4), 3%), 80%));
+}
+
 .btn-login {
     $color-contrast-light: 'white';
     @include button-variant($login-base-color3, darken($login-base-color3, 3%));
+}
+
+.copyright {
+    padding: 13px 10px 3px 10px;
+    margin-top: -10px;
+    position: relative;
+    z-index: -2;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+
+    background-color: rgba(0, 0, 0, .85);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }

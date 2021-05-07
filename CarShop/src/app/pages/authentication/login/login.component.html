@@ -1,46 +1,72 @@
-<div class="container">
-    <div class="background"></div>
+<div class="grid">
+    <div class="container">
+        <div class="background"></div>
 
-    <div class="d-flex justify-content-center">
-        <div class="logo_container">
-            <div class="logo"></div>
+        <div class="d-flex justify-content-center">
+            <div class="logo_container">
+                <div class="logo"></div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center flex-column content">
+            
+            <div class="row">
+                <h3 class="text-center pb-2">Login Title</h3>
+            </div>
+            
+            <form>
+                <div class="form-row">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" name="" class="form-control input_user" value="" placeholder="Type your username">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <input type="password" name="" class="form-control input_pass" value="" placeholder="Type your password">
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row pt-1">
+                    <div class="flex-grow-1 pt-1">
+                        <div class="form-check form-switch align-items-end">
+                            <input class="form-check-input" type="checkbox" id="customControlInline">
+                            <label class="form-check-label" for="customControlInline">Remember me</label>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-language dropdown-toggle" type="button" id="dropdownLanguages" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select language
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguages">
+                            <div class="background"></div>
+
+                            <li><a class="dropdown-item flag flag-united-states selected" href="#">English</a></li>
+                            <li><a class="dropdown-item flag flag-germany" href="#">German</a></li>
+                            <li><a class="dropdown-item flag flag-italy" href="#">Italian</a></li>
+                            <li><a class="dropdown-item flag flag-brazil" href="#">Portuguese</a></li>
+                            <li><a class="dropdown-item flag flag-spain" href="#">Spanish</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <button type="button" name="button" class="btn btn-login"><i class="fas fa-sign-in-alt me-2"></i>Sign In</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="d-flex justify-content-center flex-column content">
-        
-        <div class="row">
-            <h3 class="text-center pb-2">Login Title</h3>
+    <div class="copyright">
+        <div class="d-flex flex-row justify-content-between">
+            <span>Copyright &copy; 2021 Ricardo Zambon. All Rights Reserved</span>
+            <span>Design by Ricardo Zambon</span>
         </div>
-        
-        <form>
-            <div class="form-row">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    <input type="text" name="" class="form-control input_user" value="" placeholder="Type your username">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="input-group mb-2">
-                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    <input type="password" name="" class="form-control input_pass" value="" placeholder="Type your password">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-check form-switch align-items-end">
-                    <input class="form-check-input" type="checkbox" id="customControlInline">
-                    <label class="form-check-label" for="customControlInline">Remember me</label>
-                </div>
-            </div>
-
-
-            <div class="form-row">
-                <div class="d-flex justify-content-center mt-3 login_container">
-                    <button type="button" name="button" class="btn btn-login"><i class="fas fa-sign-in-alt me-2"></i>Sign In</button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
