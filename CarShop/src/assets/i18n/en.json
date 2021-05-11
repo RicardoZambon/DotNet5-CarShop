@@ -1,0 +1,14 @@
+{
+    "Copyright": "Copyright &copy; 2021 Ricardo Zambon. All Rights Reserved",
+    "DesignBy": "Design by Ricardo Zambon",
+    
+    "Login-Title": "Login Title",
+    "Login-Username": "Type your username",
+    "Login-Password": "Type your password",
+    "Login-RememberMe": "Remember me",
+    "Login-SignIn": "Sign In",
+
+    "SelectLanguage-Title": "Select language",
+    "SelectLanguage-en": "English",
+    "SelectLanguage-pt": "Português"
+}

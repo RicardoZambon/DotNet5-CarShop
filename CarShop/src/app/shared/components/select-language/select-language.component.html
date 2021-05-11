@@ -1,0 +1,20 @@
+
+
+<div class="dropdown">
+    <button class="btn btn-language dropdown-toggle" type="button" id="dropdownLanguages" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="flag flag-{{ translate.currentLang }}">{{'SelectLanguage-Title' | translate }}</span>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguages">
+        <div class="background"></div>
+    
+        <li *ngFor="let lang of translate.getLangs()">
+            <a class="dropdown-item flag flag-{{lang}}"
+                [ngClass]="{'selected': lang === translate.currentLang}"
+                (click)="translate.use(lang)"
+            >
+                {{ 'SelectLanguage-' + lang | translate }}
+            </a>
+        </li>
+    </ul>
+</div>

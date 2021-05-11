@@ -4,18 +4,18 @@
 
 .flag {
     background-repeat: no-repeat;
-    background-position: 1.2em 0.5em;
+    // background-position: 1.2em 0.5em;
     background-size: 24px 24px;
     min-height: 2rem;
-    padding: 0.5rem 3rem 0.5rem 3.7rem !important;
+    // padding: 0.5rem 3rem 0.5rem 3.7rem !important;
 }
 
-.flag-brazil {
-    @include flags('brazil');
+.flag-pt {
+    @include flags('pt');
 }
 
-.flag-united-states {
-    @include flags('united-states');
+.flag-en {
+    @include flags('en');
 }
 
 .flag-spain {
