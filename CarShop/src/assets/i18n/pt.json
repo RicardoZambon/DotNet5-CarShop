@@ -4,7 +4,11 @@
     
     "Login-Title": "Título de Login",
     "Login-Username": "Digite o seu usuário",
+    "Login-Username-Required": "Por favor informe o usuário",
     "Login-Password": "Digite a sua senha",
+    "Login-Password-Required": "Por favor informe a senha",
+    "Login-Password-Invalid": "O usuário ou senha informados são inválidos",
+    "Login-Password-Invalid-Help": "Você pode ter digitado a senha errada, ou pode estar com o CAPS LOCK ativo.",
     "Login-RememberMe": "Lembrar de mim",
     "Login-SignIn": "Entrar",
 

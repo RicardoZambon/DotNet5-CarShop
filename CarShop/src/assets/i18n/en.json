@@ -4,7 +4,11 @@
     
     "Login-Title": "Login Title",
     "Login-Username": "Type your username",
+    "Login-Username-Required": "Please enter the username",
     "Login-Password": "Type your password",
+    "Login-Password-Required": "Please enter the password",
+    "Login-Password-Invalid": "The username or password you entered is incorrect.",
+    "Login-Password-Invalid-Help": "You may be entering the wrong password, or you may have CAPS LOCK on.",
     "Login-RememberMe": "Remember me",
     "Login-SignIn": "Sign In",
 

@@ -45,8 +45,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
             from(myArray).pipe(
                 concatMap(item => of(item).pipe(delay(5000)))
             ).subscribe (timedItem => {
+                this.loginForm.get('password')?.reset();
+                
                 this.loginForm.enable();
                 this.loginForm.setErrors({'invalid': true});
+                
             });
 
         } else {

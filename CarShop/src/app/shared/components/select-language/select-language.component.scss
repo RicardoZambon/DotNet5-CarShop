@@ -20,8 +20,12 @@
     overflow: hidden;
 
     .background {
-        background-position-y: -40px;
-        opacity: .95;
+        background-position: -10px -40px;
+
+        &:before {
+            box-shadow: inset 0 0 500px 500px rgb(255 255 255 / .95);
+            filter: blur(5px);
+        }
     }
 
     .dropdown-item {

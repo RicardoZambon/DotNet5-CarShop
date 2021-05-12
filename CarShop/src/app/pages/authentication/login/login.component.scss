@@ -33,15 +33,27 @@ $component-active-bg: $login-base-color3;
             font-weight: 700;
         }
 
-        .input-group-text {
-            background: $login-base-color3;
-            border-color: $login-base-color3;
-            color: $login-base-color;
+        .validations {
+            font-weight: bold;
+
+            button {
+                background: transparent;
+                padding: 0 2px 0 0;
+                border: none;
+                color: inherit;
+            }
         }
 
-        .form-control {
-            border-color: $login-base-color2;
-            border-left: 0;
+        .separator {
+            margin: 0 auto;
+            position: relative;
+            width: 95%;
+            transition: width 2s;
+
+            &.hidden {
+                width: 0;
+                transition: width .5s;
+            }
         }
     }
 }
