@@ -1,13 +1,15 @@
-import { LoginComponent } from './pages/authentication/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AuthGuard } from './shared/guard/auth.guard';
 
-import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { DashboardComponent } from './pages/home/main/dashboard/dashboard.component';
 
-import { AppComponent } from './app.component';
+import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { LoginComponent } from './pages/authentication/login/login.component';
+
 
 const routes: Routes = [
     {
@@ -15,7 +17,7 @@ const routes: Routes = [
         component: HomeLayoutComponent,
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: AppComponent }
+            { path: 'home', component: DashboardComponent }
         ],
         canActivate: [AuthGuard]
     },
@@ -30,7 +32,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [
+        RouterModule.forRoot(routes),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => localStorage.getItem("jwt"),
+            }
+        })
+    ],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -12,7 +12,6 @@ import { LayoutModule } from './layout/layout.module';
 import { PagesModule } from './pages/pages.module';
 import { ComponentsModule } from './shared/components/components.module';
 
-
 @NgModule({
     declarations: [
         AppComponent

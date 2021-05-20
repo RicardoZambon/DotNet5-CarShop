@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { from, of } from 'rxjs';
-import { concatMap, delay } from 'rxjs/operators';
 import Popover from 'bootstrap/js/dist/popover';
+
+import { AuthenticationService } from './../../../shared/services/authentication.service';
 
 @Component({
     selector: 'app-login',
@@ -15,8 +15,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     loginForm!: FormGroup;
     loading: boolean = false;
+    success: boolean = false;
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService) { }
 
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
@@ -33,24 +34,37 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
 
 
-    hasFormErrors():boolean {
-        return this.loginForm.hasError('invalid');
+    public hasFormErrors():boolean {
+        return this.loginForm.hasError('invalid')
+            || this.loginForm.hasError('internalServerError')
+        ;
     }
 
-    submit() {
+    public async submit() {
         if (this.loginForm.valid) {
             this.loginForm.disable();
 
-            const myArray = [1];
-            from(myArray).pipe(
-                concatMap(item => of(item).pipe(delay(5000)))
-            ).subscribe (timedItem => {
-                this.loginForm.get('password')?.reset();
-                
-                this.loginForm.enable();
-                this.loginForm.setErrors({'invalid': true});
-                
+            const res = await this.authenticationService.authenticate({
+                username: this.loginForm.get('username')?.value.toString(),
+                password: this.loginForm.get('password')?.value.toString()
             });
+
+            if (res === '') {
+                this.success = true;
+            }
+            else {
+                this.loginForm.get('password')?.reset();
+                this.loginForm.enable();
+
+                switch(res) {
+                    case 'InvalidUsernamePassword':
+                        this.loginForm.setErrors({'invalid': true});
+                        break;
+                    default:
+                        this.loginForm.setErrors({'internalServerError': true});
+                        break;
+                }
+            }
 
         } else {
             Object.keys(this.loginForm.controls).forEach(field => {

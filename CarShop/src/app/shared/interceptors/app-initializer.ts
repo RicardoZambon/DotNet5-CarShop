@@ -1,4 +1,4 @@
-import { first } from "rxjs/operators";
+/*import { first } from "rxjs/operators";
 
 import { AuthenticationService } from "../services/authentication.service";
 
@@ -14,4 +14,4 @@ export function appInitializer(authenticationService: AuthenticationService) {
             })
             .add(resolve);
     });
-}
+}*/

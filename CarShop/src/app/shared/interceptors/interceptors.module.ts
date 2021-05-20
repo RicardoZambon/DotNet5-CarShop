@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+/*import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './jwt-interceptor';
@@ -26,4 +26,4 @@ import { appInitializer } from './app-initializer';
         }
     ]
 })
-export class InterceptorsModule { }
+export class InterceptorsModule { */

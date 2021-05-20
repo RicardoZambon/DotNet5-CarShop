@@ -7,8 +7,9 @@
     "Login-Username-Required": "Please enter the username",
     "Login-Password": "Type your password",
     "Login-Password-Required": "Please enter the password",
-    "Login-Password-Invalid": "The username or password you entered is incorrect.",
-    "Login-Password-Invalid-Help": "You may be entering the wrong password, or you may have CAPS LOCK on.",
+    "Login-Errors-Invalid": "The username or password you entered is incorrect.",
+    "Login-Errors-Invalid-Help": "You may be entering the wrong password, or you may have CAPS LOCK on.",
+    "Login-Errors-InternalServerError": "Occurred some error with the server, please try again.",
     "Login-RememberMe": "Remember me",
     "Login-SignIn": "Sign In",
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -19,6 +19,8 @@ export class LoginInputComponent implements OnInit {
     @Input() placeholder!: string;
 
     @Input() isInvalid!: boolean;
+
+    @HostBinding('attr.autofocus') @Input() autofocus: boolean = false;
 
 
     constructor() { }

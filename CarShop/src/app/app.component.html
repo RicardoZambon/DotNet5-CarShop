@@ -1,1 +1,7 @@
 <router-outlet></router-outlet>
+
+<div *ngIf="this.loading" class="loader-container w-100 h-100 d-flex justify-content-center align-items-center">
+    <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
