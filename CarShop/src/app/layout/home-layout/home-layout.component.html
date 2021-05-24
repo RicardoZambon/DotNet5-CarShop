@@ -1,8 +1,36 @@
-<div class="h-100">
-    <div class="p-3 text-end">
-        <button type="button" class="btn btn-primary" (click)="signOut()">
-            <i class="fas fa-sign-out-alt me-2"></i> Sign Out
-        </button>
+<div class="h-100 mh-100 d-flex">
+
+    <div class="background"></div>
+
+    <app-menu #menu></app-menu>
+
+    <div class="main d-flex flex-grow-1 flex-column">
+        <div class="toolbar position-relative d-flex p-2 align-items-center">
+            <div class="background"></div>
+
+            <div class="me-auto">
+                <button type="button" class="btn btn-collapse-menu" (click)="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div>
+                <span>Welcome to CarShop.</span>
+                
+                <button type="button" class="btn btn-transparent mx-2">
+                    <i class="fas fa-bell"></i>
+                </button>
+            
+                <button type="button" class="btn btn-log-out" (click)="signOut()">
+                    <i class="fas fa-sign-out-alt me-2"></i>Log Out
+                </button>
+            </div>
+        </div>
+
+        <div class="container-fluid position-relative flex-grow-1 overflow-auto pt-2">
+            <div class="background"></div>
+
+            <router-outlet></router-outlet>
+        </div>
     </div>
-    <router-outlet></router-outlet>
 </div>

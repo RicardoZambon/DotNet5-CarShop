@@ -7,22 +7,25 @@ import { AutofocusDirective } from './../directives/autofocus/autofocus.directiv
 
 import { SelectLanguageComponent } from './select-language/select-language.component';
 import { LoginInputComponent } from './login-input/login-input.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
-  declarations: [
-      SelectLanguageComponent,
-      LoginInputComponent,
+    declarations: [
+        LoginInputComponent,
+        MenuComponent,
+        SelectLanguageComponent,
 
-      AutofocusDirective
-  ],
-  imports: [
-    CommonModule,
-    I18nModule,
-    ReactiveFormsModule
-  ],
-  exports: [
-      LoginInputComponent,
-      SelectLanguageComponent
-  ]
+        AutofocusDirective,
+    ],
+    imports: [
+        CommonModule,
+        I18nModule,
+        ReactiveFormsModule
+    ],
+    exports: [
+        LoginInputComponent,
+        MenuComponent,
+        SelectLanguageComponent,
+    ]
 })
 export class ComponentsModule { }

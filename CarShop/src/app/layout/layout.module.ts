@@ -5,6 +5,7 @@ import { LoginLayoutComponent } from './login-layout/login-layout.component';
 import { HomeLayoutComponent } from './home-layout/home-layout.component';
 
 import { AppRoutingModule } from '../app-routing.module';
+import { ComponentsModule } from '../shared/components/components.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,7 @@ import { AppRoutingModule } from '../app-routing.module';
     imports: [
         CommonModule,
         AppRoutingModule,
-        //ComponentsModule,
+        ComponentsModule,
         //DirectivesModule
     ]
 })

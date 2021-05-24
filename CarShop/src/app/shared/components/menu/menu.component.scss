@@ -1,0 +1,34 @@
+@import "../../../shared/styles/variables";
+
+.menu {
+    width: 220px;
+    max-width: 220px;
+
+    transition: all 0.15s ease-in-out;
+
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+
+    .background:before {
+        box-shadow: inset 0 0 500px 500px rgba(darken($home-base-color3, 15%), .97);
+    }
+
+    &.collapsed {
+        width: 70px;
+        width: 70px;
+    }
+
+    @media (max-width:768px) {
+        & {
+            margin-left: -70px;
+            max-width: 70px !important;
+            width: 70px !important;
+        }
+
+        &.collapsed {
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+    }
+}
