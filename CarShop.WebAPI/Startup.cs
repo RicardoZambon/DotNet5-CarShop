@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,6 +80,12 @@ namespace CarShop.WebAPI
                         }
                     };
                 });
+
+            //Azure Storage
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(Configuration.GetConnectionString("AzureStorage"));
+            });
 
             //Repositories and Services
             services

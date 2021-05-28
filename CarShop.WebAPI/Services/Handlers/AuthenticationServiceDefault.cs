@@ -2,6 +2,7 @@
 using CarShop.Core.BusinessEntities.Security;
 using CarShop.Core.Helper.Identity;
 using CarShop.Core.Repositories;
+using CarShop.Core.Services;
 using CarShop.WebAPI.Helper.Exceptions.Security;
 using CarShop.WebAPI.Models.Security.Authentication;
 using Microsoft.EntityFrameworkCore;
@@ -22,13 +23,15 @@ namespace CarShop.WebAPI.Services.Handlers
         private readonly CarShopDbContext dbContext;
         private readonly IUserRepository userRepository;
         private readonly IUserRefreshTokenRepository refreshTokenRepository;
+        private readonly IBlobStorage storage;
 
-        public AuthenticationServiceDefault(IConfiguration config, CarShopDbContext dbContext, IUserRepository userRepository, IUserRefreshTokenRepository refreshTokenRepository)
+        public AuthenticationServiceDefault(IConfiguration config, CarShopDbContext dbContext, IUserRepository userRepository, IUserRefreshTokenRepository refreshTokenRepository, IBlobStorage storage)
         {
             this.config = config;
             this.dbContext = dbContext;
             this.userRepository = userRepository;
             this.refreshTokenRepository = refreshTokenRepository;
+            this.storage = storage;
         }
 
 
@@ -45,6 +48,11 @@ namespace CarShop.WebAPI.Services.Handlers
                 return new AuthenticationModel()
                 {
                     Username = user.Username,
+
+                    Name = user.Name,
+                    Department = "Some department",
+                    Photo = Convert.ToBase64String(await GetUserImage(user.Username)),
+
                     Token = CreateJwtToken(user),
                     RefreshToken = refreshToken.Token,
                     RefreshTokenExpiration = refreshToken.Expiration
@@ -79,6 +87,11 @@ namespace CarShop.WebAPI.Services.Handlers
                 return new AuthenticationModel()
                 {
                     Username = refreshToken.User.Username,
+
+                    Name = refreshToken.User.Name,
+                    Department = "Some department",
+                    Photo = Convert.ToBase64String(await GetUserImage(refreshToken.User.Username)),
+
                     Token = CreateJwtToken(refreshToken.User),
                     RefreshToken = refreshToken.Token,
                     RefreshTokenExpiration = refreshToken.Expiration
@@ -138,6 +151,18 @@ namespace CarShop.WebAPI.Services.Handlers
                 x.Expiration = DateTime.UtcNow.AddDays(Convert.ToInt32(config["JWT:RefreshTokenExpiration"]));
                 x.Created = DateTime.UtcNow;
             });
+        }
+
+        private async Task<byte[]> GetUserImage(string username)
+        {
+            try
+            {
+                return await storage.GetAsync("easy-wallet-profile-pictures", username);
+            }
+            catch (Azure.RequestFailedException)
+            {
+                return await storage.GetAsync("easy-wallet-profile-pictures", "_default");
+            }
         }
     }
 }

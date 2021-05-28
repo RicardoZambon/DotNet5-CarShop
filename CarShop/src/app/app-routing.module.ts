@@ -17,7 +17,16 @@ const routes: Routes = [
         component: HomeLayoutComponent,
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: DashboardComponent }
+            
+            { path: 'home', children: [
+                { path: '', component: DashboardComponent, pathMatch: 'full' },
+                { path: 'dashboard', component: DashboardComponent },
+            ]},
+
+            { path: 'users', children: [
+                { path: '', component: DashboardComponent, pathMatch: 'full' },
+                { path: ':id', component: DashboardComponent },
+            ]}
         ],
         canActivate: [AuthGuard]
     },

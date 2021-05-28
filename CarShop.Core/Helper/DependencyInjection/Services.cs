@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CarShop.Core.Services;
+using CarShop.Core.Services.Handlers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CarShop.Core.Helper.DependencyInjection
 {
@@ -6,7 +8,8 @@ namespace CarShop.Core.Helper.DependencyInjection
     {
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
-            return services;
+            return services
+                .AddSingleton<IBlobStorage, BlobStorageDefault>();
         }
     }
 }

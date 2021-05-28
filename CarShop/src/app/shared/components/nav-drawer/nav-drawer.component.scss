@@ -1,0 +1,159 @@
+@import "../../../shared/styles/variables";
+
+@import "../../../shared/styles/background";
+@import "../../../shared/styles/scroll";
+
+.menu {
+    width: 220px;
+    max-width: 220px;
+    color: darken($home-base-color, 10%);
+
+    transition: all 0.15s ease-in-out;
+
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+
+    &.collapsed, &.collapsing {
+        width: 70px;
+        width: 70px;
+    }
+
+    
+
+    &.collapsed .when-expanded, &.expanded .when-collapsed,
+    &.collapsed app-nav-item::ng-deep .when-expanded, &.expanded app-nav-item::ng-deep .when-collapsed,
+    &.collapsed .nav > app-nav-item::ng-deep > .nav-item > .nav-link.has-sub-menu:after {
+        display: none !important;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    &.collapsing .replace-content .when-expanded, &.expanding .replace-content .when-expanded,
+    &.collapsing app-nav-item::ng-deep .replace-content .when-expanded, &.expanding app-nav-item::ng-deep .replace-content .when-expanded,
+    &.expanding app-nav-item::ng-deep .replace-content .when-expanded {
+        position: absolute;
+    }
+
+    &.collapsing .when-expanded, &.collapsing app-nav-item::ng-deep .nav-link.has-sub-menu:after {
+        animation: fadeout 0.15s ease-in-out;
+        animation-fill-mode: forwards;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+    }
+
+    &.collapsing .when-collapsed, &.collapsing app-nav-item::ng-deep .when-collapsed {
+        animation: fadein 0.15s ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    &.expanding .when-expanded, &.expanding app-nav-item::ng-deep .nav-link.has-sub-menu:after {
+        animation: fadein 0.15s ease-in-out;
+        animation-fill-mode: forwards;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    &.expanding .when-collapsed, &.expanding app-nav-item::ng-deep .when-collapsed {
+        animation: fadeout 0.15s ease-in-out;
+        animation-fill-mode: forwards;
+        overflow: hidden;
+    }
+
+
+    @media (max-width:768px) {
+        & {
+            margin-left: -70px;
+            max-width: 70px !important;
+            width: 70px !important;
+        }
+
+        &.collapsed, &.collapsing {
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+    }
+}
+
+
+/* Animations */
+@keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeout {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.replace-content {
+    position: relative;
+}
+
+
+/* Header */
+.navbar-header {
+
+    @include background(darken($home-base-color3, 5%), .95);
+
+    .when-collapsed, .when-collapsed {
+        text-align: center;
+    }
+
+    .when-expanded {
+        .logo {
+            width: 154px;
+            height: 50px;
+            background: url(#{$home-expanded-logo-url}) no-repeat center center;
+            background-size: contain;
+        }
+    }
+
+    .when-collapsed {
+        .logo {
+            width: 36px;
+            height: 50px;
+            background: url(#{$home-collapsed-logo-url}) no-repeat center center;
+            background-size: contain;
+        }
+    }
+
+
+    .profile-picture {
+        background-color: $home-base-color;
+        border-radius: 24px;
+        max-height: 48px;
+        margin-right: 0.7rem;
+        margin-left: 0.7rem;
+
+        img {
+            width: 48px;
+            height: 48px;
+        }
+    }
+    
+    .user-name, .user-department {
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    .user-name {
+        font-weight: bold;
+    }
+
+    .user-department {
+        font-weight: 100;
+        font-size: 0.8rem;
+        color: lighten($home-fore-color, 40%);
+    }
+}
+
+
+.navbar-menu {
+    @include background(darken($home-base-color3, 8%), .95);
+
+    .nav {
+        @include scroll;
+    }
+}

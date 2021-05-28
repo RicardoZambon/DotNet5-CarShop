@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { LoginModel } from '../models/login-model';
 import { LoginResponse } from '../models/login-response';
 import { RefreshTokenModel } from './../models/refresh-token-model';
+import { UserInfoResponse } from './../models/user-info-response';
 
 @Injectable({
     providedIn: 'root'
@@ -44,6 +45,8 @@ export class AuthenticationService {
                     localStorage.setItem('jwt', res.token);
                     localStorage.setItem('refreshToken', res.refreshToken);
 
+                    localStorage.setItem('userInfo', btoa(JSON.stringify(res as UserInfoResponse)));
+
                     of('dummy').pipe(delay(2000)).subscribe(() => {
                         this.router.navigate(["/"]);
                     });
@@ -62,6 +65,10 @@ export class AuthenticationService {
             ).toPromise();
     }
 
+    public getInfo(): UserInfoResponse {
+        return JSON.parse(atob(localStorage.getItem('userInfo') ?? ''));
+    }
+
     public async tryRefreshingToken(model: RefreshTokenModel): Promise<boolean> {
 
         if (!model || !model.username || !model.refreshToken) { 
@@ -76,6 +83,8 @@ export class AuthenticationService {
 
                     localStorage.setItem('jwt', res.token);
                     localStorage.setItem('refreshToken', res.refreshToken);
+
+                    localStorage.setItem('userInfo', btoa(JSON.stringify(res as UserInfoResponse)));
 
                     return true;
                 }),

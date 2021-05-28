@@ -7,12 +7,14 @@ import { AutofocusDirective } from './../directives/autofocus/autofocus.directiv
 
 import { SelectLanguageComponent } from './select-language/select-language.component';
 import { LoginInputComponent } from './login-input/login-input.component';
-import { MenuComponent } from './menu/menu.component';
+import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
+import { NavItemComponent } from './nav-item/nav-item.component';
 
 @NgModule({
     declarations: [
         LoginInputComponent,
-        MenuComponent,
+        NavDrawerComponent,
+        NavItemComponent,
         SelectLanguageComponent,
 
         AutofocusDirective,
@@ -24,7 +26,8 @@ import { MenuComponent } from './menu/menu.component';
     ],
     exports: [
         LoginInputComponent,
-        MenuComponent,
+        NavDrawerComponent,
+        NavItemComponent,
         SelectLanguageComponent,
     ]
 })

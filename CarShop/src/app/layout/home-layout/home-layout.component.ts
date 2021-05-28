@@ -1,7 +1,7 @@
-import { MenuComponent } from './../../shared/components/menu/menu.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { NavDrawerComponent } from '../../shared/components/nav-drawer/nav-drawer.component';
 
 @Component({
     selector: 'app-home-layout',
@@ -11,7 +11,7 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 })
 export class HomeLayoutComponent implements OnInit {
 
-    @ViewChild('menu') menu!: MenuComponent;
+    @ViewChild('menu') menu!: NavDrawerComponent;
 
     constructor(private authenticationService: AuthenticationService) { }
 
