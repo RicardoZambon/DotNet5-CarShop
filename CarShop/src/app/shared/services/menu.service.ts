@@ -51,19 +51,47 @@ export class MenuService {
     }
 
 
-    clearSelection(): void {
-        if (!this.activeRootNode) {
-            return;
+    clearSelection(node: MenuItem): void {
+        node.selected = false;
+        node = node.children.filter(el => el.selected)[0];
+        if (node) {
+            this.clearSelection(node);
         }
-
-        this.activeRootNode.selected = false;
     }
 
     selectNode(menu: MenuItem): void {
         const rootNode = menu.getRootNode();
-        if (this.activeRootNode && (menu.parent === null || rootNode !== this.activeRootNode)) {
-            this.clearSelection();
+
+        if (this.activeRootNode) {
+            let activeNode: MenuItem | null = this.activeRootNode;
+            let menuNode = rootNode;
+
+            while (activeNode) {
+                if (activeNode === menu) {
+                    activeNode.selected = false;
+                    this.activeRootNode = null;
+                    return;
+                }
+                else if (activeNode !== menuNode) {
+                    this.clearSelection(activeNode);
+                    activeNode = null;
+                }
+                else {
+                    activeNode = activeNode.children.filter(el => el.selected)[0];
+                    menuNode = activeNode = activeNode.children.filter(el => el.selected)[0];
+
+                    if (!menuNode) {
+                        this.clearSelection(activeNode);
+                        activeNode = null;
+                    }
+                }
+            }
         }
+
+
+        // if (this.activeRootNode && (menu.parent === null || rootNode !== this.activeRootNode)) {
+        //     this.clearSelection();
+        // }
         
         this.activeRootNode = rootNode;
         menu.selected = true;

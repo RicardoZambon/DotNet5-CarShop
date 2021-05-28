@@ -5,7 +5,8 @@
 
 .nav-item {
     font-size: 0.9rem;
-    
+    position: relative;
+
     &.first-level {
         > .nav-link {
             @include background(darken($home-base-color3, 10%), .95);
@@ -20,20 +21,20 @@
 
         &:before {
             content: "";
-            transition: width 0.4s;
+            background-color: darken($home-base-color, 10%);
+
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
             width: 0;
             z-index: 1;
+
+            transition: width 0.2s;
         }
 
         &.active {
-            position: relative;
-
             &:before{
-                background-color: darken($home-base-color, 10%);
                 width: 4px;
             }
 
