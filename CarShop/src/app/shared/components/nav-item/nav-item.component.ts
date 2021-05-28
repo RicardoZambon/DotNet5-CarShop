@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MenuItem } from '../nav-drawer/menu-item';
 import { MenuService } from './../../services/menu.service';
@@ -14,7 +15,7 @@ export class NavItemComponent implements OnInit {
     @Input() menu!: MenuItem;
     @Input() level: number = 0;
         
-    constructor(private menuService: MenuService) { }
+    constructor(private menuService: MenuService, private router: Router) { }
 
     ngOnInit(): void {
     }
@@ -22,5 +23,9 @@ export class NavItemComponent implements OnInit {
 
     public menuClick() {
         this.menuService.selectNode(this.menu);
+
+        if (this.menu.url) {
+            this.router.navigate([this.menu.url]);
+        }
     }
 }
