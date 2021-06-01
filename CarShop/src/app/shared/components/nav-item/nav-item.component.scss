@@ -16,6 +16,7 @@
         &:before {
             content: "";
             background-color: darken($home-base-color, 10%);
+            transition: width $menu-select-speed;
 
             position: absolute;
             left: 0;
@@ -154,26 +155,8 @@
 }
 
 @keyframes hideFloatMenu {
-    from { left: $menu-width-collapsed; }
+    // from { left: $menu-width-collapsed; }
     to { left: - ($menu-width-expanded - $menu-width-collapsed); }
-}
-
-
-@keyframes collapseNav {
-    99% { height: 0px; }
-    100% {
-        position: absolute;
-        top: 0;
-        width: 150px;
-        border-top-right-radius: 0.4rem;
-        border-bottom-right-radius: 0.4rem;
-        transition: .4s ease-in-out;
-        z-index: -1;
-        max-height: inherit;
-        height: auto !important;
-        
-        left: - ($menu-width-expanded - $menu-width-collapsed);
-    }
 }
 
 @keyframes expandNav {
@@ -242,7 +225,7 @@
         }
 
         > .nav {
-            transition: height $menu-open-close-speed ease-in-out;
+            // transition: height $menu-open-close-speed ease-in-out;
         }
     }
 
@@ -273,11 +256,6 @@
                         animation-fill-mode: forwards;
                     }
                 }
-
-                > .nav {
-                    animation: collapseNav $menu-open-close-speed;
-                    animation-fill-mode: forwards;
-                }
             }
         }
 
@@ -305,34 +283,25 @@
             }
 
             > .nav {
-                // &:not(.show-float-menu) {
-                //     position: absolute;
-                //     top: 0;
-                //     width: 150px;
-                //     border-top-right-radius: 0.4rem;
-                //     border-bottom-right-radius: 0.4rem;
-                //     transition: .4s ease-in-out;
-                //     z-index: -1;
-                //     max-height: inherit;
-                //     height: auto !important;
-                    
-                //     animation: hideFloatMenu $menu-animation-speed ease-in-out;
-                //     animation-fill-mode: forwards;
-                // }
-
+                &:not(.show-float-menu) {
+                    height: 0px !important;
+                    animation: hideFloatMenu 0.4s ease-in-out;
+                    animation-delay: $menu-animation-speed;
+                }
+                
                 &.show-float-menu {
+                    animation: showFloatMenu 0.4s ease-in-out;
+                    animation-fill-mode: forwards;
+
+                    transition: height 0s;
+
                     position: absolute;
                     top: 0;
                     width: 150px;
                     border-top-right-radius: 0.4rem;
                     border-bottom-right-radius: 0.4rem;
-                    transition: .4s ease-in-out;
                     z-index: -1;
                     max-height: inherit;
-                    height: auto !important;
-                    
-                    animation: showFloatMenu $menu-animation-speed ease-in-out;
-                    animation-fill-mode: forwards;
                 }
             }
         }
@@ -340,7 +309,7 @@
 
     &.menu-expanded {
 
-        &:not(.menu-first-open) {
+        &:not(.menu-first-opened) {
             &.first-level {
 
                 > .nav-link {
@@ -365,19 +334,12 @@
                 }
 
                 > .nav {
-                    &:not(.show-float-menu) {
-                        animation: expandNav $menu-open-close-speed;
-                    }
-
                     &.show-float-menu {
                         animation: expandNavFloatMenu $menu-open-close-speed;
+                        animation-fill-mode: forwards;
                     }
                 }
             }
-        }
-
-        .nav {
-            transition: height $menu-open-close-speed cubic-bezier(0, 1, 1, 1);
         }
     }
 
@@ -385,8 +347,11 @@
         &.active {
             &:before{
                 width: 4px;
-                transition: width $menu-select-speed;
             }
+        }
+
+        > .nav {
+            transition: height $menu-open-close-speed ease-in-out; 
         }
     }
 
