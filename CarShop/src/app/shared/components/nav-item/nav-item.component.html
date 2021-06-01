@@ -18,8 +18,11 @@
 
     <ul *ngIf="menu.children.length > 0"
         class="nav flex-column flex-nowrap"
-        [class.show-float-menu]="menu.showFloatMenu"
-        [ngStyle]="{'height.px': this.calculateMaxHeight(this.menu)}"
+        [class.open-float-menu]="level == 0 && menu.floatMenuState === 'opening'"
+        [class.close-float-menu]="level == 0 && menu.floatMenuState === 'closing'"
+        [class.hide]="level == 0 && menu.floatMenuState === 'hide'"
+        [class.show]="level == 0 && menu.floatMenuState === 'show'"
+        [ngStyle]="{'height.px': this.calculateHeight(this.menu)}"
         >
         <ng-container *ngFor="let subMenu of menu.children">
             <app-nav-item [parentCollapsed]="parentCollapsed" [firstOpened]="firstOpened" [level]="level + 1" [menu]="subMenu" ></app-nav-item>

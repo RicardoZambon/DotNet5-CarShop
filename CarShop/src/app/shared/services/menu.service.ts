@@ -1,5 +1,7 @@
 import { ReturnStatement } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import { MenuItem } from '../components/nav-drawer/menu-item';
 
@@ -102,20 +104,27 @@ export class MenuService {
         const rootNode = menu.getRootNode();
 
         if (menu === rootNode && menu.children.length > 0) {
-            if (this.activeRootNode?.showFloatMenu) {
+            if (this.activeRootNode?.floatMenuState === 'show') {
                 
-                this.activeRootNode.showFloatMenu = false;
+                this.activeRootNode.floatMenuState = 'closing';
 
-                if (this.activeRootNode === rootNode) {
-                    this.clearSelection(this.activeRootNode);
+                of(this.activeRootNode).pipe(delay(400)).subscribe(menu => {
+                    menu.floatMenuState = 'hide';
+
+                    if (menu === rootNode) {
+                        this.clearSelection(menu);
+                    }
                     this.activeRootNode = null;
-                    return;
-                }
+                });
+                return;
             }
 
             this.activeRootNode = rootNode;
-            this.activeRootNode.showFloatMenu = true;
+            this.activeRootNode.floatMenuState = 'opening';
             this.activeRootNode.selected = true;
+            of(this.activeRootNode).pipe(delay(400)).subscribe(menu => {
+                menu.floatMenuState = 'show';
+            });
         }
         else {
             this.selectNode(menu);

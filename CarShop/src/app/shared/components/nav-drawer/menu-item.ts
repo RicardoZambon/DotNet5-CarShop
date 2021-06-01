@@ -3,6 +3,7 @@ export class MenuItem {
     
     selected: boolean = false;
     showFloatMenu: boolean = false;
+    floatMenuState: 'opening' | 'show' | 'closing' | 'hide' | '' = '';
 
     id!: number;
 

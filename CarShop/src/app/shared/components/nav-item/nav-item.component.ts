@@ -37,11 +37,11 @@ export class NavItemComponent implements OnInit {
         }
     }
 
-    public calculateMaxHeight(menu: MenuItem): number {
+    public calculateHeight(menu: MenuItem): number {
         if (menu.children.length > 0 && menu.selected) {
             let height = menu.children.length * 45;
             menu.children.forEach(subMenu => {
-                height += this.calculateMaxHeight(subMenu);
+                height += this.calculateHeight(subMenu);
             });
             return height;
         }

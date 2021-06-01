@@ -149,13 +149,13 @@
 }
 
 
-@keyframes showFloatMenu {
+@keyframes openFloatMenu {
     from { left: - ($menu-width-expanded - $menu-width-collapsed); }
     to { left: $menu-width-collapsed; }
 }
 
-@keyframes hideFloatMenu {
-    // from { left: $menu-width-collapsed; }
+@keyframes closeFloatMenu {
+    from { left: $menu-width-collapsed; }
     to { left: - ($menu-width-expanded - $menu-width-collapsed); }
 }
 
@@ -283,18 +283,15 @@
             }
 
             > .nav {
-                &:not(.show-float-menu) {
+                &:not(.hide):not(.open-float-menu):not(.close-float-menu):not(.show) {
                     height: 0px !important;
-                    animation: hideFloatMenu 0.4s ease-in-out;
-                    animation-delay: $menu-animation-speed;
                 }
-                
-                &.show-float-menu {
-                    animation: showFloatMenu 0.4s ease-in-out;
-                    animation-fill-mode: forwards;
 
+                &.hide {
                     transition: height 0s;
+                }
 
+                &.open-float-menu, &.close-float-menu, &.show {
                     position: absolute;
                     top: 0;
                     width: 150px;
@@ -302,6 +299,22 @@
                     border-bottom-right-radius: 0.4rem;
                     z-index: -1;
                     max-height: inherit;
+                }
+                
+                &.open-float-menu {
+                    animation: openFloatMenu 0.4s ease-in-out;
+                    animation-fill-mode: forwards;
+                    transition: height 0s;
+                }
+
+                &.close-float-menu {
+                    animation: closeFloatMenu 0.4s ease-in-out;
+                    animation-fill-mode: forwards;
+                    transition: height 0s;
+                }
+
+                &.show {
+                    left: $menu-width-collapsed;
                 }
             }
         }
@@ -334,7 +347,7 @@
                 }
 
                 > .nav {
-                    &.show-float-menu {
+                    &.open-float-menu {
                         animation: expandNavFloatMenu $menu-open-close-speed;
                         animation-fill-mode: forwards;
                     }
@@ -349,10 +362,10 @@
                 width: 4px;
             }
         }
+    }
 
-        > .nav {
-            transition: height $menu-open-close-speed ease-in-out; 
-        }
+    .nav {
+        transition: height $menu-open-close-speed ease-in-out; 
     }
 
     &:not(.opened) {
