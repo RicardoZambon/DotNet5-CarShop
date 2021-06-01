@@ -11,9 +11,12 @@ import { MenuService } from './../../services/menu.service';
     encapsulation: ViewEncapsulation.None
 })
 export class NavItemComponent implements OnInit {
-
-    @Input() menu!: MenuItem;
+    
+    @Input() parentCollapsed!: boolean;
+    @Input() firstOpened!: boolean;
     @Input() level: number = 0;
+    
+    @Input() menu!: MenuItem;
         
     constructor(private menuService: MenuService, private router: Router) { }
 
@@ -22,10 +25,26 @@ export class NavItemComponent implements OnInit {
 
 
     public menuClick() {
-        this.menuService.selectNode(this.menu);
+        if (this.parentCollapsed) {
+            this.menuService.showFloatMenu(this.menu);
+        }
+        else {
+            this.menuService.selectNode(this.menu);
+        }
 
         if (this.menu.url) {
             this.router.navigate([this.menu.url]);
         }
+    }
+
+    public calculateMaxHeight(menu: MenuItem): number {
+        if (menu.children.length > 0 && menu.selected) {
+            let height = menu.children.length * 45;
+            menu.children.forEach(subMenu => {
+                height += this.calculateMaxHeight(subMenu);
+            });
+            return height;
+        }
+        return 0;
     }
 }

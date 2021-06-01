@@ -97,4 +97,28 @@ export class MenuService {
         this.activeRootNode = rootNode;
         menu.selected = true;
     }
+
+    showFloatMenu(menu: MenuItem): void {
+        const rootNode = menu.getRootNode();
+
+        if (menu === rootNode && menu.children.length > 0) {
+            if (this.activeRootNode?.showFloatMenu) {
+                
+                this.activeRootNode.showFloatMenu = false;
+
+                if (this.activeRootNode === rootNode) {
+                    this.clearSelection(this.activeRootNode);
+                    this.activeRootNode = null;
+                    return;
+                }
+            }
+
+            this.activeRootNode = rootNode;
+            this.activeRootNode.showFloatMenu = true;
+            this.activeRootNode.selected = true;
+        }
+        else {
+            this.selectNode(menu);
+        }
+    }
 }

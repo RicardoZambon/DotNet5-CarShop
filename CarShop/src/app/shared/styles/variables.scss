@@ -1,25 +1,12 @@
-$login-base-color: #FFF;
-$login-base-color2: rgb(125, 134, 140);
-$login-base-color3: rgb(5, 88, 164);
+@import "variables/login";
 
-$login-logo-url: "/assets/logo.png";
+@import "variables/home";
 
-$background-url: "/assets/background.jpg";
+@import "variables/menu";
 
 
-$home-base-color: #FFF;
-$home-base-color2: rgb(125, 134, 140);
-$home-base-color3: rgb(5, 88, 164);
-
-$home-fore-color: rgb(99, 99, 99);
-
-$menu-active-color: darken($home-base-color, 10%);
-
-$home-expanded-logo-url: "/assets/logo_menu_expanded.png";
-$home-collapsed-logo-url: "/assets/logo_menu_collapsed.png";
-
-
-.background {
+/* Styles */
+.background { /* Will be removed */
     width: 100%;
     height: 100%;
     position: absolute;

@@ -1,41 +1,35 @@
 <nav class="menu h-100 mh-100 d-flex flex-column"
-    [class.collapsed]="this.state == 'collapsed'"
-    [class.collapsing]="this.state == 'collapsing'"
-    [class.expanded]="this.state == 'expanded'"
-    [class.expanding]="this.state == 'expanding'"
+    [class.expanded]="!collapsed"
+    [class.collapsed]="collapsed"
+    [class.first-opened]="firstOpened"
     >
     
     <!--Header-->
     <div class="navbar-header pt-2 pb-3 flex-shrink-0">
-        <div class="replace-content d-flex justify-content-center mb-3">
-            <div class="when-expanded">
-                <div class="logo"></div>
-            </div>
-            <div class="when-collapsed">
-                <div class="logo"></div>
-            </div>
+        <div class="logo-container replace-content d-flex justify-content-center mb-3">
+            <div class="logo-expanded"></div>
+            <div class="logo-collapsed"></div>
         </div>
 
-        <div>
-            <div class="d-flex flex-row">
-                <div class="col-auto profile-picture overflow-hidden">
-                    <img [src]="this.userImage" />
-                </div>
-                <div class="flex-grow-1 overflow-hidden align-self-center when-expanded pe-2">
-                    <span class="user-name">{{ this.userName }}</span>
-                    <span class="user-department">{{ this.userDepartment }}</span>
-                </div>
+        <div class="profile-container d-flex flex-wrap flex-column">
+            <div class="profile-picture">
+                <img [src]="this.userImage" />
             </div>
+            <div class="user-name">{{ this.userName }}</div>
+            <div class="user-department">{{ this.userDepartment }}</div>
         </div>
     </div>
 
     <div class="navbar-menu d-flex flex-column flex-grow-1">
-        <ul class="nav flex-column flex-nowrap w-100 flex-grow-1 overflow-auto">
+        <ul class="nav flex-column flex-nowrap w-100 flex-grow-1">
     
             <ng-container *ngFor="let menu of getMenus()">
-                <app-nav-item [menu]="menu"></app-nav-item>
+                <app-nav-item [parentCollapsed]="collapsed" [firstOpened]="firstOpened" [menu]="menu"></app-nav-item>
             </ng-container>
     
+            <li class="background-fill flex-grow-1">
+
+            </li>
         </ul>
     </div>
 </nav>

@@ -2,6 +2,7 @@ export class MenuItem {
     parent: MenuItem | null = null;
     
     selected: boolean = false;
+    showFloatMenu: boolean = false;
 
     id!: number;
 

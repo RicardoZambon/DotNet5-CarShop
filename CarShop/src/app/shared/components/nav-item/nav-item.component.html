@@ -1,5 +1,10 @@
 <li class="nav-item"
+    [class.menu-expanded]="!parentCollapsed"
+    [class.menu-collapsed]="parentCollapsed"
+    [class.menu-first-opened]="firstOpened"
+
     [class.first-level]="level == 0"
+
     [class.active]="menu.selected"
     [class.opened]="menu.children.length > 0 && menu.selected"
 >
@@ -7,18 +12,17 @@
         [class.has-sub-menu]="menu.children.length > 0"
         (click)="menuClick()"
     >
-        <span class="when-expanded">
-            <i class="fa-fw fas fa-{{ menu.icon }}"></i>
-            <span class="when-expanded ps-2">{{ menu.label }}</span>
-        </span>
-        <span class="when-collapsed">
-            <i class="fa-fw fas fa-{{ menu.icon }} fa-lg"></i>
-        </span>
+        <i class="icon fa-fw fas fa-{{ menu.icon }}" *ngIf="level == 0"></i>
+        <span class="label ps-2">{{ menu.label }}</span>
     </a>
 
-    <ul *ngIf="menu.children.length > 0" class="nav flex-column flex-nowrap">
+    <ul *ngIf="menu.children.length > 0"
+        class="nav flex-column flex-nowrap"
+        [class.show-float-menu]="menu.showFloatMenu"
+        [ngStyle]="{'height.px': this.calculateMaxHeight(this.menu)}"
+        >
         <ng-container *ngFor="let subMenu of menu.children">
-            <app-nav-item [menu]="subMenu" [level]="level + 1"></app-nav-item>
+            <app-nav-item [parentCollapsed]="parentCollapsed" [firstOpened]="firstOpened" [level]="level + 1" [menu]="subMenu" ></app-nav-item>
         </ng-container>
     </ul>
 </li>

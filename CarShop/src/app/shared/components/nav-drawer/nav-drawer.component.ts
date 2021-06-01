@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 
 import { AuthenticationService } from './../../services/authentication.service';
 import { MenuItem } from './menu-item';
@@ -16,8 +16,8 @@ import { MenuItem } from './menu-item';
 })
 export class NavDrawerComponent implements OnInit {
 
+    firstOpened: boolean = true;
     collapsed: boolean = false;
-    state: 'collapsed' | 'collapsing' | 'expanded' | 'expanding' = 'expanded';
 
     public userName: string = 'Test user';
     public userDepartment: string = 'Some department';
@@ -40,21 +40,8 @@ export class NavDrawerComponent implements OnInit {
 
 
     public toggleState() {
-        
-        if (this.collapsed) {
-            this.state = 'expanding';
-            of('').pipe(delay(150)).subscribe(() => {
-                this.state = 'expanded';
-            });
-        }
-        else {
-            this.state = 'collapsing';
-            of('').pipe(delay(150)).subscribe(() => {
-                this.state = 'collapsed';
-            });
-        }
-
         this.collapsed = !this.collapsed;
+        this.firstOpened = false;
     }
 
     public getMenus() {
