@@ -27,6 +27,7 @@
                 <ng-container *ngFor="let menu of menus">
                     <app-nav-item
                         [parentCollapsed]="collapsed"
+                        [parentScrolling]="scrolling"
                         [firstOpened]="firstOpened"
                         [menu]="menu"
                         [parentScroll]="currentScroll"

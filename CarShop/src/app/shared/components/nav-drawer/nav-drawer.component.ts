@@ -20,6 +20,9 @@ export class NavDrawerComponent implements OnInit {
     public collapsed: boolean = false;
     public currentScroll: number = 0;
 
+    public scrolling: boolean = false;
+    private scrollingTimer: NodeJS.Timeout | null = null;
+
     @Input() userName!: string;
     @Input() userDepartment!: string;
     @Input() userImage!: SafeUrl;
@@ -168,5 +171,15 @@ export class NavDrawerComponent implements OnInit {
 
     public updateScroll(event: number) {
         this.currentScroll = event;
+        this.scrolling = true;
+
+        if(this.scrollingTimer) {
+            clearTimeout(this.scrollingTimer);
+        }
+
+        this.scrollingTimer = setTimeout(() => {
+            this.scrolling = false;
+            this.scrollingTimer = null;
+        }, 100);
     }
 }

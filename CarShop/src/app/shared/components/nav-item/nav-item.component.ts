@@ -13,6 +13,7 @@ export class NavItemComponent implements OnInit {
     @ViewChild('navItem') navItem!: ElementRef<HTMLLIElement>;
 
     @Input() parentCollapsed!: boolean;
+    @Input() parentScrolling!: boolean;
     @Input() firstOpened!: boolean;
     @Input() level: number = 0;
 
@@ -57,11 +58,11 @@ export class NavItemComponent implements OnInit {
     public calculateMarginTop() {
         if (this.parentCollapsed && (this.menu.floatMenuState === 'opening' || this.menu.floatMenuState === 'show' || this.menu.floatMenuState === 'closing')) {
             if (this.navItem.nativeElement.offsetTop - this.parentScroll <= this.parentOffsetTop) {
-                this.closeFloatMenu.emit();
+                //this.closeFloatMenu.emit();
                 return this.parentOffsetTop - this.navItem.nativeElement.offsetTop - 45;
             }
             else if (this.navItem.nativeElement.offsetTop + this.calculateHeight(this.menu) - this.parentOffsetTop - this.parentScroll > this.parentOffsetHeight) {
-                this.closeFloatMenu.emit();
+                //this.closeFloatMenu.emit();
                 return this.parentOffsetTop - this.navItem.nativeElement.offsetTop + this.parentOffsetHeight - this.calculateHeight(this.menu) - 45;
             }
             return (this.parentScroll + this.navItem.nativeElement.clientHeight) * -1;

@@ -340,6 +340,14 @@
         }
     }
 
+    &.menu-scrolling {
+        .nav {
+            transition:
+                height $menu-open-close-speed ease-in-out,
+                margin-top 0s ease-in-out
+        }
+    }
+
     &.first-level {
         &.active {
             border-left-width: 4px;
@@ -347,7 +355,9 @@
     }
 
     .nav {
-        transition: height $menu-open-close-speed ease-in-out; 
+        transition:
+            height $menu-open-close-speed ease-in-out,
+            margin-top $menu-open-close-speed ease-in-out;
     }
 
     &:not(.opened) {
