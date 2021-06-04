@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
 
 import { MenuItem } from '../nav-drawer/menu-item';
 
@@ -10,14 +10,20 @@ import { MenuItem } from '../nav-drawer/menu-item';
 })
 export class NavItemComponent implements OnInit {
     
+    @ViewChild('navItem') navItem!: ElementRef<HTMLLIElement>;
+
     @Input() parentCollapsed!: boolean;
     @Input() firstOpened!: boolean;
     @Input() level: number = 0;
-    @Input() parentScroll!: number;
+
+    @Input() parentOffsetTop!: number;
+    @Input() parentScroll: number = 0;
+    @Input() parentOffsetHeight!: number;
     
     @Input() menu!: MenuItem;
 
     @Output() menuClick = new EventEmitter<MenuItem>();
+    @Output() closeFloatMenu = new EventEmitter();
         
     constructor() { }
 
@@ -33,6 +39,10 @@ export class NavItemComponent implements OnInit {
         this.menuClick.emit(menu);
     }
 
+    public subMenuCloseFloatMenu() {
+        this.closeFloatMenu.emit();
+    }
+
     public calculateHeight(menu: MenuItem): number {
         if (menu.children.length > 0 && menu.selected) {
             let height = menu.children.length * 45;
@@ -45,8 +55,17 @@ export class NavItemComponent implements OnInit {
     }
 
     public calculateMarginTop() {
-        return this.parentCollapsed && (this.menu.floatMenuState === 'opening' || this.menu.floatMenuState === 'show' || this.menu.floatMenuState === 'closing')
-            ? (45 + this.parentScroll) * -1
-            : 0;
+        if (this.parentCollapsed && (this.menu.floatMenuState === 'opening' || this.menu.floatMenuState === 'show' || this.menu.floatMenuState === 'closing')) {
+            if (this.navItem.nativeElement.offsetTop - this.parentScroll <= this.parentOffsetTop) {
+                this.closeFloatMenu.emit();
+                return this.parentOffsetTop - this.navItem.nativeElement.offsetTop - 45;
+            }
+            else if (this.navItem.nativeElement.offsetTop + this.calculateHeight(this.menu) - this.parentOffsetTop - this.parentScroll > this.parentOffsetHeight) {
+                this.closeFloatMenu.emit();
+                return this.parentOffsetTop - this.navItem.nativeElement.offsetTop + this.parentOffsetHeight - this.calculateHeight(this.menu) - 45;
+            }
+            return (this.parentScroll + this.navItem.nativeElement.clientHeight) * -1;
+        }
+        return 0;
     }
 }

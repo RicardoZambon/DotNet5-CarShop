@@ -1,4 +1,4 @@
-<li class="nav-item"
+<li class="nav-item" #navItem
     [class.menu-expanded]="!parentCollapsed"
     [class.menu-collapsed]="parentCollapsed"
     [class.menu-first-opened]="firstOpened"
@@ -28,7 +28,16 @@
         }"
         >
         <ng-container *ngFor="let subMenu of menu.children">
-            <app-nav-item [parentCollapsed]="parentCollapsed" [firstOpened]="firstOpened" [level]="level + 1" [menu]="subMenu" [parentScroll]="parentScroll" (menuClick)="subMenuClick($event)"></app-nav-item>
+            <app-nav-item
+                [parentCollapsed]="parentCollapsed"
+                [firstOpened]="firstOpened"
+                [level]="level + 1"
+                [menu]="subMenu"
+                [parentScroll]="parentScroll"
+                [parentOffsetTop]="parentOffsetTop"
+                [parentOffsetHeight]="parentOffsetHeight"
+                (menuClick)="subMenuClick($event)"
+                (closeFloatMenu)="subMenuCloseFloatMenu()"></app-nav-item>
         </ng-container>
     </ul>
 </li>

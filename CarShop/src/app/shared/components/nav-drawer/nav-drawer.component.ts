@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
@@ -23,6 +23,8 @@ export class NavDrawerComponent implements OnInit {
     @Input() userName!: string;
     @Input() userDepartment!: string;
     @Input() userImage!: SafeUrl;
+
+    @ViewChild('navMenu') navMenu!: ElementRef<HTMLUListElement>;
 
     private activeRootNode: MenuItem | null = null;
 
@@ -79,6 +81,7 @@ export class NavDrawerComponent implements OnInit {
         if (menu) {
             this.clearSelection(menu);
         }
+        return;
     }
 
     private async selectMenu(menu: MenuItem): Promise<void> {
@@ -147,6 +150,21 @@ export class NavDrawerComponent implements OnInit {
         menu.selected = true;
     }
 
+
+    public async closeFloatMenu() {
+        if (this.activeRootNode && this.activeRootNode.floatMenuState === 'show') {
+            await this.clearSelection(this.activeRootNode);
+        }
+    }
+
+
+    public getOffsetHeight(): number {
+        return this.navMenu.nativeElement.offsetHeight;
+    }
+
+    public getOffsetTop(): number {
+        return this.navMenu.nativeElement.offsetTop;
+    }
 
     public updateScroll(event: number) {
         this.currentScroll = event;

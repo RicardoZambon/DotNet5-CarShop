@@ -10,7 +10,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
 
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
-import { TrackScrollDirective } from '../directives/track-scroll.directive';
+import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 
 @NgModule({
     declarations: [
