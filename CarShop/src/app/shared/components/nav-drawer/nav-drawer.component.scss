@@ -79,12 +79,18 @@
         }
     }
 
-    .nav {
-        z-index: 1;
-        
-        .background-fill {
-            z-index: -1;
-            @include background(darken($home-base-color3, 7%), .95);
+    .navbar-menu {
+        overflow-y: auto;
+        //overflow-x: visible;
+        @include scroll(darken($home-base-color3, 7%));
+
+        .nav {
+            z-index: 1;
+                
+            .background-fill {
+                z-index: -1;
+                @include background(darken($home-base-color3, 7%), .95);
+            }
         }
     }
 }

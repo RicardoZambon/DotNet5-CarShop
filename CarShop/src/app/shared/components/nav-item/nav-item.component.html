@@ -10,7 +10,7 @@
 >
     <a class="nav-link replace-content has-sub-menu"
         [class.has-sub-menu]="menu.children.length > 0"
-        (click)="menuClick()"
+        (click)="click()"
     >
         <i class="icon fa-fw fas fa-{{ menu.icon }}" *ngIf="level == 0"></i>
         <span class="label ps-2">{{ menu.label }}</span>
@@ -22,10 +22,13 @@
         [class.close-float-menu]="level == 0 && menu.floatMenuState === 'closing'"
         [class.hide]="level == 0 && menu.floatMenuState === 'hide'"
         [class.show]="level == 0 && menu.floatMenuState === 'show'"
-        [ngStyle]="{'height.px': this.calculateHeight(this.menu)}"
+        [ngStyle]="{
+            'height.px': this.calculateHeight(this.menu),
+            'margin-top.px': this.calculateMarginTop()
+        }"
         >
         <ng-container *ngFor="let subMenu of menu.children">
-            <app-nav-item [parentCollapsed]="parentCollapsed" [firstOpened]="firstOpened" [level]="level + 1" [menu]="subMenu" ></app-nav-item>
+            <app-nav-item [parentCollapsed]="parentCollapsed" [firstOpened]="firstOpened" [level]="level + 1" [menu]="subMenu" [parentScroll]="parentScroll" (menuClick)="subMenuClick($event)"></app-nav-item>
         </ng-container>
     </ul>
 </li>

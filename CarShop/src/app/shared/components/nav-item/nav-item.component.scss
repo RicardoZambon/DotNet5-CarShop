@@ -5,25 +5,16 @@
 
 .nav-item {
     font-size: 0.9rem;
-    position: relative;
+    position: static;
 
     &.first-level {
+        border-left-style: solid;
+        border-left-color: darken($home-base-color, 10%);
+        border-left-width: 0px;
+        transition: border-left $menu-animation-speed linear;
 
         > .nav-link {
             z-index: 1;
-        }
-
-        &:before {
-            content: "";
-            background-color: darken($home-base-color, 10%);
-            transition: width $menu-select-speed;
-
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 0;
-            z-index: 2;
         }
 
         &.active {
@@ -213,19 +204,11 @@
         .nav-link {
             transition: all $menu-hover-speed;
 
-            &:before {
-                transition: inherit;
-            }
-
             &.has-sub-menu {
                 &:after {
                     transition: all $menu-animation-speed ease-in-out;
                 }
             }
-        }
-
-        > .nav {
-            // transition: height $menu-open-close-speed ease-in-out;
         }
     }
 
@@ -283,7 +266,7 @@
             }
 
             > .nav {
-                &:not(.hide):not(.open-float-menu):not(.close-float-menu):not(.show) {
+                &:not(.open-float-menu):not(.close-float-menu):not(.show) {
                     height: 0px !important;
                 }
 
@@ -293,12 +276,13 @@
 
                 &.open-float-menu, &.close-float-menu, &.show {
                     position: absolute;
-                    top: 0;
+                    //top: 0;
                     width: 150px;
                     border-top-right-radius: 0.4rem;
                     border-bottom-right-radius: 0.4rem;
                     z-index: -1;
                     max-height: inherit;
+                    // margin-top: -45px;
                 }
                 
                 &.open-float-menu {
@@ -358,9 +342,7 @@
 
     &.first-level {
         &.active {
-            &:before{
-                width: 4px;
-            }
+            border-left-width: 4px;
         }
     }
 

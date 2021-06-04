@@ -20,15 +20,19 @@
         </div>
     </div>
 
-    <div class="navbar-menu d-flex flex-column flex-grow-1">
+    <div class="navbar-menu d-flex flex-column flex-grow-1" track-scroll (scrolled)="updateScroll($event)">
         <ul class="nav flex-column flex-nowrap w-100 flex-grow-1">
     
-            <ng-container *ngFor="let menu of getMenus()">
-                <app-nav-item [parentCollapsed]="collapsed" [firstOpened]="firstOpened" [menu]="menu"></app-nav-item>
+            <ng-container *ngIf="menus !== null">
+                <ng-container *ngFor="let menu of menus">
+                    <app-nav-item [parentCollapsed]="collapsed" [firstOpened]="firstOpened" [menu]="menu" [parentScroll]="currentScroll" (menuClick)="menuClick($event)"></app-nav-item>
+                </ng-container>
             </ng-container>
     
             <li class="background-fill flex-grow-1">
-
+                <div *ngIf="menus === null" class="loading text-center pt-2">
+                    <i class="spinner-border spinner-border-md"></i>
+                </div>
             </li>
         </ul>
     </div>

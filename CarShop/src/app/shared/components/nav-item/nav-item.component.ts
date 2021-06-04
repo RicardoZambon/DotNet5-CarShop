@@ -1,8 +1,6 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 
 import { MenuItem } from '../nav-drawer/menu-item';
-import { MenuService } from './../../services/menu.service';
 
 @Component({
     selector: 'app-nav-item',
@@ -15,26 +13,24 @@ export class NavItemComponent implements OnInit {
     @Input() parentCollapsed!: boolean;
     @Input() firstOpened!: boolean;
     @Input() level: number = 0;
+    @Input() parentScroll!: number;
     
     @Input() menu!: MenuItem;
+
+    @Output() menuClick = new EventEmitter<MenuItem>();
         
-    constructor(private menuService: MenuService, private router: Router) { }
+    constructor() { }
 
     ngOnInit(): void {
     }
 
 
-    public menuClick() {
-        if (this.parentCollapsed) {
-            this.menuService.showFloatMenu(this.menu);
-        }
-        else {
-            this.menuService.selectNode(this.menu);
-        }
+    public click() {
+        this.menuClick.emit(this.menu);
+    }
 
-        if (this.menu.url) {
-            this.router.navigate([this.menu.url]);
-        }
+    public subMenuClick(menu: MenuItem) {
+        this.menuClick.emit(menu);
     }
 
     public calculateHeight(menu: MenuItem): number {
@@ -46,5 +42,11 @@ export class NavItemComponent implements OnInit {
             return height;
         }
         return 0;
+    }
+
+    public calculateMarginTop() {
+        return this.parentCollapsed && (this.menu.floatMenuState === 'opening' || this.menu.floatMenuState === 'show' || this.menu.floatMenuState === 'closing')
+            ? (45 + this.parentScroll) * -1
+            : 0;
     }
 }

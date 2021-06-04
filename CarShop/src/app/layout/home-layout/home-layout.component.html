@@ -2,7 +2,11 @@
 
     <div class="background"></div>
 
-    <app-nav-drawer #menu>
+    <app-nav-drawer #menu
+        [userName]="getUserName()"
+        [userDepartment]="getUserDepartment()"
+        [userImage]="getUserImage()"
+        >
         <div BrandExpanded><img src="/assets/logo_menu_expanded.jpg" width="96" height="50"></div>
         <div BrandCollapsed><img src="/assets/logo_menu_collapsed.jpg" width="36" height="50"></div>
     </app-nav-drawer>

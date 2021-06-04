@@ -1,7 +1,6 @@
-import { ReturnStatement } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 
 import { MenuItem } from '../components/nav-drawer/menu-item';
 
@@ -10,124 +9,87 @@ import { MenuItem } from '../components/nav-drawer/menu-item';
 })
 export class MenuService {
 
-    menus!: MenuItem[];
+    constructor() { }
 
-    activeRootNode: MenuItem | null = null;
+    async getMenus(): Promise<MenuItem[]> {
+        return await of('')
+            .pipe(
+                //delay(5000),
+                map(() => {
+                    const data = [
+                        { id: 1, parentId: null, label: 'Dashboards', icon: 'th-large', url: 'home' },
+                        { id: 2, parentId: null, label: 'Security', icon: 'shield-alt' },
+                            { id: 3, parentId: 2, label: 'Users', icon: 'user', url: 'users' },
+                            { id: 4, parentId: 2, label: 'Roles', icon: 'user', url: 'users' },
+                            { id: 5, parentId: 2, label: 'Pages', icon: 'user', url: 'users' },
+                                { id: 6, parentId: 5, label: 'Access', icon: 'user', url: 'users' },
+                            { id: 7, parentId: 2, label: 'Something', icon: 'user', url: 'users' },
+                        { id: 9, parentId: null, label: 'Security', icon: 'shield-alt' },
+                            { id: 10, parentId: 9, label: 'Users', icon: 'user', url: 'users' },
+                            { id: 11, parentId: 9, label: 'Roles', icon: 'user', url: 'users' },
+                            { id: 12, parentId: 9, label: 'Pages', icon: 'user', url: 'users' },
+                                { id: 13, parentId: 12, label: 'Access', icon: 'user', url: 'users' },
+                            { id: 14, parentId: 9, label: 'Something', icon: 'user', url: 'users' },
+                        { id: 8, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 15, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 16, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 17, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 18, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 19, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 20, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 21, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 22, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 23, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 24, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 25, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 26, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 27, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 28, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 29, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 30, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 31, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 38, parentId: null, label: 'Security', icon: 'shield-alt' },
+                            { id: 39, parentId: 38, label: 'Users', icon: 'user', url: 'users' },
+                            { id: 40, parentId: 38, label: 'Roles', icon: 'user', url: 'users' },
+                            { id: 41, parentId: 38, label: 'Pages', icon: 'user', url: 'users' },
+                                { id: 42, parentId: 41, label: 'Access', icon: 'user', url: 'users' },
+                            { id: 43, parentId: 38, label: 'Something', icon: 'user', url: 'users' },
+                        { id: 32, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 33, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 34, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 35, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 36, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 37, parentId: null, label: 'Test', icon: 'user', url: 'users' },
+                        { id: 44, parentId: null, label: 'Security', icon: 'shield-alt' },
+                            { id: 45, parentId: 44, label: 'Users', icon: 'user', url: 'users' },
+                            { id: 46, parentId: 44, label: 'Roles', icon: 'user', url: 'users' },
+                            { id: 47, parentId: 44, label: 'Pages', icon: 'user', url: 'users' },
+                                { id: 48, parentId: 47, label: 'Access', icon: 'user', url: 'users' },
+                            { id: 49, parentId: 44, label: 'Something', icon: 'user', url: 'users' },
+                    ];
 
-    constructor() {
-        this.loadMenu();
-    }
+                    let mapMenu = function(parent: MenuItem | null) {
+                        return data
+                            .filter(el => el.parentId === ((parent) ? parent.id : null))
+                            .map(item => {
+                                let menuItem = new MenuItem();
+                                
+                                menuItem.parent = parent;
+                                menuItem.id = item.id;
+            
+                                menuItem.label = item.label;
+                                menuItem.icon = item.icon;
+                                menuItem.url = item.url;
+            
+                                menuItem.children = mapMenu(menuItem);
+            
+                                return menuItem;
+                            });
+                    };
 
-
-    loadMenu() {
-        const data = [
-            { id: 1, parentId: null, label: 'Dashboards', icon: 'th-large', url: 'home' },
-            { id: 2, parentId: null, label: 'Security', icon: 'shield-alt' },
-                { id: 3, parentId: 2, label: 'Users', icon: 'user', url: 'users' },
-                { id: 4, parentId: 2, label: 'Roles', icon: 'user', url: 'users' },
-                { id: 5, parentId: 2, label: 'Pages', icon: 'user', url: 'users' },
-                    { id: 6, parentId: 5, label: 'Access', icon: 'user', url: 'users' },
-                { id: 7, parentId: 2, label: 'Something', icon: 'user', url: 'users' },
-            { id: 8, parentId: null, label: 'Test', icon: 'user', url: 'users' },
-        ];
-
-        let mapMenu = function(parent: MenuItem | null) {
-            return data
-                .filter(el => el.parentId === ((parent) ? parent.id : null))
-                .map(item => {
-                    let menuItem = new MenuItem();
-                    
-                    menuItem.parent = parent;
-                    menuItem.id = item.id;
-
-                    menuItem.label = item.label;
-                    menuItem.icon = item.icon;
-                    menuItem.url = item.url;
-
-                    menuItem.children = mapMenu(menuItem);
-
-                    return menuItem;
-                });
-        };
-
-        this.menus = mapMenu(null);
-    }
-
-
-    clearSelection(node: MenuItem): void {
-        node.selected = false;
-        node = node.children.filter(el => el.selected)[0];
-        if (node) {
-            this.clearSelection(node);
-        }
-    }
-
-    selectNode(menu: MenuItem): void {
-        const rootNode = menu.getRootNode();
-
-        if (this.activeRootNode) {
-            let activeNode: MenuItem | null = this.activeRootNode;
-            let menuNode = rootNode;
-
-            if (activeNode !== menuNode) {
-                this.clearSelection(activeNode);
-            }
-            else {
-                while (activeNode) {
-                    if (activeNode === menu) {
-                        this.clearSelection(activeNode);
-
-                        if (activeNode === this.activeRootNode) {
-                            this.activeRootNode = null;
-                        }
-                        
-                        return;
-                    }
-                    else if (activeNode !== menuNode) {
-                        this.clearSelection(activeNode);
-                        break;
-                    }
-                    
-                    activeNode = activeNode.children.filter(el => el.selected)[0];
-
-                    menuNode = menuNode.children.filter(el => el.id == menu.id)[0]
-                                ?? menuNode.children.filter(el => el.selected)[0];
-                }
-            }
-        }
-        
-        this.activeRootNode = rootNode;
-        menu.selected = true;
-    }
-
-    showFloatMenu(menu: MenuItem): void {
-        const rootNode = menu.getRootNode();
-
-        if (menu === rootNode && menu.children.length > 0) {
-            if (this.activeRootNode?.floatMenuState === 'show') {
-                
-                this.activeRootNode.floatMenuState = 'closing';
-
-                of(this.activeRootNode).pipe(delay(400)).subscribe(menu => {
-                    menu.floatMenuState = 'hide';
-
-                    if (menu === rootNode) {
-                        this.clearSelection(menu);
-                    }
-                    this.activeRootNode = null;
-                });
-                return;
-            }
-
-            this.activeRootNode = rootNode;
-            this.activeRootNode.floatMenuState = 'opening';
-            this.activeRootNode.selected = true;
-            of(this.activeRootNode).pipe(delay(400)).subscribe(menu => {
-                menu.floatMenuState = 'show';
-            });
-        }
-        else {
-            this.selectNode(menu);
-        }
+                    return mapMenu(null);
+                })
+            ).toPromise();
+        ;
     }
 }
