@@ -15,5 +15,11 @@
 
     "SelectLanguage-Title": "Select language",
     "SelectLanguage-en": "English",
-    "SelectLanguage-pt": "Português"
+    "SelectLanguage-pt": "Português",
+
+    "Menu-Dashboards": "Dashboards",
+    "Menu-Security": "Security",
+    "Menu-Menus": "Menus",
+    "Menu-Roles": "Roles",
+    "Menu-Users": "Users"
 }

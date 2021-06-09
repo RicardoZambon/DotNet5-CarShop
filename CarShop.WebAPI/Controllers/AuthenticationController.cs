@@ -4,7 +4,6 @@ using CarShop.WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace CarShop.WebAPI.Controllers

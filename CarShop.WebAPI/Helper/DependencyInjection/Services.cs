@@ -9,7 +9,8 @@ namespace CarShop.WebAPI.Helper.DependencyInjection
         public static IServiceCollection AddWebAPIServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<IAuthenticationService, AuthenticationServiceDefault>();
+                .AddScoped<IAuthenticationService, AuthenticationServiceDefault>()
+                .AddScoped<IMenuService, MenuServiceDefault>();
         }
     }
 }

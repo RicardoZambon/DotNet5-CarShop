@@ -9,6 +9,7 @@ import { DashboardComponent } from './pages/home/main/dashboard/dashboard.compon
 
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { LoginComponent } from './pages/authentication/login/login.component';
+import { environment } from 'src/environments/environment';
 
 
 const routes: Routes = [
@@ -46,6 +47,10 @@ const routes: Routes = [
         JwtModule.forRoot({
             config: {
                 tokenGetter: () => localStorage.getItem("jwt"),
+                allowedDomains: [
+                    environment.apiUrl.replace(/(^\w+:|^)\/\//, '')
+                ],
+                authScheme: 'Bearer '
             }
         })
     ],

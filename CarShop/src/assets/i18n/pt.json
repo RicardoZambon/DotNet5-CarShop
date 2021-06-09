@@ -12,5 +12,11 @@
     "Login-RememberMe": "Lembrar de mim",
     "Login-SignIn": "Entrar",
 
-    "SelectLanguage-Title": "Selecionar idioma"
+    "SelectLanguage-Title": "Selecionar idioma",
+
+    "Menu-Dashboards": "Painéis",
+    "Menu-Security": "Segurança",
+    "Menu-Menus": "Menus",
+    "Menu-Roles": "Funções",
+    "Menu-Users": "Usuários"
 }

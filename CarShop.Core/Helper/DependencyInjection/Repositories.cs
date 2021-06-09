@@ -10,7 +10,8 @@ namespace CarShop.Core.Helper.DependencyInjection
         {
             return services
                 .AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
+                .AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>()
+                .AddScoped<IMenuRepository, MenuRepository>();
         }
     }
 }

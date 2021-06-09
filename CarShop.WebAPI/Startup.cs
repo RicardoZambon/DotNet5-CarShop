@@ -1,7 +1,9 @@
+using AutoMapper;
 using CarShop.Core;
 using CarShop.Core.Helper.DependencyInjection;
 using CarShop.WebAPI.Helper.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +56,7 @@ namespace CarShop.WebAPI
                 .AddJwtBearer(o =>
                 {
                     o.RequireHttpsMetadata = false;
-                    o.SaveToken = false;
+                    o.SaveToken = true;
 
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -71,15 +73,23 @@ namespace CarShop.WebAPI
                         ClockSkew = TimeSpan.Zero,
                     };
 
-                    o.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            context.Token = context.Request.Cookies["AuthCookie"];
-                            return Task.CompletedTask;
-                        }
-                    };
+                    //o.Events = new JwtBearerEvents
+                    //{
+                    //    OnMessageReceived = context =>
+                    //    {
+                    //        context.Token = context.Request.Cookies["AuthCookie"];
+                    //        return Task.CompletedTask;
+                    //    }
+                    //};
                 });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
 
             //Azure Storage
             services.AddAzureClients(builder =>
@@ -87,11 +97,32 @@ namespace CarShop.WebAPI
                 builder.AddBlobServiceClient(Configuration.GetConnectionString("AzureStorage"));
             });
 
+
             //Repositories and Services
             services
                 .AddRepositories()
                 .AddCoreServices()
                 .AddWebAPIServices();
+
+            //AutoMapper
+            services.AddAutoMapper(config =>
+            {
+                config.ForAllMaps((typeMap, config) =>
+                {
+                    config.ForAllMembers(opt =>
+                    {
+                        opt.Condition((sourceObject, destObject, sourceProperty, destProperty) =>
+                        {
+                            if (sourceProperty == null)
+                            {
+                                return destProperty != null;
+                            }
+                            return !sourceProperty.Equals(destProperty);
+                        });
+                    });
+                });
+            },
+            typeof(Startup).Assembly);
 
             //Swagger
             services
@@ -101,8 +132,8 @@ namespace CarShop.WebAPI
 
                     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
-                        Name = "AuthCookie",
-                        In = ParameterLocation.Cookie,
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey,
                     });
 
@@ -125,13 +156,14 @@ namespace CarShop.WebAPI
             //CORS
             services.AddCors(options =>
             {
-                options.AddPolicy("EnableCORS", builder =>
-                {
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
             });
         }
 
@@ -152,7 +184,7 @@ namespace CarShop.WebAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors("EnableCORS");
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

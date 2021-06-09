@@ -4,6 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { MenuService } from './../../shared/services/menu.service';
 import { NavDrawerComponent } from '../../shared/components/nav-drawer/nav-drawer.component';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
     selector: 'app-home-layout',
@@ -28,9 +29,16 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        this.menu.menus = await this.menuService.getMenus();
+        const menus = await this.menuService.getMenus()
+        if (typeof menus === 'string') {
+            console.log(menus);
+        }
+        else {
+            this.menu.menus = menus;
+        }
     }
 
+    
     getUserName(): string {
         return this.userInfo.name;
     }
