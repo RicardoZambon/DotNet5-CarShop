@@ -9,9 +9,11 @@
     [class.active]="menu.selected"
     [class.opened]="menu.children.length > 0 && menu.selected"
 >
+    <div *ngIf="level === 0" class="active-item"></div>
+
     <a class="nav-link replace-content has-sub-menu"
-    [class.has-sub-menu]="menu.children.length > 0"
-    (click)="click()"
+        [class.has-sub-menu]="menu.children.length > 0"
+        (click)="click()"
     >
         <div class="item-background"></div>
         <i class="icon fa-fw fas fa-{{ menu.icon }}" *ngIf="level === 0"></i>
