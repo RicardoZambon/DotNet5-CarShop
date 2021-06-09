@@ -44,13 +44,20 @@ export class NavItemComponent implements OnInit {
         this.closeFloatMenu.emit();
     }
 
+    
     public calculateHeight(menu: MenuItem): number {
         if (menu.children.length > 0 && menu.selected) {
+            
             let height = menu.children.length * 45;
             menu.children.forEach(subMenu => {
                 height += this.calculateHeight(subMenu);
             });
-            return height;
+
+            const maxHeight = this.calculateMaxHeight() as number;
+
+            return height < maxHeight || this.level > 0 || !this.parentCollapsed
+                ? height
+                : maxHeight ?? height;
         }
         return 0;
     }
@@ -68,5 +75,11 @@ export class NavItemComponent implements OnInit {
             return (this.parentScroll + this.navItem.nativeElement.clientHeight) * -1;
         }
         return 0;
+    }
+
+    public calculateMaxHeight(): number | null {
+        return this.parentCollapsed
+            ? this.parentOffsetHeight
+            : null;
     }
 }

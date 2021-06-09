@@ -81,7 +81,6 @@
 
     .navbar-menu {
         overflow-y: auto;
-        //overflow-x: visible;
         @include scroll(darken($home-base-color3, 7%));
 
         .nav {
@@ -189,6 +188,21 @@
             .logo-collapsed {
                 opacity: 0;
             }
+        }
+    }
+}
+
+
+@media (max-width:768px) {
+    .menu {
+        margin-left: -70px;
+        max-width: 70px !important;
+        width: 70px !important;
+        transition: margin-left $menu-animation-speed ease-in-out;
+
+        &.collapsed {
+            margin-left: 0px;
+            padding-left: 0px;
         }
     }
 }

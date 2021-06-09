@@ -4,28 +4,30 @@
     [class.menu-scrolling]="parentScrolling"
     [class.menu-first-opened]="firstOpened"
 
-    [class.first-level]="level == 0"
+    [class.first-level]="level === 0"
 
     [class.active]="menu.selected"
     [class.opened]="menu.children.length > 0 && menu.selected"
 >
     <a class="nav-link replace-content has-sub-menu"
-        [class.has-sub-menu]="menu.children.length > 0"
-        (click)="click()"
+    [class.has-sub-menu]="menu.children.length > 0"
+    (click)="click()"
     >
-        <i class="icon fa-fw fas fa-{{ menu.icon }}" *ngIf="level == 0"></i>
+        <div class="item-background"></div>
+        <i class="icon fa-fw fas fa-{{ menu.icon }}" *ngIf="level === 0"></i>
         <span class="label ps-2">{{ menu.label }}</span>
     </a>
 
     <ul *ngIf="menu.children.length > 0"
         class="nav flex-column flex-nowrap"
-        [class.open-float-menu]="level == 0 && menu.floatMenuState === 'opening'"
-        [class.close-float-menu]="level == 0 && menu.floatMenuState === 'closing'"
-        [class.hide]="level == 0 && menu.floatMenuState === 'hide'"
-        [class.show]="level == 0 && menu.floatMenuState === 'show'"
+        [class.open-float-menu]="level === 0 && menu.floatMenuState === 'opening'"
+        [class.close-float-menu]="level === 0 && menu.floatMenuState === 'closing'"
+        [class.hide]="level === 0 && menu.floatMenuState === 'hide'"
+        [class.show]="level === 0 && menu.floatMenuState === 'show'"
         [ngStyle]="{
             'height.px': this.calculateHeight(this.menu),
-            'margin-top.px': this.calculateMarginTop()
+            'margin-top.px': this.calculateMarginTop(),
+            'max-height.px': this.calculateMaxHeight()
         }"
         >
         <ng-container *ngFor="let subMenu of menu.children">

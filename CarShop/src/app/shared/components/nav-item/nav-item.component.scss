@@ -1,6 +1,7 @@
 @import "../../../shared/styles/variables";
 
 @import "../../../shared/styles/background";
+@import "../../../shared/styles/scroll";
 
 
 .nav-item {
@@ -15,6 +16,22 @@
 
         > .nav-link {
             z-index: 1;
+
+            &.has-sub-menu {
+                &:after {
+                    opacity: 1;
+                    transition: all $opacity-animation-speed ease;
+                }
+            }
+
+            .icon {
+                transition: all $icon-animation-speed ease-in-out;
+            }
+
+            .label {
+                opacity: 1;
+                transition: opacity $opacity-animation-speed ease;
+            }
         }
 
         &.active {
@@ -59,8 +76,6 @@
         white-space: nowrap;
         text-overflow: ellipsis;
 
-        @include background(darken($home-base-color3, 10%), .95);
-
         &:hover, &:focus {
             color: $home-base-color;
 
@@ -81,6 +96,19 @@
                 top: .8rem;
             }
         }
+
+        .item-background {
+            @include background(darken($home-base-color3, 10%), .95);
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+
+            background: url(#{$background-url}) no-repeat;
+        }
     }
 
     .nav {
@@ -91,17 +119,6 @@
 
 
 /* Animations */
-@keyframes fadeout {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-@keyframes fadein {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-
 @keyframes collapseItem {
     from { text-overflow: ellipsis; }
     to { text-overflow: clip; }
@@ -110,33 +127,6 @@
 @keyframes expandItem {
     from { text-overflow: clip; }
     to { text-overflow: ellipsis; }
-}
-
-
-@keyframes increaseSize {
-    0% { 
-        font-size: 1em;
-        line-height: 1;
-        vertical-align: 0;
-    }
-    100% { 
-        font-size: 1.3333333333em;
-        line-height: 0.75em;
-        vertical-align: -0.0667em;
-    }
-}
-
-@keyframes decreaseSize {
-    from { 
-        font-size: 1.3333333333em;
-        line-height: 0.75em;
-        vertical-align: -0.0667em;
-    }
-    to { 
-        font-size: 1em;
-        line-height: 1;
-        vertical-align: 0;
-    }
 }
 
 
@@ -223,20 +213,18 @@
 
                     &.has-sub-menu {
                         &:after {
-                            animation: fadeout $opacity-animation-speed ease;
-                            animation-fill-mode: forwards;
+                            opacity: 0;
                         }
                     }
 
                     .icon {
-                        animation: increaseSize $icon-animation-speed ease;
-                        animation-delay: .1s;
-                        animation-fill-mode: forwards;
+                        font-size: 1.3333333333em;
+                        line-height: 0.75em;
+                        vertical-align: -0.0667em;
                     }
             
                     .label {
-                        animation: fadeout $opacity-animation-speed ease;
-                        animation-fill-mode: forwards;
+                        opacity: 0;
                     }
                 }
             }
@@ -299,6 +287,8 @@
 
                 &.show {
                     left: $menu-width-collapsed;
+                    overflow-y: auto;
+                    @include scroll(darken($home-base-color3, 7%));
                 }
             }
         }
@@ -312,22 +302,6 @@
                 > .nav-link {
                     animation: expandItem $menu-animation-speed ease-in-out;
                     animation-fill-mode: forwards;
-
-                    &.has-sub-menu {
-                        &:after {
-                            animation: fadein $opacity-animation-speed ease;
-                            animation-fill-mode: forwards;
-                        }
-                    }
-
-                    .icon {
-                        animation: decreaseSize $icon-animation-speed ease;
-                    }
-            
-                    .label {
-                        animation: fadein $opacity-animation-speed ease;
-                        animation-fill-mode: forwards;
-                    }
                 }
 
                 > .nav {
@@ -375,6 +349,34 @@
                     -ms-transform: rotate(-90deg);
                     -o-transform: rotate(-90deg);
                     transform: rotate(-90deg);
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width:768px) {
+    .nav-item {
+        &.menu-expanded {
+            &.first-level {
+                .nav-link {
+
+                    &.has-sub-menu {
+                        &:after {
+                            opacity: 0;
+                        }
+                    }
+
+                    .icon {
+                        font-size: 1.3333333333em;
+                        line-height: 0.75em;
+                        vertical-align: -0.0667em;
+                    }
+
+                    .label {
+                        opacity: 0;
+                    }
                 }
             }
         }
