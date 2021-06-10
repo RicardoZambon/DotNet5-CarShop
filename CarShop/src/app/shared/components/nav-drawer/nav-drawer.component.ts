@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
@@ -29,6 +29,8 @@ export class NavDrawerComponent implements OnInit {
 
     @ViewChild('navMenu') navMenu!: ElementRef<HTMLUListElement>;
 
+    @Output() navigated = new EventEmitter<MenuItem>();
+
     private activeRootNode: MenuItem | null = null;
 
     constructor(private router: Router) { }
@@ -56,7 +58,7 @@ export class NavDrawerComponent implements OnInit {
         await this.selectMenu(menu);
 
         if (menu.url) {
-            this.router.navigate([menu.url]);
+            this.navigated.emit(menu);
         }
     }
 

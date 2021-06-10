@@ -7,11 +7,13 @@ import { ComponentsModule } from './../shared/components/components.module';
 
 import { LoginComponent } from './authentication/login/login.component';
 import { DashboardComponent } from './home/main/dashboard/dashboard.component';
+import { UsersListComponent } from './security/users/list/list.component';
 
 @NgModule({
     declarations: [
         LoginComponent,
-        DashboardComponent
+        DashboardComponent,
+        UsersListComponent
     ],
     imports: [
         CommonModule,

@@ -1,15 +1,17 @@
+import { MenuService } from './shared/services/menu.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AuthGuard } from './shared/guard/auth.guard';
+import { environment } from 'src/environments/environment';
 
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { DashboardComponent } from './pages/home/main/dashboard/dashboard.component';
+import { UsersListComponent } from './pages/security/users/list/list.component';
 
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { LoginComponent } from './pages/authentication/login/login.component';
-import { environment } from 'src/environments/environment';
 
 
 const routes: Routes = [
@@ -25,7 +27,7 @@ const routes: Routes = [
             ]},
 
             { path: 'users', children: [
-                { path: '', component: DashboardComponent, pathMatch: 'full' },
+                { path: '', component: UsersListComponent, pathMatch: 'full' },
                 { path: ':id', component: DashboardComponent },
             ]}
         ],
@@ -56,4 +58,5 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

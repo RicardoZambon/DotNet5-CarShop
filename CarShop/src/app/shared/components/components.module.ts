@@ -11,6 +11,7 @@ import { NavItemComponent } from './nav-item/nav-item.component';
 
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
+import { TabsComponent } from './tabs/tabs.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.di
         NavDrawerComponent,
         NavItemComponent,
         SelectLanguageComponent,
+        TabsComponent,
 
         AutofocusDirective,
         TrackScrollDirective
@@ -32,6 +34,7 @@ import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.di
         NavDrawerComponent,
         NavItemComponent,
         SelectLanguageComponent,
+        TabsComponent
     ]
 })
 export class ComponentsModule { }

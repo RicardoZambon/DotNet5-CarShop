@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router, RoutesRecognized, ActivatedRouteSnapshot } from '@angular/router';
 
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { MenuItem } from 'src/app/shared/components/nav-drawer/menu-item';
 import { MenuService } from './../../shared/services/menu.service';
 import { NavDrawerComponent } from '../../shared/components/nav-drawer/nav-drawer.component';
-import { stringify } from '@angular/compiler/src/util';
+import { TabsComponent } from './../../shared/components/tabs/tabs.component';
 
 @Component({
     selector: 'app-home-layout',
@@ -15,6 +17,7 @@ import { stringify } from '@angular/compiler/src/util';
 export class HomeLayoutComponent implements OnInit, AfterViewInit {
 
     @ViewChild('menu') menu!: NavDrawerComponent;
+    @ViewChild('tabs') tabs!: TabsComponent;
 
     private userInfo = this.authenticationService.getInfo();
 
@@ -22,10 +25,20 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     constructor(
         private authenticationService: AuthenticationService,
         private menuService: MenuService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
+        this.router.events.subscribe(event => {
+            if (event instanceof RoutesRecognized) {
+                let tree: ActivatedRouteSnapshot = event.state.root;
+                while (tree.firstChild) {
+                    tree = tree.firstChild;
+                }
+                tree.outlet = "users";
+             }
+        });
     }
 
     async ngAfterViewInit(): Promise<void> {
@@ -47,6 +60,11 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     }
     getUserImage(): SafeUrl {
         return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.userInfo.photo)
+    }
+
+    navigateItem(menu: MenuItem) {
+        this.tabs.openTab(menu.id, menu.label);
+        this.router.navigate([menu.url]);
     }
 
 
