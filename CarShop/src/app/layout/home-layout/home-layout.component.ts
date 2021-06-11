@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -24,7 +25,8 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     constructor(
         private authenticationService: AuthenticationService,
         private menuService: MenuService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private activatedRoute: ActivatedRoute
     ) { }
 
     ngOnInit(): void {

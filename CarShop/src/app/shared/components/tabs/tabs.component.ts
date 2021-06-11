@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouteReuseStrategy } from '@angular/router';
+import { Router, RouteReuseStrategy, ActivatedRoute } from '@angular/router';
 import { CustomReuseStrategy } from '../../custom-reuse-strategy';
 
 import { Tab } from './tab';
@@ -14,29 +14,7 @@ export class TabsComponent implements OnInit {
     public activeTab: Tab | null = null;
     public openTabs: Array<Tab> = new Array<Tab>();
         
-    constructor(
-        private routeReuse: RouteReuseStrategy,
-        private router: Router) {
-        // this.router.events.subscribe(event => {
-        //     if (event instanceof RoutesRecognized) {
-        //         console.log('routed');
-
-        //         let tree: ActivatedRouteSnapshot = event.state.root;
-        //         while (tree.firstChild) {
-        //             tree = tree.firstChild;
-        //         }
-    
-        //         const url = event.url.substring(1, event.url.length);
-        //         const activeTab = this.openTabs.filter(x => x.url == url)[0];
-        //         if (activeTab) {
-        //             tree.outlet = 'outlet' + activeTab.menuId;
-        //         }
-        //         else {
-        //             console.log('Could not find active tab URL: ' + url);
-        //         }
-        //      }
-        // });
-    }
+    constructor(private routeReuse: RouteReuseStrategy, private router: Router) { }
 
     ngOnInit(): void {
     }

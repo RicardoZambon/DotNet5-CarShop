@@ -1,3 +1,4 @@
+import { MainComponent } from './pages/home/main/main.component';
 import { MenuService } from './shared/services/menu.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -7,7 +8,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { environment } from 'src/environments/environment';
 
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
-import { DashboardComponent } from './pages/home/main/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
 import { UsersListComponent } from './pages/security/users/list/list.component';
 
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
@@ -19,12 +20,9 @@ const routes: Routes = [
         path: '',
         component: HomeLayoutComponent,
         children: [
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', component: MainComponent, pathMatch: 'full' },
             
-            { path: 'home', children: [
-                { path: '', component: DashboardComponent, pathMatch: 'full' },
-                { path: 'dashboard', component: DashboardComponent },
-            ]},
+            { path: 'dashboard', component: DashboardComponent },
 
             { path: 'users', children: [
                 { path: '', component: UsersListComponent, pathMatch: 'full' },
