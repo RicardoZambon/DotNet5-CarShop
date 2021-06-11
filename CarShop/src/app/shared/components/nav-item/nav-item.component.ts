@@ -53,21 +53,7 @@ export class NavItemComponent implements OnInit {
             }
         });
     }
-
     
-    public isActive(route: string): boolean {
-        let active = false;
-        if (this.menu.url && this.router.isActive(this.menu.url, false)) {
-            return true;
-        }
-
-        if (this.menu.children.length > 0 && this.menu.children) {
-            active 
-        }
-
-        return active;
-    }
-
 
     public click() {
         this.menuClick.emit(this.menu);
