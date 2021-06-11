@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { AppRoutingModule } from 'src/app/app-routing.module';
 import { CommonModule } from '@angular/common';
 import { I18nModule } from './../../i18n/i18n.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +11,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
 
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
+import { NamedOutletDirective } from './../directives/named-outlet/named-outlet.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 import { TabsComponent } from './tabs/tabs.component';
 
@@ -22,9 +24,11 @@ import { TabsComponent } from './tabs/tabs.component';
         TabsComponent,
 
         AutofocusDirective,
+        NamedOutletDirective,
         TrackScrollDirective
     ],
     imports: [
+        AppRoutingModule,
         CommonModule,
         I18nModule,
         ReactiveFormsModule

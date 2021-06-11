@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
@@ -33,7 +32,7 @@ export class NavDrawerComponent implements OnInit {
 
     private activeRootNode: MenuItem | null = null;
 
-    constructor(private router: Router) { }
+    constructor() { }
 
     ngOnInit(): void { 
     }
@@ -49,16 +48,19 @@ export class NavDrawerComponent implements OnInit {
         this.firstOpened = false;
     }
 
-    public isActive(route: string): boolean {
-        return this.router.isActive(route, false);
-    }
-
 
     async menuClick(menu: MenuItem) {
         await this.selectMenu(menu);
 
         if (menu.url) {
             this.navigated.emit(menu);
+
+            if (this.collapsed) {
+                this.closeFloatMenu();
+            }
+            else if (this.activeRootNode) {
+                this.clearSelection(this.activeRootNode);
+            }
         }
     }
 

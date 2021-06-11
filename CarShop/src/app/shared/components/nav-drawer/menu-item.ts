@@ -1,6 +1,7 @@
 export class MenuItem {
     parent: MenuItem | null = null;
     
+    linkActive: boolean = false;
     selected: boolean = false;
     floatMenuState: 'opening' | 'show' | 'closing' | 'hide' | '' = '';
 

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
+import { ActivationEnd, Router } from '@angular/router';
 
 import { MenuItem } from '../nav-drawer/menu-item';
 
@@ -26,9 +27,45 @@ export class NavItemComponent implements OnInit {
     @Output() menuClick = new EventEmitter<MenuItem>();
     @Output() closeFloatMenu = new EventEmitter();
         
-    constructor() { }
+    constructor(private router: Router) { }
 
     ngOnInit(): void {
+        this.router.events.subscribe(event => {
+            if (event instanceof ActivationEnd) {
+                if (event.snapshot.component && event.snapshot.firstChild?.url[0].path === this.menu.url) {
+                    this.menu.linkActive = true;
+                    let menu = this.menu;
+                    
+                    while (menu.parent) {
+                        menu.parent.linkActive = true;
+                        menu = menu.parent;
+                    }
+                }
+                else if (this.menu.linkActive) {
+                    this.menu.linkActive = false;
+                    let menu = this.menu;
+                    
+                    while (menu.parent) {
+                        menu.parent.linkActive = false;
+                        menu = menu.parent;
+                    }
+                }
+            }
+        });
+    }
+
+    
+    public isActive(route: string): boolean {
+        let active = false;
+        if (this.menu.url && this.router.isActive(this.menu.url, false)) {
+            return true;
+        }
+
+        if (this.menu.children.length > 0 && this.menu.children) {
+            active 
+        }
+
+        return active;
     }
 
 

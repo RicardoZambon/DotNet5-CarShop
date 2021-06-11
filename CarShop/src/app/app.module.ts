@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { RouteReuseStrategy } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
@@ -11,6 +12,8 @@ import { LayoutModule } from './layout/layout.module';
 
 import { PagesModule } from './pages/pages.module';
 import { ComponentsModule } from './shared/components/components.module';
+
+import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
 
 @NgModule({
     declarations: [
@@ -26,10 +29,11 @@ import { ComponentsModule } from './shared/components/components.module';
         LayoutModule,
 
         PagesModule,
-        
         ComponentsModule
     ],
-    providers: [],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

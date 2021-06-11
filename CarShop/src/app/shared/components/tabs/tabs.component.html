@@ -1,26 +1,14 @@
 <ul class="nav nav-tabs">
-    <li class="nav-item"
-        *ngFor="let tab of openTabs"
-        
-    >
-        <a class="nav-link active" href="#"
-            data-bs-toggle="tab" [attr.data-bs-target]="'#nav-'+tab.menuId"
+    <li class="nav-item" *ngFor="let tab of openTabs">
+        <a class="nav-link"
+            [routerLink]="tab.url"
             [class.active]="tab === this.activeTab"
+            routerLinkActive #rla="routerLinkActive"
         >
             {{ tab.title }}
-
-            <a (click)="closeTab(tab)"><i class="text-danger fas fa-times"></i></a>
         </a>
-        
+        <a (click)="closeTab(tab)"><i class="text-danger fas fa-times"></i></a>
     </li>
 </ul>
-<div class="tab-content">
-    <div class="tab-pane fade"
-        [class.show]="tab === this.activeTab"
-        [class.active]="tab === this.activeTab"
-        id="nav-{{tab.menuId}}"
-        *ngFor="let tab of openTabs"
-    >
-        Content for tab: {{ tab.title }}.
-    </div>
-</div>
+
+<router-outlet *ngIf="openTabs.length > 0"></router-outlet>

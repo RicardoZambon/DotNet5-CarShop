@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Router, RoutesRecognized, ActivatedRouteSnapshot } from '@angular/router';
 
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { MenuItem } from 'src/app/shared/components/nav-drawer/menu-item';
@@ -25,20 +24,10 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     constructor(
         private authenticationService: AuthenticationService,
         private menuService: MenuService,
-        private sanitizer: DomSanitizer,
-        private router: Router
+        private sanitizer: DomSanitizer
     ) { }
 
     ngOnInit(): void {
-        this.router.events.subscribe(event => {
-            if (event instanceof RoutesRecognized) {
-                let tree: ActivatedRouteSnapshot = event.state.root;
-                while (tree.firstChild) {
-                    tree = tree.firstChild;
-                }
-                tree.outlet = "users";
-             }
-        });
     }
 
     async ngAfterViewInit(): Promise<void> {
@@ -63,8 +52,9 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     }
 
     navigateItem(menu: MenuItem) {
-        this.tabs.openTab(menu.id, menu.label);
-        this.router.navigate([menu.url]);
+        if (menu.url) {
+            this.tabs.openTab(menu.id, menu.label, menu.url);
+        }
     }
 
 

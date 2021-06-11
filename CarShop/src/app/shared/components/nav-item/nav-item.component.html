@@ -6,7 +6,7 @@
 
     [class.first-level]="level === 0"
 
-    [class.active]="menu.selected"
+    [class.active]="menu.selected || menu.linkActive"
     [class.opened]="menu.children.length > 0 && menu.selected"
 >
     <div *ngIf="level === 0" class="active-item"></div>
