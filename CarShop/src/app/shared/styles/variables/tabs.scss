@@ -1,0 +1,13 @@
+$item-background-color: darken($home-base-color, 8%);
+$item-fore-color: darken($home-fore-color, 10%);
+
+$item-active-background-color: $home-base-color;
+$item-active-color: $home-base-color3;
+
+$close-button-color: rgba($home-base-color2, .75);
+$close-button-hover-color: #dc3545;
+
+$tab-select-transition-speed: .3s;
+$tab-deselect-transition-speed: .15s;
+
+$tab-max-width: 160px;

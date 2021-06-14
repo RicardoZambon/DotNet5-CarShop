@@ -1,6 +1,6 @@
 <div class="h-100 mh-100 d-flex">
 
-    <div class="background"></div>
+    <!-- <div class="background"></div> -->
 
     <app-nav-drawer #menu
         [userName]="getUserName()"
@@ -14,8 +14,6 @@
 
     <div class="main d-flex flex-grow-1 flex-column">
         <div class="toolbar position-relative d-flex p-2 align-items-center">
-            <div class="background"></div>
-
             <div class="me-auto">
                 <button type="button" class="btn btn-collapse-menu" (click)="toggleMenu()">
                     <i class="fas fa-bars"></i>
@@ -35,9 +33,7 @@
             </div>
         </div>
 
-        <div class="container-fluid position-relative flex-grow-1 overflow-auto pt-2">
-            <div class="background"></div>
-
+        <div class="container-fluid position-relative flex-grow-1 pt-2">
             <app-tabs #tabs></app-tabs>
 
             <!-- 1

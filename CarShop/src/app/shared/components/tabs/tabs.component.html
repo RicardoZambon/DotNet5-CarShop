@@ -1,13 +1,16 @@
-<ul class="nav nav-tabs">
-    <li class="nav-item" *ngFor="let tab of openTabs">
-        <a class="nav-link"
-            [routerLink]="tab.url"
-            [class.active]="tab === this.activeTab"
-            routerLinkActive #rla="routerLinkActive"
+<ul class="tabs-nav d-flex flex-row p-0">
+    <li class="tab-item d-flex align-items-center me-2 rounded"
+        [class.active]="tab === this.activeTab"
+        *ngFor="let tab of openTabs"
+    >
+        <a class="label py-2 ps-2"
+            (click)="setTabActive(tab)"
         >
+        <!-- [routerLink]="tab.url"
+        routerLinkActive #rla="routerLinkActive" -->
             {{ tab.title }}
         </a>
-        <a (click)="closeTab(tab)"><i class="text-danger fas fa-times"></i></a>
+        <a class="close" (click)="closeTab(tab)"><i class="fas fa-times"></i></a>
     </li>
 </ul>
 

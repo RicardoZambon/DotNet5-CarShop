@@ -1,5 +1,7 @@
 @import "../../shared/styles/variables";
 
+@import "../../shared/styles/background";
+
 @import "bootstrap";
 
 
@@ -15,6 +17,8 @@
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);
         -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);
         -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);
+
+        @include background($home-base-color, .95);
 
         .background:before {
             box-shadow: inset 0 0 500px 500px rgb(255 255 255 / 95%);
@@ -35,6 +39,8 @@
     }
 
     .container-fluid {    
+        @include background(darken($home-base-color, 11%), .9);
+
         .background:before {
             box-shadow: inset 0 0 500px 500px rgba(darken($home-base-color, 10%), .9);
         }
