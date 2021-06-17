@@ -1,5 +1,6 @@
 ﻿using CarShop.Core;
 using CarShop.Core.BusinessEntities.Security;
+using CarShop.Core.Helper.Exceptions.Azure;
 using CarShop.Core.Helper.Identity;
 using CarShop.Core.Repositories;
 using CarShop.Core.Services;
@@ -159,9 +160,13 @@ namespace CarShop.WebAPI.Services.Handlers
             {
                 return await storage.GetAsync("easy-wallet-profile-pictures", username);
             }
-            catch (Azure.RequestFailedException)
+            catch (NotFoundException)
             {
                 return await storage.GetAsync("easy-wallet-profile-pictures", "_default");
+            }
+            catch (Azure.RequestFailedException)
+            {
+                return Array.Empty<byte>();
             }
         }
     }

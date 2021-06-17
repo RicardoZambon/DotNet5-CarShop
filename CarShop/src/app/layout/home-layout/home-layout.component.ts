@@ -48,7 +48,9 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
         return this.userInfo.department;
     }
     getUserImage(): SafeUrl {
-        return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.userInfo.photo)
+        return this.userInfo.photo
+            ? this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.userInfo.photo)
+            : '/assets/user-default.png';
     }
 
     navigateItem(menu: MenuItem): void {

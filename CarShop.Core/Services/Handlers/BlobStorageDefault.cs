@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using CarShop.Core.Helper.Exceptions.Azure;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -18,9 +19,13 @@ namespace CarShop.Core.Services.Handlers
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(container).GetBlobClient(blobName);
 
-            using var ms = new MemoryStream();
-            await containerClient.DownloadToAsync(ms);
-            return ms.ToArray();
+            if (await containerClient.ExistsAsync())
+            {
+                using var ms = new MemoryStream();
+                await containerClient.DownloadToAsync(ms);
+                return ms.ToArray();
+            }
+            throw new NotFoundException();
         }
 
         public async Task StoreAsync(string container, string blobName, Stream stream)
