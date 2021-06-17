@@ -1,71 +1,34 @@
 @import "../../../shared/styles/variables";
 
-.tabs-nav {
-    list-style: none;
+@import "../../../shared/styles/background";
+@import "../../../shared/styles/dragula";
 
-    .tab-item {
-        max-width: $tab-max-width;
-        position: relative;
-        background-color: $item-background-color;
-        color: $item-fore-color;
+.tab-container {
+    position: relative;
+
+    .tabs-nav {
+        list-style: none;
+    }
+
+    .selector {
+        background-color: $item-active-color;
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        left: 0;
+        width: 0;
         z-index: 2;
-        font-size: .95rem;
-        font-weight: 500;
-        overflow: hidden;
-        opacity: .65;
 
-        &:before {
-            content: '';
-            background-color: $item-active-color;
-            position: absolute;
-            bottom: -3px;
-            height: 6px;
-            left: 50%;
-            width: 0;
-            border-radius: 3px;
-            
-            animation: deselect $tab-deselect-transition-speed ease;
-            animation-fill-mode: forwards;
-        }
-
-        &.active {
-            opacity: 1;
-            background-color: $item-active-background-color;
-
-            &:before {
-                animation: select $tab-select-transition-speed ease;
-                animation-fill-mode: forwards;
-            }
-        }
-
-        .label {
-            padding-right: 2rem;
-            text-decoration: none;
-            font-size: 1rem;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .close {
-            position: absolute;
-            right: .6rem;
-            top: 8px;
-            cursor: pointer;
-            color: $close-button-color;
-
-            &:hover {
-                color: $close-button-hover-color;
-            }
-        }
+        transition: all $tab-select-transition-speed ease;
     }
 }
 
-@keyframes select {
-    from { width: 0px; left: 50%; }
-    to { width: 100%; left: 0; }
-}
+.tab-content {
+    margin-top: -1px;
+    border: 1px solid darken($item-background-color, 20%);
+    @include background($item-active-background-color, .93);
 
-@keyframes deselect {
-    from { width: 100%; left: 0; }
-    to { width: 0px; left: 50%; }
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

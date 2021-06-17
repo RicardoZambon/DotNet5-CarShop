@@ -12,6 +12,7 @@ import { LayoutModule } from './layout/layout.module';
 
 import { PagesModule } from './pages/pages.module';
 import { ComponentsModule } from './shared/components/components.module';
+import { DragulaModule } from 'ng2-dragula';
 
 import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
 
@@ -29,7 +30,8 @@ import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
         LayoutModule,
 
         PagesModule,
-        ComponentsModule
+        ComponentsModule,
+        DragulaModule.forRoot()
     ],
     providers: [
         { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }

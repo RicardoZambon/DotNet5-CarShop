@@ -1,3 +1,4 @@
+import { DragulaModule } from 'ng2-dragula';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -14,6 +15,7 @@ import { AutofocusDirective } from './../directives/autofocus/autofocus.directiv
 import { NamedOutletDirective } from './../directives/named-outlet/named-outlet.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 import { TabsComponent } from './tabs/tabs.component';
+import { TabItemComponent } from './tab-item/tab-item.component';
 
 @NgModule({
     declarations: [
@@ -25,13 +27,15 @@ import { TabsComponent } from './tabs/tabs.component';
 
         AutofocusDirective,
         NamedOutletDirective,
-        TrackScrollDirective
+        TrackScrollDirective,
+        TabItemComponent
     ],
     imports: [
         AppRoutingModule,
         CommonModule,
         I18nModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        DragulaModule
     ],
     exports: [
         LoginInputComponent,

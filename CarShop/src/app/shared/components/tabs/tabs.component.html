@@ -1,17 +1,19 @@
-<ul class="tabs-nav d-flex flex-row p-0">
-    <li class="tab-item d-flex align-items-center me-2 rounded"
-        [class.active]="tab === this.activeTab"
-        *ngFor="let tab of openTabs"
-    >
-        <a class="label py-2 ps-2"
-            (click)="setTabActive(tab)"
-        >
-        <!-- [routerLink]="tab.url"
-        routerLinkActive #rla="routerLinkActive" -->
-            {{ tab.title }}
-        </a>
-        <a class="close" (click)="closeTab(tab)"><i class="fas fa-times"></i></a>
-    </li>
-</ul>
+<div class="tab-container">
+    <ul class="tabs-nav d-flex flex-row p-0 m-0" dragula="TABS" [(dragulaModel)]="openTabs">
+        <app-tab-item *ngFor="let tab of openTabs"
+            [tab]="tab" [isActive]="tab === this.activeTab"
+            (navigated)="setTabActive($event)"
+            (closed)="closeTab($event)"
+        ></app-tab-item>
+    </ul>
 
-<router-outlet *ngIf="openTabs.length > 0"></router-outlet>
+    <div class="selector"
+        [ngStyle]="{
+            'left.px': getSelectedLeft(),
+            'width.px': getSelectedWidth()
+        }"></div>
+</div>
+
+<div class="tab-content flex-grow-1 rounded-bottom p-2" *ngIf="openTabs.length > 0">
+    <ng-content></ng-content>
+</div>

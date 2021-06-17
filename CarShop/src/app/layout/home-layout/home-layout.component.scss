@@ -39,7 +39,7 @@
     }
 
     .container-fluid {    
-        @include background(darken($home-base-color, 11%), .9);
+        @include background(darken($home-base-color, 13%), .9);
 
         .background:before {
             box-shadow: inset 0 0 500px 500px rgba(darken($home-base-color, 10%), .9);

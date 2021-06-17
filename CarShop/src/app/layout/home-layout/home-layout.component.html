@@ -1,7 +1,4 @@
 <div class="h-100 mh-100 d-flex">
-
-    <!-- <div class="background"></div> -->
-
     <app-nav-drawer #menu
         [userName]="getUserName()"
         [userDepartment]="getUserDepartment()"
@@ -33,13 +30,10 @@
             </div>
         </div>
 
-        <div class="container-fluid position-relative flex-grow-1 pt-2">
-            <app-tabs #tabs></app-tabs>
-
-            <!-- 1
-            <router-outlet name="users"></router-outlet>
-            2 -->
-            <!-- <router-outlet></router-outlet> -->
+        <div class="container-fluid position-relative flex-grow-1 pt-3 pb-2">
+            <app-tabs #tabs>
+                <router-outlet></router-outlet>
+            </app-tabs>
         </div>
     </div>
 </div>

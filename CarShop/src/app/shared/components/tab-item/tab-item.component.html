@@ -1,0 +1,9 @@
+<li #tabItem class="tab-item d-flex align-items-center rounded-top" [class.active]="isActive">
+    <a class="label py-2 ps-2" (click)="itemClick()">
+        {{ tab.title }}
+    </a>
+    
+    <a class="close" (click)="closeClick()">
+        <i class="fas fa-times"></i>
+    </a>
+</li>

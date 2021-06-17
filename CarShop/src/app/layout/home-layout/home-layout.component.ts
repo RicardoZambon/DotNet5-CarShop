@@ -1,4 +1,3 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -25,8 +24,7 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     constructor(
         private authenticationService: AuthenticationService,
         private menuService: MenuService,
-        private sanitizer: DomSanitizer,
-        private activatedRoute: ActivatedRoute
+        private sanitizer: DomSanitizer
     ) { }
 
     ngOnInit(): void {
@@ -53,14 +51,14 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
         return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.userInfo.photo)
     }
 
-    navigateItem(menu: MenuItem) {
+    navigateItem(menu: MenuItem): void {
         if (menu.url) {
-            this.tabs.openTab(menu.id, menu.label, menu.url);
+            this.tabs.openTab(menu.label, menu.url);
         }
     }
 
 
-    public toggleMenu() {
+    public toggleMenu(): void {
         this.menu.toggleState();
     }
 
