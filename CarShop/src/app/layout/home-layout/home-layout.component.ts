@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 import { MenuItem } from 'src/app/shared/components/nav-drawer/menu-item';
 import { MenuService } from './../../shared/services/menu.service';
 import { NavDrawerComponent } from '../../shared/components/nav-drawer/nav-drawer.component';
-import { TabsComponent } from './../../shared/components/tabs/tabs.component';
+import { TabService } from './../../shared/services/tab.service';
 
 @Component({
     selector: 'app-home-layout',
@@ -16,7 +16,6 @@ import { TabsComponent } from './../../shared/components/tabs/tabs.component';
 export class HomeLayoutComponent implements OnInit, AfterViewInit {
 
     @ViewChild('menu') menu!: NavDrawerComponent;
-    @ViewChild('tabs') tabs!: TabsComponent;
 
     private userInfo = this.authenticationService.getInfo();
 
@@ -24,6 +23,7 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     constructor(
         private authenticationService: AuthenticationService,
         private menuService: MenuService,
+        private tabService: TabService,
         private sanitizer: DomSanitizer
     ) { }
 
@@ -55,7 +55,7 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
 
     navigateItem(menu: MenuItem): void {
         if (menu.url) {
-            this.tabs.openTab(menu.label, menu.url);
+            this.tabService.openTab(menu.label, menu.url);
         }
     }
 
