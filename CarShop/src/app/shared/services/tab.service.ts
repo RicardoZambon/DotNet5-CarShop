@@ -79,4 +79,9 @@ export class TabService {
             }
         }
     }
+
+    public openCurrentUrl(title: string) {
+        const url = this.router.url.substring(1, this.router.url.length);
+        this.openTab(title, url);
+    }
 }

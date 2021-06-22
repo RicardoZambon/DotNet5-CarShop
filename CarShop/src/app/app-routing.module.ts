@@ -1,5 +1,5 @@
+import { UsersEditComponent } from './pages/security/users/edit/edit.component';
 import { MainComponent } from './pages/home/main/main.component';
-import { MenuService } from './shared/services/menu.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -26,7 +26,7 @@ const routes: Routes = [
 
             { path: 'users', children: [
                 { path: '', component: UsersListComponent, pathMatch: 'full' },
-                { path: ':id', component: DashboardComponent },
+                { path: ':id', component: UsersEditComponent },
             ]}
         ],
         canActivate: [AuthGuard]
@@ -43,7 +43,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
         JwtModule.forRoot({
             config: {
                 tokenGetter: () => localStorage.getItem("jwt"),

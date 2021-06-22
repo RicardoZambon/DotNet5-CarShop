@@ -1,5 +1,7 @@
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, Event } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ export class AppComponent {
 
     loading: boolean = true;
 
-    constructor (private router: Router) {
+    constructor (private isLoadingService: IsLoadingService, private router: Router) {
         router.events
             .subscribe(event => {
                 this.navigationInterceptor(event);

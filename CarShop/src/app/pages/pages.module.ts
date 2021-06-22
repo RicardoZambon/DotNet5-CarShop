@@ -10,6 +10,7 @@ import { MainComponent } from './home/main/main.component';
 
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { UsersListComponent } from './security/users/list/list.component';
+import { UsersEditComponent } from './security/users/edit/edit.component';
 
 @NgModule({
     declarations: [
@@ -17,14 +18,15 @@ import { UsersListComponent } from './security/users/list/list.component';
         MainComponent,
         
         DashboardComponent,
-        UsersListComponent
+        UsersListComponent,
+        UsersEditComponent,
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         I18nModule,
 
-        ComponentsModule
+        ComponentsModule,
     ]
 })
 export class PagesModule { }

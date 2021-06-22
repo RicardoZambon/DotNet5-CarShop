@@ -84,6 +84,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
         const routePath = this.getFullRoute(route);
         if (route.component && this.storedRoutes[routePath]) {
+            //console.log('Retrieve:', routePath, 'Route:', this.storedRoutes[routePath]);
             return this.storedRoutes[routePath].handle;
         }
         return null;

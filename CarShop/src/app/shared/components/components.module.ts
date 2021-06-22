@@ -1,3 +1,4 @@
+import { AutoScrollDirective } from './../directives/auto-scroll/auto-scroll.directive';
 import { DragulaModule } from 'ng2-dragula';
 import { NgModule } from '@angular/core';
 
@@ -12,7 +13,6 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
 
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
-import { NamedOutletDirective } from './../directives/named-outlet/named-outlet.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabItemComponent } from './tab-item/tab-item.component';
@@ -25,8 +25,8 @@ import { TabItemComponent } from './tab-item/tab-item.component';
         SelectLanguageComponent,
         TabsComponent,
 
+        AutoScrollDirective,
         AutofocusDirective,
-        NamedOutletDirective,
         TrackScrollDirective,
         TabItemComponent
     ],
@@ -42,7 +42,9 @@ import { TabItemComponent } from './tab-item/tab-item.component';
         NavDrawerComponent,
         NavItemComponent,
         SelectLanguageComponent,
-        TabsComponent
+        TabsComponent,
+
+        AutoScrollDirective
     ]
 })
 export class ComponentsModule { }

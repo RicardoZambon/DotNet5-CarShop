@@ -1,0 +1,15 @@
+
+@import "variables";
+
+@import "background";
+
+.button-container {
+    @include background(darken($home-base-color, 5%), .95);
+
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: .5rem;
+    flex-shrink: 0;
+}
