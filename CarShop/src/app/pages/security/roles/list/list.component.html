@@ -1,0 +1,19 @@
+<div class="button-container">
+    <button class="btn btn-primary">Some button</button>
+</div>
+
+<div class="list-container" auto-scroll>
+    
+    <ag-grid-angular #grid
+        class="ag-theme-alpine flex-grow-1 border rounded mt-0 h-100"
+        [rowSelection]="'single'"
+        [columnDefs]="columnDefs"
+        [rowModelType]="'infinite'"
+        [deltaRowDataMode]="true"
+        (gridReady)="onGridReady($event)"
+
+        auto-scroll-grid
+    >
+    </ag-grid-angular>
+
+</div>

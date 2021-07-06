@@ -9,9 +9,11 @@ namespace CarShop.Core.Helper.DependencyInjection
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
+                .AddScoped<IMenuRepository, MenuRepository>()
+                .AddScoped<IRolesRepository, RolesRepository>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>()
-                .AddScoped<IMenuRepository, MenuRepository>();
+                ;
         }
     }
 }

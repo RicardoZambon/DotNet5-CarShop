@@ -31,7 +31,7 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        const menus = await this.menuService.getMenus()
+        const menus = await this.menuService.getMenus();
         if (typeof menus === 'string') {
             console.log(menus);
         }

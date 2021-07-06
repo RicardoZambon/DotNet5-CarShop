@@ -24,7 +24,7 @@ import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
         BrowserModule,
         HttpClientModule,
         ReactiveFormsModule,
-        
+
         AppRoutingModule,
         I18nModule,
         LayoutModule,
@@ -34,7 +34,7 @@ import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
         DragulaModule.forRoot()
     ],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+       { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
     ],
     bootstrap: [AppComponent]
 })

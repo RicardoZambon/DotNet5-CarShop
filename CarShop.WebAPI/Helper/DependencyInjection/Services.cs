@@ -10,7 +10,9 @@ namespace CarShop.WebAPI.Helper.DependencyInjection
         {
             return services
                 .AddScoped<IAuthenticationService, AuthenticationServiceDefault>()
-                .AddScoped<IMenuService, MenuServiceDefault>();
+                .AddScoped<IRolesService, RolesServiceDefault>()
+                .AddScoped<IMenuService, MenuServiceDefault>()
+                ;
         }
     }
 }

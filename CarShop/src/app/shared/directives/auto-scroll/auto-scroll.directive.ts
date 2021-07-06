@@ -37,6 +37,4 @@ export class AutoScrollDirective implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.url = this.router.url;
     }
-
-    
 }

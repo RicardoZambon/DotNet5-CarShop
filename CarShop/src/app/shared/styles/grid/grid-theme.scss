@@ -1,0 +1,16 @@
+@import "../variables";
+
+@import "../scroll";
+
+.ag-theme-alpine {
+    &, & ::ng-deep .ag-root-wrapper {
+        border: 0 !important;
+    }
+    & ::ng-deep {
+        .ag-body-viewport {
+            @include scroll(darken($home-base-color, 20%));
+        }
+
+    }
+}
+

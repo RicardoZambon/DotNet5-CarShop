@@ -8,11 +8,14 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { environment } from 'src/environments/environment';
 
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
-import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
-import { UsersListComponent } from './pages/security/users/list/list.component';
-
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+
 import { LoginComponent } from './pages/authentication/login/login.component';
+import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
+
+import { RolesListComponent } from './pages/security/roles/list/list.component';
+
+import { UsersListComponent } from './pages/security/users/list/list.component';
 
 
 const routes: Routes = [
@@ -23,6 +26,11 @@ const routes: Routes = [
             { path: '', component: MainComponent, pathMatch: 'full' },
             
             { path: 'dashboard', component: DashboardComponent },
+
+            { path: 'roles', children: [
+                { path: '', component: RolesListComponent, pathMatch: 'full' },
+                { path: ':id', component: RolesListComponent },
+            ]},
 
             { path: 'users', children: [
                 { path: '', component: UsersListComponent, pathMatch: 'full' },
