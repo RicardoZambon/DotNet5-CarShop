@@ -1,28 +1,34 @@
-import { mergeMap } from 'rxjs/operators';
+import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
-import { AuthenticationService } from './shared/services/authentication.service';
 import { JwtInterceptor } from '@auth0/angular-jwt';
+import { from, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { AuthenticationService } from './shared/services/authentication.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
+    private refreshTokenRequest: Observable<string> | null = null;
+
     constructor(private authenticationService: AuthenticationService, private jwtInterceptor: JwtInterceptor) {}
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        if (this.jwtInterceptor.isAllowedDomain(request) && !this.jwtInterceptor.isDisallowedRoute(request)) {
+        if (request.url.indexOf(environment.apiUrl) >= 0 && !this.jwtInterceptor.isDisallowedRoute(request)) { /* this.jwtInterceptor.isAllowedDomain(request) */
             
             if (this.authenticationService.isTokenExpired()) {
-                return from(this.authenticationService.isAuthenticated())
+                if (!this.refreshTokenRequest) {
+                    this.refreshTokenRequest = from(this.authenticationService.tryRefreshToken());
+                }
+
+                return this.refreshTokenRequest
                     .pipe(
-                        mergeMap(() => {
+                        switchMap(token => {
+                            this.refreshTokenRequest = null;
+                            
                             return next.handle(
-                                request.clone({
-                                    headers: new HttpHeaders({
-                                        'authorization': this.authenticationService.getBearer()
-                                    })
-                                })
+                                request.clone({ setHeaders: { 'authorization': `Bearer ${token}` } })
                             );
                         })
                     );

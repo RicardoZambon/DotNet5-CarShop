@@ -8,7 +8,6 @@ import { catchError, delay, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../models/login-model';
 import { LoginResponse } from '../models/login-response';
-import { RefreshTokenModel } from './../models/refresh-token-model';
 import { UserInfoResponse } from './../models/user-info-response';
 
 @Injectable({
@@ -71,28 +70,16 @@ export class AuthenticationService {
     constructor(private router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
 
-    public isTokenExpired(): boolean {
-        return (this.token != null && this.jwtHelper.isTokenExpired(this.token));
+    public isAuthenticated(): boolean {
+        return this.username !== null;
     }
 
-    public getBearer(): string {
-        return 'Bearer ' + this.token;
+    public isTokenExpired(): boolean {
+        return (this.token !== null && this.jwtHelper.isTokenExpired(this.token));
     }
     
     public getInfo(): UserInfoResponse {
         return JSON.parse(atob(localStorage.getItem('userInfo') ?? ''));
-    }
-
-
-    public async isAuthenticated(): Promise<boolean> {
-        if (!this.isTokenExpired()) {
-            return true;
-        }
-        
-        return (await this.tryRefreshingToken({
-            username: localStorage.getItem('username')?.toString() ?? '',
-            refreshToken: localStorage.getItem('refreshToken')?.toString() ?? ''
-        }));
     }
 
 
@@ -127,14 +114,12 @@ export class AuthenticationService {
             ).toPromise();
     }
 
-    public async tryRefreshingToken(model: RefreshTokenModel): Promise<boolean> {
-
-        if (!model || !model.username || !model.refreshToken) { 
-            return false;
-        }
-
+    public async tryRefreshToken(): Promise<string> {
         return await this.http
-            .post<LoginResponse>(`${this.baseUrl}/RefreshToken`, model)
+            .post<LoginResponse>(`${this.baseUrl}/RefreshToken`, {
+                username: this.username ?? '',
+                refreshToken: this.refreshToken ?? ''
+            })
             .pipe(
                 delay(5000),
                 map((res: LoginResponse) => {
@@ -144,10 +129,10 @@ export class AuthenticationService {
 
                     this.userInfo = btoa(JSON.stringify(res as UserInfoResponse));
 
-                    return true;
+                    return this.token;
                 }),
                 catchError(() => {
-                    return of(false).pipe(delay(5000));
+                    return of('').pipe(delay(5000));
                 })
             )
             .toPromise();

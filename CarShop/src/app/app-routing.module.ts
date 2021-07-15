@@ -58,7 +58,10 @@ const routes: Routes = [
                 allowedDomains: [
                     environment.apiUrl.replace(/(^\w+:|^)\/\//, '')
                 ],
-                disallowedRoutes: [`${environment.apiUrl}/Authentication/RefreshToken`]
+                disallowedRoutes: [
+                    `${environment.apiUrl}/Authentication/RefreshToken`,
+                    `${environment.apiUrl}/Authentication/SignIn`
+                ]
             }
         })
     ],
