@@ -1,0 +1,27 @@
+<div class="dropdown">
+    <div #button class="btn d-flex flex-column text-nowrap" data-bs-toggle="dropdown" role="button" aria-expanded="false"
+        [class.btn-success]="this.isSuccess"
+        [attr.success]="this.isSuccess ? '' : null"
+        [ngClass]="{ 'disabled' : this.disabled }"
+    >
+        <div class="icon">
+            <i class="fas {{ this.isLoading ? 'fa-spinner fa-spin' : this.isSuccess ? 'fa-check' : this.icon }} {{ this.color }} fa-fw"
+                [class.default-color]="!this.color"
+            ></i>
+        </div>
+        
+        <div class="label dropdown-toggle">
+            <span class="d-none d-sm-inline">{{ this.label }}</span>
+        </div>
+    </div>
+
+    <ul class="dropdown-menu">
+        <li *ngFor="let item of this.menuItems; trackBy: identify">
+            <a class="dropdown-item" (click)="this.itemClick(item, $event)">
+                <i *ngIf="item.icon != ''" class="fas fa-{{ item.icon }} text-secondary me-1"></i>
+                {{ item.label }}
+            </a>
+        </li>
+    </ul>
+</div>
+

@@ -18,13 +18,74 @@ export class AuthenticationService {
 
     private baseUrl = `${environment.apiUrl}/Authentication`;
 
+
+    private get username(): string | null {
+        return localStorage.getItem('username');
+    }
+    private set username(value: string | null) {
+        if (value) {
+            localStorage.setItem('username', value);
+        }
+        else {
+            localStorage.removeItem('username');
+        }
+    }
+
+    private get token(): string | null {
+        return localStorage.getItem('jwt');
+    }
+    private set token(value: string | null) {
+        if (value) {
+            localStorage.setItem('jwt', value);
+        }
+        else {
+            localStorage.removeItem('jwt');
+        }
+    }
+
+    private get refreshToken(): string | null {
+        return localStorage.getItem('refreshToken');
+    }
+    private set refreshToken(value: string | null) {
+        if (value) {
+            localStorage.setItem('refreshToken', value);
+        }
+        else {
+            localStorage.removeItem('refreshToken');
+        }
+    }
+
+    private get userInfo(): string | null {
+        return localStorage.getItem('userInfo');
+    }
+    private set userInfo(value: string | null) {
+        if (value) {
+            localStorage.setItem('userInfo', value);
+        }
+        else {
+            localStorage.removeItem('userInfo');
+        }
+    }
+
+
     constructor(private router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
 
-    public async isAuthenticated(): Promise<boolean> {
-        const token = localStorage.getItem('jwt');
+    public isTokenExpired(): boolean {
+        return (this.token != null && this.jwtHelper.isTokenExpired(this.token));
+    }
 
-        if (token && !this.jwtHelper.isTokenExpired(token)) {
+    public getBearer(): string {
+        return 'Bearer ' + this.token;
+    }
+    
+    public getInfo(): UserInfoResponse {
+        return JSON.parse(atob(localStorage.getItem('userInfo') ?? ''));
+    }
+
+
+    public async isAuthenticated(): Promise<boolean> {
+        if (!this.isTokenExpired()) {
             return true;
         }
         
@@ -34,6 +95,7 @@ export class AuthenticationService {
         }));
     }
 
+
     public async authenticate(model: LoginModel): Promise<string> {
         return await this.http
             .post<LoginResponse>(`${this.baseUrl}/SignIn`, model)
@@ -41,11 +103,11 @@ export class AuthenticationService {
                 delay(5000),
                 map((res: LoginResponse) => {
 
-                    localStorage.setItem('username', res.username);
-                    localStorage.setItem('jwt', res.token);
-                    localStorage.setItem('refreshToken', res.refreshToken);
+                    this.username = res.username;
+                    this.token = res.token;
+                    this.refreshToken = res.refreshToken;
 
-                    localStorage.setItem('userInfo', btoa(JSON.stringify(res as UserInfoResponse)));
+                    this.userInfo = btoa(JSON.stringify(res as UserInfoResponse));
 
                     of('dummy').pipe(delay(2000)).subscribe(() => {
                         this.router.navigate(["/"]);
@@ -65,10 +127,6 @@ export class AuthenticationService {
             ).toPromise();
     }
 
-    public getInfo(): UserInfoResponse {
-        return JSON.parse(atob(localStorage.getItem('userInfo') ?? ''));
-    }
-
     public async tryRefreshingToken(model: RefreshTokenModel): Promise<boolean> {
 
         if (!model || !model.username || !model.refreshToken) { 
@@ -81,10 +139,10 @@ export class AuthenticationService {
                 delay(5000),
                 map((res: LoginResponse) => {
 
-                    localStorage.setItem('jwt', res.token);
-                    localStorage.setItem('refreshToken', res.refreshToken);
+                    this.token = res.token;
+                    this.refreshToken = res.refreshToken;
 
-                    localStorage.setItem('userInfo', btoa(JSON.stringify(res as UserInfoResponse)));
+                    this.userInfo = btoa(JSON.stringify(res as UserInfoResponse));
 
                     return true;
                 }),
@@ -96,9 +154,11 @@ export class AuthenticationService {
     }
 
     public signOut(): void {
-        localStorage.removeItem("username");
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("refreshToken");
+        this.username = null;
+        this.token = null;
+        this.refreshToken = null;
+
+        this.userInfo = null;
         
         this.router.navigate(["/login"]);
     }

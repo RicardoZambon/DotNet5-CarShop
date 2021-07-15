@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouteReuseStrategy } from '@angular/router';
@@ -15,6 +15,8 @@ import { ComponentsModule } from './shared/components/components.module';
 import { DragulaModule } from 'ng2-dragula';
 
 import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
+import { AuthInterceptor } from './auth-interceptor.interceptor';
+import { JwtInterceptor } from '@auth0/angular-jwt';
 
 @NgModule({
     declarations: [
@@ -34,7 +36,10 @@ import { CustomReuseStrategy } from './shared/custom-reuse-strategy';
         DragulaModule.forRoot()
     ],
     providers: [
-       { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+        JwtInterceptor,
+        { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

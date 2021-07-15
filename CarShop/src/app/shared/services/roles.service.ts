@@ -30,6 +30,21 @@ export class RolesService {
                             return of('InternalServerError: ' + error.message);
                     }
                 })
-            ).toPromise();
+            )
+            .toPromise();
+    }
+
+    public async exportRoles(option: string): Promise<string | Blob> {
+        return this.http
+            .get(`${this.baseUrl}/Roles/Export/${option}`, { responseType: 'blob' })
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
     }
 }

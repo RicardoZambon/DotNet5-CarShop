@@ -1,3 +1,4 @@
+import { ButtonsModule } from './../shared/buttons/buttons.module';
 import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -34,6 +35,7 @@ import { UsersEditComponent } from './security/users/edit/edit.component';
 
         AgGridModule,
         ComponentsModule,
+        ButtonsModule
     ]
 })
 export class PagesModule { }

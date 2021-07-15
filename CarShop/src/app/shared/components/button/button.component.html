@@ -1,0 +1,19 @@
+<div #button class="btn d-flex flex-column text-nowrap"
+    [class.btn-success]="this.isSuccess"
+    [attr.data-bs-toggle]="this.modalReference ? 'modal' : null"
+    [attr.data-bs-target]="this.modalReference"
+    [attr.success]="this.isSuccess ? '' : null"
+    [ngClass]="{ 'disabled' : this.disabled }"
+    (click)="this.click($event)"
+>
+    <div class="icon">
+        <i class="fas {{ this.isLoading ? 'fa-spinner fa-spin' : this.isSuccess ? 'fa-check' : this.icon }} {{ this.color }} fa-fw"
+            [class.default-color]="!this.color"
+        ></i>
+    </div>
+    
+    <div class="label">
+        <span *ngIf="this.label && this.label != ''" class="d-none d-sm-inline">{{ this.label }}</span>
+        <span *ngIf="this.dropdownLabel && this.dropdownLabel != ''" class="dropdown-label">{{ this.dropdownLabel }}</span>
+    </div>
+</div>

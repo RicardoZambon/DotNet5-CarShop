@@ -17,9 +17,17 @@ import { AutoScrollGridDirective } from './../directives/auto-scroll-grid/auto-s
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabItemComponent } from './tab-item/tab-item.component';
+import { ButtonComponent } from './button/button.component';
+import { ButtonGroupComponent } from './button-group/button-group.component';
+import { ButtonDropdownComponent } from './button-dropdown/button-dropdown.component';
+import { ButtonContainerComponent } from './button-container/button-container.component';
 
 @NgModule({
     declarations: [
+        ButtonComponent,
+        ButtonContainerComponent,
+        ButtonDropdownComponent,
+        ButtonGroupComponent,
         LoginInputComponent,
         NavDrawerComponent,
         NavItemComponent,
@@ -30,7 +38,8 @@ import { TabItemComponent } from './tab-item/tab-item.component';
         AutoScrollGridDirective,
         AutofocusDirective,
         TrackScrollDirective,
-        TabItemComponent
+        TabItemComponent,
+        
     ],
     imports: [
         AppRoutingModule,
@@ -40,6 +49,10 @@ import { TabItemComponent } from './tab-item/tab-item.component';
         DragulaModule
     ],
     exports: [
+        ButtonComponent,
+        ButtonContainerComponent,
+        ButtonDropdownComponent,
+        ButtonGroupComponent,
         LoginInputComponent,
         NavDrawerComponent,
         NavItemComponent,

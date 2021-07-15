@@ -1,20 +1,20 @@
-import { UsersEditComponent } from './pages/security/users/edit/edit.component';
-import { MainComponent } from './pages/home/main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
-import { AuthGuard } from './shared/guard/auth.guard';
 import { environment } from 'src/environments/environment';
+import { AuthGuard } from './shared/guard/auth.guard';
+
+import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { LoginComponent } from './pages/authentication/login/login.component';
 
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
-import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
-
-import { LoginComponent } from './pages/authentication/login/login.component';
+import { MainComponent } from './pages/home/main/main.component';
 import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
 
 import { RolesListComponent } from './pages/security/roles/list/list.component';
 
+import { UsersEditComponent } from './pages/security/users/edit/edit.component';
 import { UsersListComponent } from './pages/security/users/list/list.component';
 
 
@@ -58,7 +58,7 @@ const routes: Routes = [
                 allowedDomains: [
                     environment.apiUrl.replace(/(^\w+:|^)\/\//, '')
                 ],
-                authScheme: 'Bearer '
+                disallowedRoutes: [`${environment.apiUrl}/Authentication/RefreshToken`]
             }
         })
     ],

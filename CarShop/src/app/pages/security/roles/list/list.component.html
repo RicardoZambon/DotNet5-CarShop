@@ -1,6 +1,9 @@
-<div class="button-container">
-    <button class="btn btn-primary">Some button</button>
-</div>
+<app-button-container>    
+    <app-button-group [displayName]="'General'" [priority]="1">
+        <app-refresh-button [grid]="grid"></app-refresh-button>
+        <app-export-button #exportButton [exportFileName]="'Exported-Roles'"></app-export-button>
+    </app-button-group>
+</app-button-container>
 
 <div class="list-container" auto-scroll>
     

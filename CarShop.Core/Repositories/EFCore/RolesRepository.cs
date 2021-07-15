@@ -12,9 +12,12 @@ namespace CarShop.Core.Repositories.EFCore
             this.context = context;
         }
 
-        public IQueryable<Roles> GetAll(int startRow, int endRow)
+        public IQueryable<Roles> GetAll()
             => context.Set<Roles>()
-                .AsQueryable()
+                .AsQueryable();
+
+        public IQueryable<Roles> GetAll(int startRow, int endRow)
+            => GetAll()
                 .Skip(startRow)
                 .Take(endRow);
     }

@@ -43,7 +43,9 @@ export class AutoScrollGridDirective {
 
                     if (this.scrollPos) {
                         const api: any = this.grid.api;
-                        api.gridBodyComp.eBodyViewport.scrollTop = this.scrollPos;
+                        if (api.gridBodyComp.eBodyViewport) {
+                            api.gridBodyComp.eBodyViewport.scrollTop = this.scrollPos;
+                        }
                     }
                 }
             });

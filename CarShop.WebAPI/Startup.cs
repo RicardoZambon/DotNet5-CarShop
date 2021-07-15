@@ -176,8 +176,6 @@ namespace CarShop.WebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarShop.WebAPI v1"));
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseCookiePolicy();
@@ -185,6 +183,8 @@ namespace CarShop.WebAPI
             app.UseAuthorization();
 
             app.UseCors();
+
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
