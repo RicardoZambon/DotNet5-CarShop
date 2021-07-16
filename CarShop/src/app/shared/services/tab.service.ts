@@ -67,13 +67,15 @@ export class TabService {
             if (this.openTabs.length <= 0) {
                 this.setTabActive(null);
             }
-            else if (index >= this.openTabs.length) {
-                this.setTabActive(this.openTabs[this.openTabs.length - 1]);
+            else if (tab === this.activeTab) {
+                if (index >= this.openTabs.length) {
+                    this.setTabActive(this.openTabs[this.openTabs.length - 1]);
+                }
+                else {
+                    this.setTabActive(this.openTabs[index]);
+                }
             }
-            else {
-                this.setTabActive(this.openTabs[index]);
-            }
-
+            
             if (this.activeTab) {
                 this.activeTab.updatePosition();
             }
