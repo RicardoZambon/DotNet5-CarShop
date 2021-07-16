@@ -21,6 +21,7 @@ import { ButtonComponent } from './button/button.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
 import { ButtonDropdownComponent } from './button-dropdown/button-dropdown.component';
 import { ButtonContainerComponent } from './button-container/button-container.component';
+import { GridHeaderComponent } from './grid-header/grid-header.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,8 @@ import { ButtonContainerComponent } from './button-container/button-container.co
         AutofocusDirective,
         TrackScrollDirective,
         TabItemComponent,
+
+        GridHeaderComponent,
         
     ],
     imports: [
@@ -60,7 +63,9 @@ import { ButtonContainerComponent } from './button-container/button-container.co
         TabsComponent,
 
         AutoScrollDirective,
-        AutoScrollGridDirective
+        AutoScrollGridDirective,
+
+        GridHeaderComponent,
     ]
 })
 export class ComponentsModule { }

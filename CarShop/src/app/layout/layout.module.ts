@@ -15,8 +15,7 @@ import { ComponentsModule } from '../shared/components/components.module';
     imports: [
         CommonModule,
         AppRoutingModule,
-        ComponentsModule,
-        //DirectivesModule
+        ComponentsModule
     ]
 })
 export class LayoutModule { }

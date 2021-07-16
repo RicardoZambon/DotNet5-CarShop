@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { I18nModule } from './../i18n/i18n.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { ComponentsModule } from './../shared/components/components.module';
+import { GridHeaderComponent } from './../shared/components/grid-header/grid-header.component';
 
 import { LoginComponent } from './authentication/login/login.component';
 import { MainComponent } from './home/main/main.component';
@@ -33,7 +34,7 @@ import { UsersEditComponent } from './security/users/edit/edit.component';
         ReactiveFormsModule,
         I18nModule,
 
-        AgGridModule,
+        AgGridModule.withComponents([GridHeaderComponent]),
         ComponentsModule,
         ButtonsModule
     ]

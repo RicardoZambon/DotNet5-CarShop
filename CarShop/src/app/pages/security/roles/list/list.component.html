@@ -1,5 +1,5 @@
 <app-button-container>    
-    <app-button-group [displayName]="'General'" [priority]="1">
+    <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="1">
         <app-refresh-button [grid]="grid"></app-refresh-button>
         <app-export-button #exportButton [exportFileName]="'Exported-Roles'"></app-export-button>
     </app-button-group>
@@ -9,10 +9,13 @@
     
     <ag-grid-angular #grid
         class="ag-theme-alpine flex-grow-1 border rounded mt-0 h-100"
-        [rowSelection]="'single'"
         [columnDefs]="columnDefs"
-        [rowModelType]="'infinite'"
+        [frameworkComponents]="this.frameworkComponents"
+        
         [deltaRowDataMode]="true"
+        [rowSelection]="'single'"
+        [rowModelType]="'infinite'"
+        [suppressDragLeaveHidesColumns]="true"
         (gridReady)="onGridReady($event)"
 
         auto-scroll-grid

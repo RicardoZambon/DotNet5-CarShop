@@ -18,5 +18,11 @@
     "Menu-Security": "Segurança",
     "Menu-Menus": "Menus",
     "Menu-Roles": "Funções",
-    "Menu-Users": "Usuários"
+    "Menu-Users": "Usuários",
+
+    "ButtonGroup-General": "Geral",
+    "Button-Refresh": "Atualizar",
+    "Button-Export": "Exportar",
+
+    "RolesList-Columns-Name": "Nome"
 }

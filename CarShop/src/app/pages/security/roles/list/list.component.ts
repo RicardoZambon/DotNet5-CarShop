@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource } from 'ag-grid-community';
-import { Observable } from 'rxjs';
-import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
 
 import { RolesService } from './../../../../shared/services/roles.service';
+import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
 
+import { GridHeaderComponent } from './../../../../shared/components/grid-header/grid-header.component';
 import { ExportButtonComponent } from './../../../../shared/buttons/export-button/export-button.component';
 
 @Component({
@@ -19,16 +19,15 @@ export class RolesListComponent implements OnInit, AfterViewInit {
     @ViewChild('exportButton') exportButton!: ExportButtonComponent;
 
     datasource!: IDatasource;
-    
+    frameworkComponents: any = { agColumnHeader: GridHeaderComponent };
     columnDefs: ColDef[] = [
-        { colId: 'id',      field: 'id',    headerName: 'ID',       resizable: false, sortable: true, minWidth: 100, suppressSizeToFit: true, hide: true },
-        { colId: 'name',    field: 'name',  headerName: 'Nome',     minWidth: 150, sort: 'asc', flex: 1 },
+        { colId: 'id',      field: 'id',    headerName: 'ID',                       resizable: false, sortable: true, minWidth: 100, suppressSizeToFit: true, hide: true },
+        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name',   suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1 },
     ];
 
-    rowData!: Observable<RoleListModel[]>;
 
-
-    constructor(private rolesService: RolesService) { }
+    constructor(private rolesService: RolesService) {
+    }
 
     ngOnInit(): void {
         const comp = this;
@@ -54,7 +53,8 @@ export class RolesListComponent implements OnInit, AfterViewInit {
         this.exportButton.export = async (option) => this.export(option);
     }
 
-    onGridReady(params: any) {
+    
+    onGridReady(params: any): void {
         params.api.setDatasource(this.datasource);
 
         this.grid.getRowNodeId = function (data: RoleListModel) {

@@ -121,7 +121,6 @@ export class AuthenticationService {
                 refreshToken: this.refreshToken ?? ''
             })
             .pipe(
-                delay(5000),
                 map((res: LoginResponse) => {
 
                     this.token = res.token;
