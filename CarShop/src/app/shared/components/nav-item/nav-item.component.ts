@@ -37,7 +37,7 @@ export class NavItemComponent implements OnInit {
 
         this.router.events.subscribe(event => {
             if (event instanceof ActivationEnd) {
-                if (event.snapshot.component && event.snapshot.firstChild?.url[0].path === this.menu.url) {
+                if (event.snapshot.component && event.snapshot.firstChild?.url[0] && event.snapshot.firstChild?.url[0].path === this.menu.url) {
                     this.menu.linkActive = true;
                     let menu = this.menu;
                     

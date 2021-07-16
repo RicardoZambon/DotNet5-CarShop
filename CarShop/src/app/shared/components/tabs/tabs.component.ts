@@ -33,9 +33,12 @@ export class TabsComponent implements OnInit, OnDestroy {
         private tabService: TabService,
         private dragulaService: DragulaService
     ) {
-        this.dragulaService.createGroup("TABS", {
-            direction: 'horizontal'
-        });
+        
+        if (!this.dragulaService.find('TABS')) {
+            this.dragulaService.createGroup("TABS", {
+                direction: 'horizontal'
+            });
+        }
 
         this.subs.add(
             this.tabService.tabOpened.subscribe(url => {

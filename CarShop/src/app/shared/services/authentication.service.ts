@@ -87,7 +87,6 @@ export class AuthenticationService {
         return await this.http
             .post<LoginResponse>(`${this.baseUrl}/SignIn`, model)
             .pipe(
-                delay(5000),
                 map((res: LoginResponse) => {
 
                     this.username = res.username;

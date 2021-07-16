@@ -30,7 +30,7 @@ export class AutoScrollGridDirective {
                     if (event instanceof NavigationStart) {
 
                         const selectedNodes = this.grid.api.getSelectedNodes();
-                        if (selectedNodes.length > 0) {
+                        if (selectedNodes && selectedNodes.length > 0) {
                             this.cellSelected = selectedNodes[0].rowIndex;
                         }
 
@@ -43,7 +43,7 @@ export class AutoScrollGridDirective {
 
                     if (this.scrollPos) {
                         const api: any = this.grid.api;
-                        if (api.gridBodyComp.eBodyViewport) {
+                        if (api.gridBodyComp && api.gridBodyComp.eBodyViewport) {
                             api.gridBodyComp.eBodyViewport.scrollTop = this.scrollPos;
                         }
                     }
