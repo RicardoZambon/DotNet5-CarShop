@@ -30,7 +30,7 @@
     
     &:hover {
         .close {
-            opacity: 0.9;
+            opacity: .9;
         }
     }
 
@@ -44,11 +44,13 @@
 
     .close {
         position: absolute;
-        right: .6rem;
-        top: 8px;
+        top: .35rem;
+        right: .3rem;
+        bottom: .35rem;
+        padding: .2rem;
         cursor: pointer;
         color: $close-button-color;
-        opacity: 0.2;
+        opacity: .5;
         transition: all $tab-select-transition-speed;
 
         &:hover {
