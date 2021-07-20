@@ -14,15 +14,30 @@
 
     "SelectLanguage-Title": "Selecionar idioma",
 
+    "TopMenu-Logout": "Sair",
+    "TopMenu-Logout-Message": "Você tem certeza que deseja sair?",
+    "TopMenu-Logout-Message-Confirm": "Sair",
+    "TopMenu-Logout-Message-Cancel": "Cancelar",
+
     "Menu-Dashboards": "Painéis",
     "Menu-Security": "Segurança",
     "Menu-Menus": "Menus",
     "Menu-Roles": "Funções",
     "Menu-Users": "Usuários",
 
+    "ButtonGroup-Entity": "Entidade",
+    "Button-Delete": "Excluir",
+    "Button-Delete-Message": "Você tem certeza que deseja continuar?",
+    "Button-Delete-Message-Confirm": "Confirmar exclusão",
+    "Button-Delete-Message-Cancel": "Cancelar",
+
     "ButtonGroup-General": "Geral",
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
 
-    "RolesList-Columns-Name": "Nome"
+    "RolesList-Columns-Name": "Nome",
+    "RolesList-Delete-Title": "Excluir função",
+    "RolesList-Delete-Title-Plural": "Excluir funções",
+    "RolesList-Delete-Message": "Você está prestes a excluir '[SelectionName]' do sistema.",
+    "RolesList-Delete-Message-Plural": "Você está prestes a excluir [SelectionCount] funções do sistema."
 }

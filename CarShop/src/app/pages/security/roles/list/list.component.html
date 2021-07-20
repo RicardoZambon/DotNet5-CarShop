@@ -1,8 +1,14 @@
 <app-button-container>    
-    <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="1">
-        <app-refresh-button [grid]="grid"></app-refresh-button>
-        <app-export-button #exportButton [exportFileName]="'Exported-Roles'"></app-export-button>
+    
+    <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
+        <app-delete-button #deleteButton [modalId]="'listUserDeleteModal'" [grid]="grid" [delete]="deleteClick"></app-delete-button>
     </app-button-group>
+
+    <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="2">
+        <app-refresh-button [grid]="grid"></app-refresh-button>
+        <app-export-button #exportButton [exportFileName]="'Exported-Roles'" [export]="exportClick"></app-export-button>
+    </app-button-group>
+
 </app-button-container>
 
 <div class="list-container" auto-scroll>
@@ -13,7 +19,8 @@
         [frameworkComponents]="this.frameworkComponents"
         
         [immutableData]="true"
-        [rowSelection]="'single'"
+        [getRowNodeId]="getRowNodeId"
+        [rowSelection]="'multiple'"
         [rowModelType]="'infinite'"
         [suppressDragLeaveHidesColumns]="true"
         (gridReady)="onGridReady($event)"
@@ -23,3 +30,12 @@
     </ag-grid-angular>
 
 </div>
+
+<app-delete-modal
+    [modalId]="'listUserDeleteModal'"
+    [selectedCount]="selectionCount"
+    [selectedName]="selectionName"
+    [modalTitle]="'RolesList-Delete-Title'"
+    [modalMessage]="'RolesList-Delete-Message'"
+    (confirmed)="deleteButton.click()"
+></app-delete-modal>

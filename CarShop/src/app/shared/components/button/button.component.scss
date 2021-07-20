@@ -10,8 +10,8 @@
 
 .btn-success {
     .icon {
-        & .default-color {
-            color: inherit;
+        i {
+            color: white !important;
         }
     }
 }
@@ -19,7 +19,7 @@
 .icon {
     font-size: 1.5rem;
 
-    & .default-color {
+    .default-color {
         color: $home-base-color3;
     }
 }

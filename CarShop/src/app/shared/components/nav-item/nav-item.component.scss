@@ -1,7 +1,8 @@
-@import "../../../shared/styles/variables";
+@import "../../styles/variables";
 
-@import "../../../shared/styles/background";
-@import "../../../shared/styles/scroll";
+@import "../../styles/background";
+@import '../../styles/no-select';
+@import "../../styles/scroll";
 
 
 .nav-item {
@@ -88,6 +89,8 @@
         height: $menu-height-item;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        @include no-select();
 
         &:hover, &:focus {
             color: $home-base-color;

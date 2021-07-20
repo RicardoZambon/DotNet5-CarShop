@@ -82,6 +82,11 @@ export class TabService {
         }
     }
 
+    public closeAllTabs(): void {
+        this.openTabs = new Array<Tab>();
+        this._activeTab = null;
+    }
+
     public openCurrentUrl(title: string) {
         const url = this.router.url.substring(1, this.router.url.length);
         this.openTab(title, url);

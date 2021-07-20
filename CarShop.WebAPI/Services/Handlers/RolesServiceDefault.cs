@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using CarShop.Core;
 using CarShop.Core.BusinessEntities.Security;
 using CarShop.Core.Repositories;
 using CarShop.WebAPI.Models.Security.Roles;
@@ -14,11 +15,13 @@ namespace CarShop.WebAPI.Services.Handlers
 {
     public class RolesServiceDefault : IRolesService
     {
+        private readonly CarShopDbContext context;
         private readonly IMapper mapper;
         private readonly IRolesRepository rolesRepository;
 
-        public RolesServiceDefault(IMapper mapper, IRolesRepository rolesRepository)
+        public RolesServiceDefault(CarShopDbContext context, IMapper mapper, IRolesRepository rolesRepository)
         {
+            this.context = context;
             this.mapper = mapper;
             this.rolesRepository = rolesRepository;
         }
@@ -84,6 +87,25 @@ namespace CarShop.WebAPI.Services.Handlers
             workbook.SaveAs(memory);
 
             return memory.ToArray();
+        }
+
+
+        public async Task DeleteRoles(int[] roleIds)
+        {
+            using var transaction = await context.Database.BeginTransactionAsync();
+
+            try
+            {
+                await rolesRepository.DeleteAsync(roleIds);
+                await context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
     }
 }

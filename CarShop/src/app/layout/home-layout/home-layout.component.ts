@@ -65,6 +65,7 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     }
 
     public signOut(): void {
+        this.tabService.closeAllTabs();
         this.authenticationService.signOut();
     }
 }

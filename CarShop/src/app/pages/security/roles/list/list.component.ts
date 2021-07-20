@@ -1,6 +1,7 @@
+import { DeleteButtonComponent } from './../../../../shared/buttons/delete-button/delete-button.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, IDatasource } from 'ag-grid-community';
+import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
 
 import { RolesService } from './../../../../shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
@@ -13,17 +14,24 @@ import { ExportButtonComponent } from './../../../../shared/buttons/export-butto
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
-export class RolesListComponent implements OnInit, AfterViewInit {
+export class RolesListComponent implements OnInit {
 
     @ViewChild('grid') grid!: AgGridAngular;
     @ViewChild('exportButton') exportButton!: ExportButtonComponent;
 
     datasource!: IDatasource;
     frameworkComponents: any = { agColumnHeader: GridHeaderComponent };
+    getRowNodeId = (data: RoleListModel) => data.id;
     columnDefs: ColDef[] = [
-        { colId: 'id',      field: 'id',    headerName: 'ID',                       resizable: false, sortable: true, minWidth: 100, suppressSizeToFit: true, hide: true },
-        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name',   suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1 },
+        { colId: 'id',      field: 'id',    headerName: 'ID', hide: true },
+        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
     ];
+
+    selectionCount = 0;
+    selectionName = '';
+
+    deleteClick = async (roleIds: number[]) => this.rolesService.deleteRoles(roleIds);
+    exportClick = async (option: string) => this.export(option);
 
 
     constructor(private rolesService: RolesService) {
@@ -48,20 +56,24 @@ export class RolesListComponent implements OnInit, AfterViewInit {
             }
         }
     }
-
-    ngAfterViewInit(): void {
-        this.exportButton.export = async (option) => this.export(option);
-    }
-
     
     onGridReady(params: any): void {
         params.api.setDatasource(this.datasource);
 
-        this.grid.getRowNodeId = function (data: RoleListModel) {
-            return data.id;
-        }
+        this.grid.selectionChanged.subscribe((event: SelectionChangedEvent) => {
+            const selectedNodes = event.api.getSelectedNodes();
+            this.selectionCount = selectedNodes.length;
+            if (this.selectionCount === 1)  {
+                this.selectionName = (event.api.getSelectedNodes()[0].data as RoleListModel).name;
+            }
+        });
     }
 
+
+    async delete() {
+        const del = new DeleteButtonComponent();
+        del.click
+    }
 
     async export(option: string): Promise<Blob | null> {
         const roles = await this.rolesService.exportRoles(option);

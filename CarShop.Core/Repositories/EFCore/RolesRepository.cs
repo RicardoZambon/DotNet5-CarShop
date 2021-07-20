@@ -1,5 +1,6 @@
 ﻿using CarShop.Core.BusinessEntities.Security;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarShop.Core.Repositories.EFCore
 {
@@ -12,6 +13,7 @@ namespace CarShop.Core.Repositories.EFCore
             this.context = context;
         }
 
+
         public IQueryable<Roles> GetAll()
             => context.Set<Roles>()
                 .AsQueryable();
@@ -20,5 +22,16 @@ namespace CarShop.Core.Repositories.EFCore
             => GetAll()
                 .Skip(startRow)
                 .Take(endRow);
+
+
+        public async Task DeleteAsync(int[] roleIds)
+        { 
+            foreach (var roleId in roleIds)
+            {
+                var role = await context.Set<Roles>().FindAsync(roleId);
+                role.IsDeleted = true;
+                context.Update(role);
+            }
+        }
     }
 }

@@ -51,5 +51,19 @@ namespace CarShop.WebAPI.Controllers
                 return BadRequest($"Error: {ex.Message}");
             }
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int[] roleIds)
+        {
+            try
+            {
+                await rolesService.DeleteRoles(roleIds);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
     }
 }

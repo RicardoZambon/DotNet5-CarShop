@@ -1,7 +1,8 @@
-@import "../../../shared/styles/variables";
+@import "../../styles/variables";
 
-@import "../../../shared/styles/background";
-@import "../../../shared/styles/scroll";
+@import "../../styles/background";
+@import '../../styles/no-select';
+@import "../../styles/scroll";
 
 
 .menu {
@@ -53,6 +54,8 @@
                 margin-left: .7rem;
                 overflow: hidden;
                 width: 48px;
+
+                @include no-select();
     
                 img {
                     width: 48px;
@@ -65,6 +68,8 @@
                 -webkit-flex: 0 0 50%;
                 font-size: .9rem;
                 width: calc(#{$menu-width-expanded} - #{$menu-width-collapsed});
+                
+                @include no-select();
             }
     
             .user-name {

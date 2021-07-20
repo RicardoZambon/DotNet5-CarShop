@@ -1,0 +1,23 @@
+<div class="modal fade" id="{{ modalId }}" tabindex="-1" aria-hidden="true" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="mb-0">{{ modalTitle + (selectedCount > 1 ? '-Plural' : '') | translate }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            
+            <div class="modal-body">
+                <h5 class="text-danger">{{ 'Button-Delete-Message' | translate }}</h5>
+                <h6>{{ (modalMessage + (selectedCount > 1 ? '-Plural' : '') | translate)
+                        .replace('[SelectionCount]', this.selectedCount)
+                        .replace('[SelectionName]', this.selectedName)
+                    }}</h6>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Button-Delete-Message-Cancel' | translate }}</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="confirmClick()">{{ 'Button-Delete-Message-Confirm' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>

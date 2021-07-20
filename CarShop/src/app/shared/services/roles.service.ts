@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+
 import { environment } from 'src/environments/environment';
 import { RoleListModel } from '../models/Security/RoleListModel';
 
@@ -39,6 +40,22 @@ export class RolesService {
             .get(`${this.baseUrl}/Roles/Export/${option}`, { responseType: 'blob' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
+    }
+
+    public async deleteRoles(roleIds: number[]): Promise<string | boolean> {
+        return this.http
+            .request('DELETE', `${this.baseUrl}/Roles`, { body: roleIds })
+            .pipe(
+                map(() => true),
+                catchError((error: HttpErrorResponse) => {
+                    console.log(error);
                     switch(error.status) {
                         default:
                             return of('InternalServerError: ' + error.message);

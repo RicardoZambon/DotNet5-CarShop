@@ -17,15 +17,30 @@
     "SelectLanguage-en": "English",
     "SelectLanguage-pt": "Português",
 
+    "TopMenu-Logout": "Log out",
+    "TopMenu-Logout-Message": "Are you sure you want to log out?",
+    "TopMenu-Logout-Message-Confirm": "Log out",
+    "TopMenu-Logout-Message-Cancel": "Cancel",
+    
     "Menu-Dashboards": "Dashboards",
     "Menu-Security": "Security",
     "Menu-Menus": "Menus",
     "Menu-Roles": "Roles",
     "Menu-Users": "Users",
-
+    
+    "ButtonGroup-Entity": "Entity",
+    "Button-Delete": "Delete",
+    "Button-Delete-Message": "Are you sure you want to proceed?",
+    "Button-Delete-Message-Confirm": "Confirm delete",
+    "Button-Delete-Message-Cancel": "Cancel",
+    
     "ButtonGroup-General": "General",
     "Button-Refresh": "Refresh",
     "Button-Export": "Export",
-
-    "RolesList-Columns-Name": "Name"
+    
+    "RolesList-Columns-Name": "Name",
+    "RolesList-Delete-Title": "Delete role",
+    "RolesList-Delete-Title-Plural": "Delete roles",
+    "RolesList-Delete-Message": "You are about to delete role '[SelectionName]' from the system.",
+    "RolesList-Delete-Message-Plural": "You are about to delete [SelectionCount] roles from the system."
 }

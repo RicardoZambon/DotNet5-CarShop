@@ -1,5 +1,6 @@
 ﻿using CarShop.Core.BusinessEntities.Security;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarShop.Core.Repositories
 {
@@ -7,5 +8,7 @@ namespace CarShop.Core.Repositories
     {
         IQueryable<Roles> GetAll();
         IQueryable<Roles> GetAll(int startRow, int endRow);
+
+        Task DeleteAsync(int[] roleIds);
     }
 }
