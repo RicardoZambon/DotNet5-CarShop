@@ -1,7 +1,7 @@
-import { MessageModel } from './../models/message-model';
 import { Injectable } from '@angular/core';
 
 import { AlertMessage } from './../components/alert-message/alert-message';
+import { MessageModel } from './../models/message-model';
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +9,7 @@ import { AlertMessage } from './../components/alert-message/alert-message';
 export class AlertService {
 
     private _raisedAlerts = new Array<AlertMessage>();
+    
 
     public get raisedAlerts(): Array<AlertMessage> {
         return this._raisedAlerts;
@@ -45,19 +46,17 @@ export class AlertService {
             alertMessage.show = true;
         }, 500);
 
+        
+    }    
+
+    removeAlert(message: AlertMessage): void {
+        message.show = false;
+
         setTimeout(() => {
-            alertMessage.show = false;
-
-            setTimeout(() => {
-                this.removeAlert(alertMessage);
-            }, 1000);
-        }, 5000);
-    }
-
-    private removeAlert(message: AlertMessage): void {
-        const index = this._raisedAlerts.indexOf(message);
-        if (index > -1) {
-            this._raisedAlerts.splice(index, 1);
-        }
+            const index = this._raisedAlerts.indexOf(message);
+            if (index > -1) {
+                this._raisedAlerts.splice(index, 1);
+            }
+        }, 1000);
     }
 }
