@@ -22,6 +22,7 @@ export class ButtonComponent implements OnInit {
 
     protected loading = false;
     protected success = false;
+    protected error = false;
 
     @Output() onClick = new EventEmitter<ButtonComponent>();
     @Output() onLoadingChange = new EventEmitter<ButtonComponent>();
@@ -39,6 +40,10 @@ export class ButtonComponent implements OnInit {
 
     public get isSuccess(): boolean {
         return this.success;
+    }
+
+    public get isError(): boolean {
+        return this.error;
     }
 
     public get modalReference(): string | null {
@@ -68,11 +73,18 @@ export class ButtonComponent implements OnInit {
         this.onLoadingChange.emit(this);
     }
 
-    cancelLoading() {
+    cancelLoading(withError = false) {
         this.loading = false;
         this.disabled = false;
         this.loadingAttr = null;
         this.onLoadingChange.emit(this);
+
+        if (withError) {
+            this.error = true;
+            setTimeout(() => {
+                this.error = false;
+            }, 1000);
+        }
     }
 
     completeLoading(disableButton = false): void {

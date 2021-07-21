@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 
+import { PipesModule } from './../pipes/pipes.module';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { LogoutModalComponent } from './logout-modal/logout-modal.component';
     ],
     imports: [
         CommonModule,
-        TranslateModule
+        TranslateModule,
+        PipesModule
     ],
     exports: [
         DeleteModalComponent,

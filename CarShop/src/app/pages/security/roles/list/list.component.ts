@@ -1,3 +1,4 @@
+import { MessageModel } from './../../../../shared/models/message-model';
 import { DeleteButtonComponent } from './../../../../shared/buttons/delete-button/delete-button.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -27,10 +28,12 @@ export class RolesListComponent implements OnInit {
         { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
     ];
 
-    selectionCount = 0;
-    selectionName = '';
-
+    /* Delete */
     deleteClick = async (roleIds: number[]) => this.rolesService.deleteRoles(roleIds);
+    deleteConfirmMessageModel = new MessageModel('RolesList-Delete-Title', 'RolesList-Delete-Message');
+    deleteAlertMessageModel = new MessageModel('RolesList-Delete-Alert-Title', 'RolesList-Delete-Alert-Message');
+
+    /* Export */
     exportClick = async (option: string) => this.export(option);
 
 
@@ -62,18 +65,17 @@ export class RolesListComponent implements OnInit {
 
         this.grid.selectionChanged.subscribe((event: SelectionChangedEvent) => {
             const selectedNodes = event.api.getSelectedNodes();
-            this.selectionCount = selectedNodes.length;
-            if (this.selectionCount === 1)  {
-                this.selectionName = (event.api.getSelectedNodes()[0].data as RoleListModel).name;
+
+            this.deleteConfirmMessageModel.selectionCount = selectedNodes.length;
+            if (this.deleteConfirmMessageModel.selectionCount === 1)  {
+                this.deleteConfirmMessageModel.selectionName = (selectedNodes[0].data as RoleListModel).name;
             }
+
+            this.deleteAlertMessageModel.selectionCount = this.deleteConfirmMessageModel.selectionCount;
+            this.deleteAlertMessageModel.selectionName = this.deleteConfirmMessageModel.selectionName;
         });
     }
 
-
-    async delete() {
-        const del = new DeleteButtonComponent();
-        del.click
-    }
 
     async export(option: string): Promise<Blob | null> {
         const roles = await this.rolesService.exportRoles(option);

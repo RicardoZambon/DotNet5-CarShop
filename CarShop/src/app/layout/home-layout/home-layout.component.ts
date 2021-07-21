@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/services/alert.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 

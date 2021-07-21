@@ -2,7 +2,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { SelectionChangedEvent } from 'ag-grid-community';
 
+import { AlertService } from './../../services/alert.service';
 import { ButtonComponent } from '../../components/button/button.component';
+import { MessageModel } from './../../models/message-model';
 
 @Component({
     selector: 'app-delete-button',
@@ -14,6 +16,9 @@ export class DeleteButtonComponent implements OnInit {
     @Input() modalId!: string;
     @Input() grid!: AgGridAngular;
 
+    @Input() alertMessageModel!: MessageModel;
+    @Input() alertFailureMessage!: string;
+
     @Input() delete?: (selectedIds: number[]) => Promise<string | boolean>;
 
     @ViewChild('deleteButton') deleteButton!: ButtonComponent;
@@ -21,7 +26,7 @@ export class DeleteButtonComponent implements OnInit {
     disabled = true;
 
 
-    constructor() { }
+    constructor(private alertService: AlertService) { }
 
     ngOnInit(): void {
         this.grid.selectionChanged.subscribe((event: SelectionChangedEvent) => {
@@ -34,15 +39,21 @@ export class DeleteButtonComponent implements OnInit {
         this.deleteButton.startLoading();
 
         if (this.delete) {
-            const result = await this.delete(
-                this.grid.api.getSelectedNodes().map(x => Number(x.id))
-            );
+            const rolesToDelete = this.grid.api.getSelectedNodes().map(x => Number(x.id));
+            const result = await this.delete(rolesToDelete);
 
             if (typeof result === 'string') {
-                console.log(result);
-                this.deleteButton.cancelLoading();
+                this.deleteButton.cancelLoading(true);
+
+                let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
+                errorMessageModel.selectionCount = this.alertMessageModel.selectionCount;
+                errorMessageModel.selectionName = this.alertMessageModel.selectionName;
+
+                this.alertService.raiseError(errorMessageModel);
             }
             else {
+                this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel), 'fa-trash-alt');
+
                 this.grid.api.deselectAll();
                 this.grid.api.refreshInfiniteCache();
                 this.deleteButton.completeLoading(true);

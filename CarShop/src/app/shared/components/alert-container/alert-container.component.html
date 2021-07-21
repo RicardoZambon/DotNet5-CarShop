@@ -1,0 +1,6 @@
+<div class="d-flex flex-column mt-3 me-2">
+    <app-alert-message class="d-flex flex-column flex-grow-1"
+        [alertMessage]="alert"
+        *ngFor="let alert of alertService.raisedAlerts"
+    ></app-alert-message>
+</div>

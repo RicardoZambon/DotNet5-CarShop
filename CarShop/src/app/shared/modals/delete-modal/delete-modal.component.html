@@ -2,16 +2,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="mb-0">{{ modalTitle + (selectedCount > 1 ? '-Plural' : '') | translate }}</h5>
+                <h5 class="mb-0">{{ messageModel.title | translate }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
             
             <div class="modal-body">
                 <h5 class="text-danger">{{ 'Button-Delete-Message' | translate }}</h5>
-                <h6>{{ (modalMessage + (selectedCount > 1 ? '-Plural' : '') | translate)
-                        .replace('[SelectionCount]', this.selectedCount)
-                        .replace('[SelectionName]', this.selectedName)
-                    }}</h6>
+                <h6>{{ messageModel.message | translate | messageFormat: messageModel.selectionCount:messageModel.selectionName }}</h6>
             </div>
 
             <div class="modal-footer">

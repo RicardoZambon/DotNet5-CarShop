@@ -57,6 +57,7 @@ namespace CarShop.WebAPI.Controllers
         {
             try
             {
+                throw new Exception("some error");
                 await rolesService.DeleteRoles(roleIds);
                 return Ok();
             }

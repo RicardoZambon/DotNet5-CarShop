@@ -5,7 +5,10 @@ import { DragulaModule } from 'ng2-dragula';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { I18nModule } from './../../i18n/i18n.module';
+import { PipesModule } from './../pipes/pipes.module';
 
+import { AlertContainerComponent } from './alert-container/alert-container.component';
+import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { ButtonComponent } from './button/button.component';
 import { ButtonContainerComponent } from './button-container/button-container.component';
 import { ButtonDropdownComponent } from './button-dropdown/button-dropdown.component';
@@ -26,6 +29,8 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
 
 @NgModule({
     declarations: [
+        AlertContainerComponent,
+        AlertMessageComponent,
         ButtonComponent,
         ButtonContainerComponent,
         ButtonDropdownComponent,
@@ -49,9 +54,11 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
         CommonModule,
         I18nModule,
         ReactiveFormsModule,
-        DragulaModule
+        DragulaModule,
+        PipesModule
     ],
     exports: [
+        AlertContainerComponent,
         ButtonComponent,
         ButtonContainerComponent,
         ButtonDropdownComponent,

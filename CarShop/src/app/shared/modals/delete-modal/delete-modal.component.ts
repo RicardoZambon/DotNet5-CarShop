@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+
+import { MessageModel } from '../../models/message-model';
 
 @Component({
     selector: 'app-delete-modal',
@@ -9,13 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class DeleteModalComponent implements OnInit {
 
     @Input() modalId!: string;
-
-    @Input() selectedCount!: number;
-    @Input() selectedName!: string;
-
-    @Input() modalTitle!: string;
-    @Input() modalMessage!: string;
-    @Input() modalMessageParameter!: string;
+    @Input() messageModel!: MessageModel;
 
     @Output() confirmed = new EventEmitter();
 
@@ -26,5 +21,9 @@ export class DeleteModalComponent implements OnInit {
 
     confirmClick(): void {
         this.confirmed.emit();
+    }
+
+    public get title() {
+        return this.messageModel.title
     }
 }

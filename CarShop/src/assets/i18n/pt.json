@@ -39,5 +39,14 @@
     "RolesList-Delete-Title": "Excluir função",
     "RolesList-Delete-Title-Plural": "Excluir funções",
     "RolesList-Delete-Message": "Você está prestes a excluir '[SelectionName]' do sistema.",
-    "RolesList-Delete-Message-Plural": "Você está prestes a excluir [SelectionCount] funções do sistema."
+    "RolesList-Delete-Message-Plural": "Você está prestes a excluir [SelectionCount] funções do sistema.",
+    "RolesList-Delete-Alert-Title": "Função excluída",
+    "RolesList-Delete-Alert-Message": "A função '[SelectionName]' foi excluída com sucesso.",
+    "RolesList-Delete-Alert-Title-Plural": "Funções excluídas",
+    "RolesList-Delete-Alert-Message-Plural": "As funções foram excluídas com sucesso.",
+    "RolesList-Delete-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao excluir a função '[SelectionName]'.",
+    "RolesList-Delete-AlertFailure-Message-Plural": "Sentimos muito, mas aconteceu algo de errado ao excluir as funções.",
+
+    "AlertFailure-Title": "Oops, ocorreu um erro!",
+    "AlertFailure-SuffixMessage": "Se este erro continuar, por favor contate o suporte."
 }

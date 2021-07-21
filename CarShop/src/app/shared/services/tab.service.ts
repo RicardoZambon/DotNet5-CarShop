@@ -8,7 +8,7 @@ import { Tab } from '../components/tabs/tab';
 export class TabService {
 
     private _activeTab: Tab | null = null;
-    private _openTabs: Array<Tab> = new Array<Tab>();
+    private _openTabs = new Array<Tab>();
 
     public get openTabs(): Array<Tab> {
         return this._openTabs;

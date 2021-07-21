@@ -1,7 +1,12 @@
 <app-button-container>    
     
     <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
-        <app-delete-button #deleteButton [modalId]="'listUserDeleteModal'" [grid]="grid" [delete]="deleteClick"></app-delete-button>
+        <app-delete-button #deleteButton
+            [modalId]="'listUserDeleteModal'"
+            [grid]="grid"
+            [alertMessageModel]="deleteAlertMessageModel"
+            [alertFailureMessage]="'RolesList-Delete-AlertFailure-Message'"
+            [delete]="deleteClick"></app-delete-button>
     </app-button-group>
 
     <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="2">
@@ -33,9 +38,6 @@
 
 <app-delete-modal
     [modalId]="'listUserDeleteModal'"
-    [selectedCount]="selectionCount"
-    [selectedName]="selectionName"
-    [modalTitle]="'RolesList-Delete-Title'"
-    [modalMessage]="'RolesList-Delete-Message'"
+    [messageModel]="deleteConfirmMessageModel"
     (confirmed)="deleteButton.click()"
 ></app-delete-modal>
