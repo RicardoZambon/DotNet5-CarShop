@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { MenuItem } from '../../components/button-dropdown/menu-item';
+import { AlertService } from './../../services/alert.service';
 import { ButtonComponent } from '../../components/button/button.component';
+import { MenuItem } from '../../components/button-dropdown/menu-item';
+import { MessageModel } from '../../models/message-model';
 
 @Component({
     selector: 'app-export-button',
@@ -13,7 +15,10 @@ export class ExportButtonComponent implements OnInit {
     @Input() exportFileName: string = 'exported-data';
     @ViewChild('exportButton') exportButton!: ButtonComponent;
 
-    @Input() export?: (option: string) => Promise<Blob | null>;
+    @Input() alertMessageModel!: MessageModel;
+    @Input() alertFailureMessage!: string;
+
+    @Input() export?: (option: string) => Promise<Blob | string>;
 
     exportOptions: Array<MenuItem> = [
         { label: 'CSV', icon: 'file-csv', command: async () => { await this.click('csv'); } },
@@ -21,19 +26,27 @@ export class ExportButtonComponent implements OnInit {
     ];
     
 
-    constructor() { }
+    constructor(private alertService: AlertService) { }
 
     ngOnInit(): void {
     }
 
+
     async click(option: string): Promise<void> {
         if (this.export) {
             const data = await this.export(option);
-            if (data) {
+
+            if (typeof data === 'string') {
+                this.alertService.raiseError(new MessageModel('AlertFailure-Title', this.alertFailureMessage, false, false));
+                this.exportButton.cancelLoading(true);
+            }
+            else if (data instanceof Blob) {
                 this.downloadFile(option, data);
+
+                this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
+                this.exportButton.completeLoading();
             }
         }
-        this.exportButton.completeLoading();
     }
 
     protected downloadFile(option: string, data: Blob): void {

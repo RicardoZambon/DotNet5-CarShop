@@ -35,6 +35,7 @@ export class RolesListComponent implements OnInit {
 
     /* Export */
     exportClick = async (option: string) => this.export(option);
+    exportAlertMessageModel = new MessageModel('RolesList-Export-Alert-Title', 'RolesList-Export-Alert-Message', false, false);
 
 
     constructor(private rolesService: RolesService) {
@@ -77,14 +78,7 @@ export class RolesListComponent implements OnInit {
     }
 
 
-    async export(option: string): Promise<Blob | null> {
-        const roles = await this.rolesService.exportRoles(option);
-        if (typeof roles === 'string') {
-            console.log(roles);
-            return null;
-        }
-        else {
-            return roles;
-        }
+    async export(option: string): Promise<Blob | string> {
+        return await this.rolesService.exportRoles(option);
     }
 }

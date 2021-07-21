@@ -47,8 +47,12 @@
     "RolesList-Delete-Alert-Message": "The role '[SelectionName]' was successfully deleted.",
     "RolesList-Delete-Alert-Title-Plural": "Roles deleted",
     "RolesList-Delete-Alert-Message-Plural": "The roles were successfully deleted.",
-    "RolesList-Delete-AlertFailure-Message": "We're sorry, but something went wrong when deleting role '[SelectionName]'.",
-    "RolesList-Delete-AlertFailure-Message-Plural": "We're sorry, but something went wrong when deleting roles.",
+    "RolesList-Delete-AlertFailure-Message": "We're sorry, but something went wrong when deleting the role '[SelectionName]'.",
+    "RolesList-Delete-AlertFailure-Message-Plural": "We're sorry, but something went wrong when deleting the roles.",
+
+    "RolesList-Export-Alert-Title": "Roles exported",
+    "RolesList-Export-Alert-Message": "The roles were successfully exported, check your browser downloads section.",
+    "RolesList-Export-AlertFailure-Message": "We're sorry, but something went wrong when exporting the roles.",
 
     "AlertFailure-Title": "Oops, an error occurred!",
     "AlertFailure-SuffixMessage": "If this error continues, please contact support."

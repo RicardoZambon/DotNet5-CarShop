@@ -27,7 +27,7 @@
 
     "ButtonGroup-Entity": "Entidade",
     "Button-Delete": "Excluir",
-    "Button-Delete-Message": "Você tem certeza que deseja continuar?",
+    "Button-Delete-Message": "Tem certeza que deseja continuar?",
     "Button-Delete-Message-Confirm": "Confirmar exclusão",
     "Button-Delete-Message-Cancel": "Cancelar",
 
@@ -46,6 +46,10 @@
     "RolesList-Delete-Alert-Message-Plural": "As funções foram excluídas com sucesso.",
     "RolesList-Delete-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao excluir a função '[SelectionName]'.",
     "RolesList-Delete-AlertFailure-Message-Plural": "Sentimos muito, mas aconteceu algo de errado ao excluir as funções.",
+
+    "RolesList-Export-Alert-Title": "Funções exportadas",
+    "RolesList-Export-Alert-Message": "As funções foram exportadas com sucesso, verifique a seção de downloads do seu navegador.",
+    "RolesList-Export-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao exportar as funções.",
 
     "AlertFailure-Title": "Oops, ocorreu um erro!",
     "AlertFailure-SuffixMessage": "Se este erro continuar, por favor contate o suporte."
