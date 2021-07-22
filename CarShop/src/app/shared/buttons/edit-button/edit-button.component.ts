@@ -17,6 +17,7 @@ export class EditButtonComponent implements OnInit {
     
     @Input() grid!: AgGridAngular;
     @Input() editUrl!: string;
+    @Input() massDelete: boolean = true;
 
     disabled = true;
     private selectedId?: string;
@@ -26,7 +27,7 @@ export class EditButtonComponent implements OnInit {
     ngOnInit(): void {
         this.grid.selectionChanged.subscribe((event: SelectionChangedEvent) => {
             const selectedNodes = event.api.getSelectedNodes();
-            this.disabled = selectedNodes.length !== 1;
+            this.disabled = (selectedNodes.length !== 1 && this.massDelete) || (selectedNodes.length === 1 && !this.massDelete);
             this.selectedId = (!this.disabled) ? selectedNodes[0].id : undefined;
         });
     }

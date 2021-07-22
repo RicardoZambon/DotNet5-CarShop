@@ -27,6 +27,9 @@ export class RolesListComponent implements OnInit {
         { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
     ];
 
+    /* New */
+    newUrl = 'roles/new';
+
     /* Edit */
     editUrl = 'roles/{id}';
 

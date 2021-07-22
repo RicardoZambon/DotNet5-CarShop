@@ -1,9 +1,9 @@
 <app-button-container>    
     
     <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
-        <app-edit-button [grid]="grid" [editUrl]="editUrl"
-        >
-        </app-edit-button>
+        <app-new-button [newUrl]="newUrl"></app-new-button>
+        
+        <app-edit-button [grid]="grid" [editUrl]="editUrl"></app-edit-button>
 
         <app-delete-button #deleteButton
             [modalId]="'listUserDeleteModal'"

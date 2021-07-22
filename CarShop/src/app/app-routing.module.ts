@@ -30,6 +30,7 @@ const routes: Routes = [
 
             { path: 'roles', children: [
                 { path: '', component: RolesListComponent, pathMatch: 'full' },
+                { path: 'new', component: RolesEditComponent },
                 { path: ':id', component: RolesEditComponent },
             ]},
 
