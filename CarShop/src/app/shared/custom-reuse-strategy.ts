@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
+import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy, Router } from '@angular/router';
 
 interface RouteStorageObject {
     snapshot: ActivatedRouteSnapshot;
@@ -7,8 +7,8 @@ interface RouteStorageObject {
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
     
-    storedRoutes: { [key: string]: RouteStorageObject } = {};
-
+    private storedRoutes: { [key: string]: RouteStorageObject } = {};
+    
 
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
         const routePath = this.getFullRoute(route);
@@ -43,7 +43,9 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     }
 
     shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-        return future.routeConfig === curr.routeConfig;
+        const futureRoute = this.getFullRoute(future);
+        const currRoute = this.getFullRoute(curr);
+        return future.routeConfig === curr.routeConfig && futureRoute === currRoute;
     }
 
 
@@ -52,10 +54,16 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
         if (route.parent) {
             parentRoute = this.getFullRoute(route.parent);
             if (parentRoute !== '' && route.routeConfig?.path) {
-                parentRoute += '\\';
+                parentRoute += '/';
             }
         }
-        return parentRoute + (route.routeConfig?.path ?? '')
+
+        let path = route.routeConfig?.path ?? '';
+        route.paramMap.keys.forEach(k => {
+            path = path.replace(':' + k, route.paramMap.get(k) ?? '');
+        });
+
+        return parentRoute + path
     }
 
     public storeNewRoute(route: string): void {

@@ -29,7 +29,7 @@ export class TabService {
 
 
     public openTab(title: string, url: string): void {
-        let tab = this.openTabs.filter(tab => tab.url === url)[0];
+        let tab = this.getTab(url);
         if (!tab) {
             tab = new Tab();
             
@@ -56,6 +56,17 @@ export class TabService {
         else {
             this.router.navigate(['/']);
         }
+    }
+
+    public isTabOpen(url: string): boolean {
+        return this.openTabs.filter(x => x.url === url).length > 0;
+    }
+
+    public getTab(url: string): Tab | undefined {
+        if (this.isTabOpen(url)) {
+            return this.openTabs.filter(x => x.url === url)[0];
+        }
+        return undefined;
     }
 
     public closeTab(tab: Tab): void {

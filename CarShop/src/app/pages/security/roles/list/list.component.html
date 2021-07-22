@@ -1,6 +1,10 @@
 <app-button-container>    
     
     <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
+        <app-edit-button [grid]="grid" [editUrl]="editUrl"
+        >
+        </app-edit-button>
+
         <app-delete-button #deleteButton
             [modalId]="'listUserDeleteModal'"
             [grid]="grid"

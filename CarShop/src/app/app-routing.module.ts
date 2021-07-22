@@ -16,6 +16,7 @@ import { RolesListComponent } from './pages/security/roles/list/list.component';
 
 import { UsersEditComponent } from './pages/security/users/edit/edit.component';
 import { UsersListComponent } from './pages/security/users/list/list.component';
+import { RolesEditComponent } from './pages/security/roles/edit/edit.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,7 @@ const routes: Routes = [
 
             { path: 'roles', children: [
                 { path: '', component: RolesListComponent, pathMatch: 'full' },
-                { path: ':id', component: RolesListComponent },
+                { path: ':id', component: RolesEditComponent },
             ]},
 
             { path: 'users', children: [

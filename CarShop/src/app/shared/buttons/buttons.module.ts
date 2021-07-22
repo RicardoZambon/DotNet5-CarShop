@@ -5,12 +5,14 @@ import { ComponentsModule } from './../components/components.module';
 import { I18nModule } from './../../i18n/i18n.module';
 
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { EditButtonComponent } from './edit-button/edit-button.component';
 import { ExportButtonComponent } from './export-button/export-button.component';
 import { RefreshButtonComponent } from './refresh-button/refresh-button.component';
 
 @NgModule({
   declarations: [
       DeleteButtonComponent,
+      EditButtonComponent,
       ExportButtonComponent,
       RefreshButtonComponent,
   ],
@@ -21,6 +23,7 @@ import { RefreshButtonComponent } from './refresh-button/refresh-button.componen
   ],
   exports: [
       DeleteButtonComponent,
+      EditButtonComponent,
       ExportButtonComponent,
       RefreshButtonComponent,
   ]

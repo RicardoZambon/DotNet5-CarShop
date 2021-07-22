@@ -17,6 +17,7 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { RolesListComponent } from './security/roles/list/list.component';
 import { UsersListComponent } from './security/users/list/list.component';
 import { UsersEditComponent } from './security/users/edit/edit.component';
+import { RolesEditComponent } from './security/roles/edit/edit.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { UsersEditComponent } from './security/users/edit/edit.component';
         RolesListComponent,
         UsersListComponent,
         
+        RolesEditComponent,
         UsersEditComponent,
     ],
     imports: [

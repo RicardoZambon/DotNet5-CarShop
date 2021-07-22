@@ -29,6 +29,7 @@
     "Menu-Users": "Users",
     
     "ButtonGroup-Entity": "Entity",
+    "Button-Edit": "Edit",
     "Button-Delete": "Delete",
     "Button-Delete-Message": "Are you sure you want to proceed?",
     "Button-Delete-Message-Confirm": "Confirm delete",

@@ -1,5 +1,4 @@
 import { MessageModel } from './../../../../shared/models/message-model';
-import { DeleteButtonComponent } from './../../../../shared/buttons/delete-button/delete-button.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
@@ -27,6 +26,9 @@ export class RolesListComponent implements OnInit {
         { colId: 'id',      field: 'id',    headerName: 'ID', hide: true },
         { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
     ];
+
+    /* Edit */
+    editUrl = 'roles/{id}';
 
     /* Delete */
     deleteClick = async (roleIds: number[]) => this.rolesService.deleteRoles(roleIds);
