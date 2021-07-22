@@ -24,17 +24,7 @@ namespace CarShop.WebAPI.Controllers
         {
             try
             {
-                var authModel = await authenticationService.SignInAsync(model);
-
-                //Response.Cookies.Append("AuthCookie", authModel.Token, new CookieOptions()
-                //{
-                //    Secure = true,
-                //    HttpOnly = true,
-                //    SameSite = SameSiteMode.None,
-                //    Expires = model.RememberMe ? authModel.RefreshTokenExpiration : null
-                //});
-
-                return Ok(authModel);
+                return Ok(await authenticationService.SignInAsync(model));
             }
             catch (InvalidAuthenticationException)
             {
@@ -51,16 +41,7 @@ namespace CarShop.WebAPI.Controllers
         {
             try
             {
-                var authModel = await authenticationService.RefreshTokenAsync(model);
-
-                //Response.Cookies.Append("AuthCookie", authModel.Token, new CookieOptions()
-                //{
-                //    Secure = true,
-                //    HttpOnly = true,
-                //    SameSite = SameSiteMode.None
-                //});
-
-                return Ok(authModel);
+                return Ok(await authenticationService.RefreshTokenAsync(model));
             }
             catch (InvalidRefreshTokenException)
             {
@@ -81,13 +62,6 @@ namespace CarShop.WebAPI.Controllers
         {
             Response.Cookies.Delete("AuthCookie");
             return Ok();
-        }
-
-
-        [HttpPost, Route("[action]")]
-        public async Task<IActionResult> Test()
-        {
-            return Ok("Test ok");
         }
     }
 }
