@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { RolesService } from 'src/app/shared/services/roles.service';
 import { TabService } from 'src/app/shared/services/tab.service';
 
 @Component({
@@ -10,18 +11,23 @@ import { TabService } from 'src/app/shared/services/tab.service';
 })
 export class RolesEditComponent implements OnInit {
 
-    roleId!: string;
+    roleId: string | null = null;
 
-    constructor(private tabService: TabService, private route: ActivatedRoute) { }
+    constructor(private roleService: RolesService, private tabService: TabService, private route: ActivatedRoute) { }
 
-    ngOnInit(): void {
-        const id = this.route.snapshot.paramMap.get('id');
-
-        
-        if (id) {
-            this.roleId = id;
-            this.tabService.openCurrentUrl(`User ${this.roleId}`);
+    async ngOnInit(): Promise<void> {
+        this.roleId = this.route.snapshot.paramMap.get('id');
+        if (this.roleId) {
+            const title = await this.roleService.getRoleDisplayName(parseInt(this.roleId));
+            if (!title.startsWith('InternalServerError:')) {
+                this.tabService.openCurrentUrl(title);
+            }
+            else {
+                this.tabService.openCurrentUrl(`Role ID: ${this.roleId}`);
+            }
+        }
+        else {
+            this.tabService.openCurrentUrl('RolesEdit-New-Title');
         }
     }
-
 }

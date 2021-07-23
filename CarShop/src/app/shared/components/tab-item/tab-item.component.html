@@ -1,7 +1,15 @@
 <li #tabItem class="tab-item d-flex align-items-center rounded-top" [class.active]="isActive">
-    <a class="label py-2 ps-2" (click)="itemClick()">
-        {{ tab.title }}
-    </a>
+    <div class="label py-2 ps-2 d-flex flex-row align-items-center" (click)="itemClick()">
+        <div class="spinner-border spinner-border-sm me-2" role="status"
+            *ngIf="tab.loadingTitle"
+        >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+
+        <div *ngIf="!tab.loadingTitle">
+            {{ tab.title | translate }}
+        </div>
+    </div>
     
     <a class="close" (click)="closeClick()">
         <i class="fas fa-times"></i>

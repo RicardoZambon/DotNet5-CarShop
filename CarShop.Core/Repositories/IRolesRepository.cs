@@ -9,6 +9,8 @@ namespace CarShop.Core.Repositories
         IQueryable<Roles> GetAll();
         IQueryable<Roles> GetAll(int startRow, int endRow);
 
+        Task<string> GetDisplayNameAsync(int roleId);
+
         Task DeleteAsync(int[] roleIds);
     }
 }

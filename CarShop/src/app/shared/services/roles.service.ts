@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { promise } from 'protractor';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ export class RolesService {
     ) { }
 
     public async getRoles(startRow: number, endRow: number): Promise<string | RoleListModel[]> {        
-        return await this.http
+        return this.http
             .get<RoleListModel[]>(`${this.baseUrl}/Roles`, {
                 params: {
                     'startRow': startRow.toString(),
@@ -40,6 +41,21 @@ export class RolesService {
             .get(`${this.baseUrl}/Roles/Export/${option}`, { responseType: 'blob' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
+    }
+
+    public async getRoleDisplayName(roleId: number): Promise<string> {
+        return this.http
+            .get(`${this.baseUrl}/Roles/Title/${roleId}`, { responseType: 'text' })
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    console.error(error);
                     switch(error.status) {
                         default:
                             return of('InternalServerError: ' + error.message);

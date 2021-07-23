@@ -7,6 +7,8 @@ export class Tab {
     x!: number;
     width!: number;
 
+    loadingTitle: boolean = false;
+
     updatedPosition = new EventEmitter();
 
     updatePosition() {

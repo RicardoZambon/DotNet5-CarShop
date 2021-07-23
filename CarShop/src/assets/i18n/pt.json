@@ -37,6 +37,7 @@
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
 
+    "RolesEdit-New-Title": "Nova função",
     "RolesList-Columns-Name": "Nome",
     "RolesList-Delete-Title": "Excluir função",
     "RolesList-Delete-Title-Plural": "Excluir funções",
@@ -48,7 +49,6 @@
     "RolesList-Delete-Alert-Message-Plural": "As funções foram excluídas com sucesso.",
     "RolesList-Delete-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao excluir a função '[SelectionName]'.",
     "RolesList-Delete-AlertFailure-Message-Plural": "Sentimos muito, mas aconteceu algo de errado ao excluir as funções.",
-
     "RolesList-Export-Alert-Title": "Funções exportadas",
     "RolesList-Export-Alert-Message": "As funções foram exportadas com sucesso, verifique a seção de downloads do seu navegador.",
     "RolesList-Export-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao exportar as funções.",

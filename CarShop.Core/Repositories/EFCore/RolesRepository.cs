@@ -23,6 +23,10 @@ namespace CarShop.Core.Repositories.EFCore
                 .Skip(startRow)
                 .Take(endRow);
 
+        public async Task<string> GetDisplayNameAsync(int roleId)
+        {
+            return (await context.Set<Roles>().FindAsync(roleId)).Name;
+        }
 
         public async Task DeleteAsync(int[] roleIds)
         { 

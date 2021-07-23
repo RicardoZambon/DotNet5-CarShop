@@ -35,7 +35,7 @@ export class EditButtonComponent implements OnInit {
 
     async click(): Promise<void> {
         if (this.selectedId) {
-            this.tabService.openTab('Role edit', this.editUrl.replace('{id}', this.selectedId));
+            this.tabService.openTab('', this.editUrl.replace('{id}', this.selectedId), true);
         }
         this.editButton.completeLoading();
     }

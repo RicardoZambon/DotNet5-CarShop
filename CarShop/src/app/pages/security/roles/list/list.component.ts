@@ -1,13 +1,12 @@
-import { MessageModel } from './../../../../shared/models/message-model';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
 
-import { RolesService } from './../../../../shared/services/roles.service';
+import { ExportButtonComponent } from 'src/app/shared/buttons/export-button/export-button.component';
+import { GridHeaderComponent } from 'src/app/shared/components/grid-header/grid-header.component';
+import { MessageModel } from 'src/app/shared/models/message-model';
+import { RolesService } from 'src/app/shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
-
-import { GridHeaderComponent } from './../../../../shared/components/grid-header/grid-header.component';
-import { ExportButtonComponent } from './../../../../shared/buttons/export-button/export-button.component';
 
 @Component({
     selector: 'app-list',

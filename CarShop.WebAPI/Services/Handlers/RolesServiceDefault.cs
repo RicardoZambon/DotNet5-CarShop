@@ -89,8 +89,13 @@ namespace CarShop.WebAPI.Services.Handlers
             return memory.ToArray();
         }
 
+        public async Task<string> GetRoleDisplayNameAsync(int roleId)
+        {
+            return await this.rolesRepository.GetDisplayNameAsync(roleId);
+        }
 
-        public async Task DeleteRoles(int[] roleIds)
+
+        public async Task DeleteRolesAsync(int[] roleIds)
         {
             using var transaction = await context.Database.BeginTransactionAsync();
 

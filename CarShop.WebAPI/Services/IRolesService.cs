@@ -10,6 +10,8 @@ namespace CarShop.WebAPI.Services
         Task<byte[]> ExportAllRolesToCSV();
         Task<byte[]> ExportAllRolesToXLSX();
 
-        Task DeleteRoles(int[] roleIds);
+        Task<string> GetRoleDisplayNameAsync(int roleId);
+
+        Task DeleteRolesAsync(int[] roleIds);
     }
 }

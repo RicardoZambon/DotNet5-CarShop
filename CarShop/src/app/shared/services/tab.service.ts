@@ -28,13 +28,14 @@ export class TabService {
     constructor(private router: Router) { }
 
 
-    public openTab(title: string, url: string): void {
+    public openTab(title: string, url: string, loadingTitle: boolean = false): void {
         let tab = this.getTab(url);
         if (!tab) {
             tab = new Tab();
             
             tab.title = title;
             tab.url = url;
+            tab.loadingTitle = loadingTitle;
             this.openTabs.push(tab);
 
             this.tabOpened.emit(url);
@@ -100,6 +101,14 @@ export class TabService {
 
     public openCurrentUrl(title: string) {
         const url = this.router.url.substring(1, this.router.url.length);
-        this.openTab(title, url);
+
+        const tab = this.getTab(url);
+        if (tab) {
+            tab.title = title;
+            tab.loadingTitle = false;
+        }
+        else {
+            this.openTab(title, url);
+        }
     }
 }

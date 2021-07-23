@@ -19,7 +19,7 @@ namespace CarShop.WebAPI.Controllers
 
 
         [HttpGet]
-        public ActionResult<IQueryable<RoleListModel>> Get(int startRow, int endRow)
+        public ActionResult<IQueryable<RoleListModel>> List(int startRow, int endRow)
         {
             try
             {
@@ -36,15 +36,12 @@ namespace CarShop.WebAPI.Controllers
         {
             try
             {
-                switch (option)
+                return option switch
                 {
-                    case "csv":
-                        return File(await rolesService.ExportAllRolesToCSV(), "text/csv", "usuarios.csv");
-                    case "xlsx":
-                        return File(await rolesService.ExportAllRolesToXLSX(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "usuarios.xlsx");
-                    default:
-                        return NotFound();
-                }
+                    "csv" => File(await rolesService.ExportAllRolesToCSV(), "text/csv", "usuarios.csv"),
+                    "xlsx" => File(await rolesService.ExportAllRolesToXLSX(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "usuarios.xlsx"),
+                    _ => NotFound(),
+                };
             }
             catch (Exception ex)
             {
@@ -52,17 +49,31 @@ namespace CarShop.WebAPI.Controllers
             }
         }
 
+        [HttpGet, Route(nameof(Title) + "/{roleId}")]
+        public async Task<ActionResult<string>> Title(int roleId)
+        {
+            try
+            {
+                return Ok(await rolesService.GetRoleDisplayNameAsync(roleId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int[] roleIds)
         {
             try
             {
-                await rolesService.DeleteRoles(roleIds);
+                await rolesService.DeleteRolesAsync(roleIds);
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
     }
