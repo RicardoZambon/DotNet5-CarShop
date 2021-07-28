@@ -13,6 +13,10 @@ import { ButtonComponent } from './button/button.component';
 import { ButtonContainerComponent } from './button-container/button-container.component';
 import { ButtonDropdownComponent } from './button-dropdown/button-dropdown.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
+import { EditContainerComponent } from './edit-container/edit-container.component';
+import { EditItemTitleComponent } from './edit-item-title/edit-item-title.component';
+import { EditTitleComponent } from './edit-title/edit-title.component';
+import { ListContainerComponent } from './list-container/list-container.component';
 import { LoginInputComponent } from './login-input/login-input.component';
 import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
@@ -23,6 +27,7 @@ import { TabItemComponent } from './tab-item/tab-item.component';
 import { AutoScrollDirective } from './../directives/auto-scroll/auto-scroll.directive';
 import { AutoScrollGridDirective } from './../directives/auto-scroll-grid/auto-scroll-grid.directive';
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
+import { ScrollSpyDirective } from '../directives/scroll-spy/scroll-spy.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 
 import { GridHeaderComponent } from './grid-header/grid-header.component';
@@ -35,6 +40,10 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
         ButtonContainerComponent,
         ButtonDropdownComponent,
         ButtonGroupComponent,
+        EditContainerComponent,
+        EditItemTitleComponent,
+        EditTitleComponent,
+        ListContainerComponent,
         LoginInputComponent,
         NavDrawerComponent,
         NavItemComponent,
@@ -45,6 +54,7 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
         AutoScrollDirective,
         AutoScrollGridDirective,
         AutofocusDirective,
+        ScrollSpyDirective,
         TrackScrollDirective,
 
         GridHeaderComponent,
@@ -63,6 +73,9 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
         ButtonContainerComponent,
         ButtonDropdownComponent,
         ButtonGroupComponent,
+        EditContainerComponent,
+        EditItemTitleComponent,
+        ListContainerComponent,
         LoginInputComponent,
         NavDrawerComponent,
         NavItemComponent,

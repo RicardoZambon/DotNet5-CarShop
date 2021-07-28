@@ -53,7 +53,9 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
+        RouterModule.forRoot(routes, {
+            scrollPositionRestoration: 'enabled'
+        }),
         JwtModule.forRoot({
             config: {
                 tokenGetter: () => localStorage.getItem("jwt"),

@@ -106,6 +106,7 @@ export class TabService {
         if (tab) {
             tab.title = title;
             tab.loadingTitle = false;
+            tab.updatePosition();
         }
         else {
             this.openTab(title, url);

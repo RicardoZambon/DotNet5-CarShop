@@ -12,6 +12,9 @@ import { TabService } from 'src/app/shared/services/tab.service';
 export class RolesEditComponent implements OnInit {
 
     roleId: string | null = null;
+    title: string | null = null;
+
+    
 
     constructor(private roleService: RolesService, private tabService: TabService, private route: ActivatedRoute) { }
 
@@ -20,6 +23,7 @@ export class RolesEditComponent implements OnInit {
         if (this.roleId) {
             const title = await this.roleService.getRoleDisplayName(parseInt(this.roleId));
             if (!title.startsWith('InternalServerError:')) {
+                this.title = title;
                 this.tabService.openCurrentUrl(title);
             }
             else {

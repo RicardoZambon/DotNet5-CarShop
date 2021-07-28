@@ -1,4 +1,4 @@
-<app-button-container>    
+<app-button-container>
     
     <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
         <app-new-button [newUrl]="newUrl"></app-new-button>
@@ -25,8 +25,7 @@
 
 </app-button-container>
 
-<div class="list-container" auto-scroll>
-    
+<app-list-container auto-scroll>    
     <ag-grid-angular #grid
         class="ag-theme-alpine flex-grow-1 border rounded mt-0 h-100"
         [columnDefs]="columnDefs"
@@ -42,8 +41,8 @@
         auto-scroll-grid
     >
     </ag-grid-angular>
+</app-list-container>
 
-</div>
 
 <app-delete-modal
     [modalId]="'listUserDeleteModal'"
