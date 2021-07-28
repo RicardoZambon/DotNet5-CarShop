@@ -36,6 +36,9 @@
     "ButtonGroup-General": "Geral",
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
+    "Button-Save": "Salvar",
+    "Button-Save-And-Close": "Salvar e fechar",
+    "Button-Save-And-New": "Salvar e novo",
 
     "RolesEdit-New-Title": "Nova função",
     "RolesList-Columns-Name": "Nome",

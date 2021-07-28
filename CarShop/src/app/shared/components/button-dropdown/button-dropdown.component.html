@@ -1,8 +1,10 @@
-<div class="dropdown">
-    <div #button class="btn d-flex flex-column text-nowrap" data-bs-toggle="dropdown" role="button" aria-expanded="false"
+<div class="dropdown btn-group">
+    <div #button class="btn d-flex flex-column text-nowrap"
+        [class.hover]="this.hover && !this.isSuccess"
         [class.btn-success]="this.isSuccess"
         [attr.success]="this.isSuccess ? '' : null"
         [ngClass]="{ 'disabled' : this.disabled }"
+        (click)="this.buttonClick($event)"
     >
         <div class="icon">
             <i class="fas {{ this.isLoading ? 'fa-spinner fa-spin' : this.isSuccess ? 'fa-check' : this.icon }} {{ this.color }} fa-fw"
@@ -10,18 +12,32 @@
             ></i>
         </div>
         
-        <div class="label dropdown-toggle">
+        <div class="label">
             <span class="d-none d-sm-inline">{{ this.label }}</span>
         </div>
     </div>
 
-    <ul class="dropdown-menu">
-        <li *ngFor="let item of this.menuItems; trackBy: identify">
-            <a class="dropdown-item" (click)="this.itemClick(item, $event)">
-                <i *ngIf="item.icon !== ''" class="fas fa-{{ item.icon }}"></i>
-                {{ item.label }}
-            </a>
-        </li>
-    </ul>
+    <div class="btn-group">
+        <a #toggle class="btn dropdown-toggle text-nowrap {{ this.color }}" role="button" aria-expanded="false"
+            [class.hover]="this.hover && !this.isSuccess"
+            [class.default-color]="!this.color"
+            [class.btn-success]="this.isSuccess"
+            [attr.success]="this.isSuccess ? '' : null"
+            [ngClass]="{ 'disabled' : this.disabled }"
+        ></a>
+
+        <ul class="dropdown-menu"
+            [ngStyle]="{
+                'transform': 'translateX(' + -100 + 'px) !important'
+            }"
+        >
+            <li *ngFor="let item of this.getMenuItems(); trackBy: identify">
+                <a class="dropdown-item" (click)="this.itemClick(item, $event)">
+                    <i *ngIf="item.icon !== ''" class="fas fa-{{ item.icon }}"></i>
+                    {{ item.label | translate }}
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 

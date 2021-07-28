@@ -8,7 +8,7 @@ import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output
 export class ButtonComponent implements OnInit {
 
     @HostBinding('attr.loading') loadingAttr!: string | null;
-    @ViewChild('button') buttonElement!: ElementRef<HTMLButtonElement>;
+    @ViewChild('button') buttonElement!: ElementRef<HTMLDivElement>;
 
     @Input() name!: string;
     @Input() color?: string;

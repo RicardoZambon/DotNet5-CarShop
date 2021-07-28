@@ -9,6 +9,7 @@ import { EditButtonComponent } from './edit-button/edit-button.component';
 import { ExportButtonComponent } from './export-button/export-button.component';
 import { NewButtonComponent } from './new-button/new-button.component';
 import { RefreshButtonComponent } from './refresh-button/refresh-button.component';
+import { SaveButtonComponent } from './save-button/save-button.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { RefreshButtonComponent } from './refresh-button/refresh-button.componen
       ExportButtonComponent,
       NewButtonComponent,
       RefreshButtonComponent,
+      SaveButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { RefreshButtonComponent } from './refresh-button/refresh-button.componen
       ExportButtonComponent,
       NewButtonComponent,
       RefreshButtonComponent,
+      SaveButtonComponent,
   ]
 })
 export class ButtonsModule { }

@@ -1,5 +1,10 @@
 <app-button-container>
-
+    <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
+        <app-save-button #saveButton
+            [alertMessageModel]="saveAlertMessageModel"
+            [alertFailureMessage]="'RolesEdit-Save-AlertFailure-Message'"
+            [save]="saveClick"></app-save-button>
+    </app-button-group>
 </app-button-container>
 
 <app-edit-container auto-scroll>

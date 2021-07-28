@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { TabService } from 'src/app/shared/services/tab.service';
 
@@ -14,6 +15,9 @@ export class RolesEditComponent implements OnInit {
     roleId: string | null = null;
     title: string | null = null;
 
+    /* Save */
+    saveClick = async () => this.save();
+    saveAlertMessageModel = new MessageModel('RolesEdit-Save-Alert-Title', 'RolesEdit-Save-Alert-Message', false, false);
     
 
     constructor(private roleService: RolesService, private tabService: TabService, private route: ActivatedRoute) { }
@@ -33,5 +37,9 @@ export class RolesEditComponent implements OnInit {
         else {
             this.tabService.openCurrentUrl('RolesEdit-New-Title');
         }
+    }
+
+    async save(): Promise<string> {
+        return '';
     }
 }
