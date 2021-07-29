@@ -14,7 +14,8 @@ import { ButtonContainerComponent } from './common/button-container/button-conta
 import { ButtonDropdownComponent } from './common/button-dropdown/button-dropdown.component';
 import { ButtonGroupComponent } from './common/button-group/button-group.component';
 import { EditContainerComponent } from './edit/edit-container/edit-container.component';
-import { EditItemTitleComponent } from './edit/edit-item-title/edit-item-title.component';
+import { EditGroupComponent } from './edit/edit-group/edit-group.component';
+import { EditSectionComponent } from './edit/edit-section/edit-section.component';
 import { EditTitleComponent } from './edit/edit-title/edit-title.component';
 import { ListContainerComponent } from './list/list-container/list-container.component';
 import { LoginInputComponent } from './login/login-input/login-input.component';
@@ -42,7 +43,8 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         ButtonDropdownComponent,
         ButtonGroupComponent,
         EditContainerComponent,
-        EditItemTitleComponent,
+        EditGroupComponent,
+        EditSectionComponent,
         EditTitleComponent,
         ListContainerComponent,
         LoginInputComponent,
@@ -76,7 +78,8 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         ButtonDropdownComponent,
         ButtonGroupComponent,
         EditContainerComponent,
-        EditItemTitleComponent,
+        EditGroupComponent,
+        EditSectionComponent,
         ListContainerComponent,
         LoginInputComponent,
         NavDrawerComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit, ContentChildren, QueryList, ViewChild, Input } from '@angular/core';
 
-import { EditItemTitleComponent } from './../edit-item-title/edit-item-title.component';
+import { EditSectionComponent } from '../edit-section/edit-section.component';
 import { ScrollSpyDirective } from '../../../directives/scroll-spy/scroll-spy.directive';
 
 
@@ -11,7 +11,7 @@ import { ScrollSpyDirective } from '../../../directives/scroll-spy/scroll-spy.di
 })
 export class EditContainerComponent implements OnInit {
 
-    @ContentChildren(EditItemTitleComponent, { descendants: true }) titles!: QueryList<EditItemTitleComponent>;
+    @ContentChildren(EditSectionComponent, { descendants: true }) titles!: QueryList<EditSectionComponent>;
     @ViewChild(ScrollSpyDirective) scrollSpy!: ScrollSpyDirective;
 
     @Input() icon!: string;

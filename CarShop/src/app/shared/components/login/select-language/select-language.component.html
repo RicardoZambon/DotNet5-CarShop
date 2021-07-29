@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <button #dropdown class="btn btn-language dropdown-toggle" type="button" id="dropdownLanguages" data-bs-toggle="dropdown" aria-expanded="false">
+    <button #dropdown class="btn btn-language dropdown-toggle" type="button" id="dropdownLanguages" data-bs-toggle="dropdown" aria-expanded="false" (click)="this.click()">
         <span class="flag flag-{{ translate.currentLang }}">{{'SelectLanguage-Title' | translate}}</span>
     </button>
 

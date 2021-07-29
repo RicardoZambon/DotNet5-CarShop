@@ -37,13 +37,13 @@
     "Button-Delete-Message": "Are you sure you want to proceed?",
     "Button-Delete-Message-Confirm": "Confirm delete",
     "Button-Delete-Message-Cancel": "Cancel",
+    "Button-Save": "Save",
+    "Button-Save-And-Close": "Save and close",
+    "Button-Save-And-New": "Save and new",
     
     "ButtonGroup-General": "General",
     "Button-Refresh": "Refresh",
     "Button-Export": "Export",
-    "Button-Save": "Save",
-    "Button-Save-And-Close": "Save and close",
-    "Button-Save-And-New": "Save and new",
 
     "RolesEdit-New-Title": "New role",
     "RolesList-Columns-Name": "Name",
@@ -61,7 +61,9 @@
     "RolesList-Export-Alert-Message": "The roles were successfully exported, check your browser downloads section.",
     "RolesList-Export-AlertFailure-Message": "We're sorry, but something went wrong when exporting the roles.",
 
-    "RolesEdit-Details": "Details",
+    "RolesEdit-Section-Details": "Details",
+    "RolesEdit-Group-Role": "Role",
+    "RolesEdit-Label-Name": "Name",
 
     "AlertFailure-Title": "Oops, an error occurred!",
     "AlertFailure-SuffixMessage": "If this error continues, please contact support."

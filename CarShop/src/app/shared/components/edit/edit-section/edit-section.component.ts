@@ -2,12 +2,12 @@ import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '
 import { Collapse } from 'bootstrap';
 
 @Component({
-    selector: 'app-edit-item-title',
-    templateUrl: './edit-item-title.component.html',
-    styleUrls: ['./edit-item-title.component.scss'],
+    selector: 'app-edit-section',
+    templateUrl: './edit-section.component.html',
+    styleUrls: ['./edit-section.component.scss'],
     host: { class: 'accordion-item' }
 })
-export class EditItemTitleComponent implements OnInit, AfterViewInit {
+export class EditSectionComponent implements OnInit, AfterViewInit {
 
     @Input('id') id!: string;
     @Input() label!: string;

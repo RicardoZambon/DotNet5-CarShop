@@ -8,7 +8,7 @@
             [class.active]="i == this.activeSection"
             *ngFor="let title of titles; let i = index"
             (click)="scrollTo(i)"
-        >{{ title.label | translate }}</a>
+        >{{ title.label }}</a>
     </div>
 
     <div #section class="accordion content" appScrollSpy [spiedTags]="['app-edit-item-title']" (sectionChange)="onSectionChange($event)">

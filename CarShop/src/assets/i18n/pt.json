@@ -34,13 +34,13 @@
     "Button-Delete-Message": "Tem certeza que deseja continuar?",
     "Button-Delete-Message-Confirm": "Confirmar exclusão",
     "Button-Delete-Message-Cancel": "Cancelar",
+    "Button-Save": "Salvar",
+    "Button-Save-And-Close": "Salvar e fechar",
+    "Button-Save-And-New": "Salvar e novo",
 
     "ButtonGroup-General": "Geral",
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
-    "Button-Save": "Salvar",
-    "Button-Save-And-Close": "Salvar e fechar",
-    "Button-Save-And-New": "Salvar e novo",
 
     "RolesEdit-New-Title": "Nova função",
     "RolesList-Columns-Name": "Nome",
@@ -58,7 +58,9 @@
     "RolesList-Export-Alert-Message": "As funções foram exportadas com sucesso, verifique a seção de downloads do seu navegador.",
     "RolesList-Export-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao exportar as funções.",
 
-    "RolesEdit-Details": "Details",
+    "RolesEdit-Section-Details": "Detalhes",
+    "RolesEdit-Group-Role": "Função",
+    "RolesEdit-Label-Name": "Nome",
 
     "AlertFailure-Title": "Oops, ocorreu um erro!",
     "AlertFailure-SuffixMessage": "Se este erro continuar, por favor contate o suporte."

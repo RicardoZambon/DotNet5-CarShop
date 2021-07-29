@@ -1,0 +1,10 @@
+@import "/src/app/shared/styles/variables";
+
+:host-context {
+    display: block;
+
+    .group-title {
+        font-weight: 500;
+        border-bottom: 1px solid darken($home-base-color, 40%);
+    }
+}
