@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { SelectionChangedEvent } from 'ag-grid-community';
 
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../../components/common/button/button.component';
 import { TabService } from './../../services/tab.service';
 
 

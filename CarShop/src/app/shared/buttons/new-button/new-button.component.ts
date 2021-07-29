@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../../components/common/button/button.component';
 import { TabService } from '../../services/tab.service';
 
 @Component({

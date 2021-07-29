@@ -3,13 +3,11 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
 
 import { ExportButtonComponent } from 'src/app/shared/buttons/export-button/export-button.component';
-import { GridHeaderComponent } from 'src/app/shared/components/grid-header/grid-header.component';
-import { GridLoadingRendererComponent } from 'src/app/shared/components/grid-loading/grid-loading.component';
+import { GridHeaderComponent } from 'src/app/shared/components/list/grid-header/grid-header.component';
+import { GridLoadingRendererComponent } from 'src/app/shared/components/list/grid-loading/grid-loading.component';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
-import { from } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'app-list',

@@ -1,0 +1,17 @@
+<app-edit-title [icon]="this.icon">
+    <span>{{ this.title }}</span>
+</app-edit-title>
+
+<div class="content-container">
+    <div id="scroll-list" class="scroll-spy d-none d-md-block">
+        <a class="list-group-item list-group-item-action"
+            [class.active]="i == this.activeSection"
+            *ngFor="let title of titles; let i = index"
+            (click)="scrollTo(i)"
+        >{{ title.label | translate }}</a>
+    </div>
+
+    <div #section class="accordion content" appScrollSpy [spiedTags]="['app-edit-item-title']" (sectionChange)="onSectionChange($event)">
+        <ng-content></ng-content>
+    </div>
+</div>

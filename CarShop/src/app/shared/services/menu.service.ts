@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { MenuItem } from '../components/nav-drawer/menu-item';
+import { MenuItem } from '../components/menu/nav-drawer/menu-item';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../../components/common/button/button.component';
 
 @Component({
     selector: 'app-refresh-button',

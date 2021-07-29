@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Tab } from '../components/tabs/tab';
+import { Tab } from '../components/common/tabs/tab';
 
 @Injectable({
     providedIn: 'root'

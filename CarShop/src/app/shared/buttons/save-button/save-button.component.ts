@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { AlertService } from '../../services/alert.service';
-import { ButtonComponent } from '../../components/button/button.component';
-import { MenuItem } from '../../components/button-dropdown/menu-item';
+import { ButtonComponent } from '../../components/common/button/button.component';
+import { MenuItem } from '../../components/common/button-dropdown/menu-item';
 import { MessageModel } from '../../models/message-model';
 
 @Component({

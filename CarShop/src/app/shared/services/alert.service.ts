@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AlertMessage } from './../components/alert-message/alert-message';
+import { AlertMessage } from '../components/common/alert-message/alert-message';
 import { MessageModel } from './../models/message-model';
 
 @Injectable({

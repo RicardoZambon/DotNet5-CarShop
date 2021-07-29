@@ -3,9 +3,9 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { MenuItem } from 'src/app/shared/components/nav-drawer/menu-item';
+import { MenuItem } from 'src/app/shared/components/menu/nav-drawer/menu-item';
 import { MenuService } from './../../shared/services/menu.service';
-import { NavDrawerComponent } from '../../shared/components/nav-drawer/nav-drawer.component';
+import { NavDrawerComponent } from '../../shared/components/menu/nav-drawer/nav-drawer.component';
 import { TabService } from './../../shared/services/tab.service';
 
 @Component({

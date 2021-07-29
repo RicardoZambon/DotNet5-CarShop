@@ -7,22 +7,22 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { I18nModule } from './../../i18n/i18n.module';
 import { PipesModule } from './../pipes/pipes.module';
 
-import { AlertContainerComponent } from './alert-container/alert-container.component';
-import { AlertMessageComponent } from './alert-message/alert-message.component';
-import { ButtonComponent } from './button/button.component';
-import { ButtonContainerComponent } from './button-container/button-container.component';
-import { ButtonDropdownComponent } from './button-dropdown/button-dropdown.component';
-import { ButtonGroupComponent } from './button-group/button-group.component';
-import { EditContainerComponent } from './edit-container/edit-container.component';
-import { EditItemTitleComponent } from './edit-item-title/edit-item-title.component';
-import { EditTitleComponent } from './edit-title/edit-title.component';
-import { ListContainerComponent } from './list-container/list-container.component';
-import { LoginInputComponent } from './login-input/login-input.component';
-import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
-import { NavItemComponent } from './nav-item/nav-item.component';
-import { SelectLanguageComponent } from './select-language/select-language.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { TabItemComponent } from './tab-item/tab-item.component';
+import { AlertContainerComponent } from './common/alert-container/alert-container.component';
+import { AlertMessageComponent } from './common/alert-message/alert-message.component';
+import { ButtonComponent } from './common/button/button.component';
+import { ButtonContainerComponent } from './common/button-container/button-container.component';
+import { ButtonDropdownComponent } from './common/button-dropdown/button-dropdown.component';
+import { ButtonGroupComponent } from './common/button-group/button-group.component';
+import { EditContainerComponent } from './edit/edit-container/edit-container.component';
+import { EditItemTitleComponent } from './edit/edit-item-title/edit-item-title.component';
+import { EditTitleComponent } from './edit/edit-title/edit-title.component';
+import { ListContainerComponent } from './list/list-container/list-container.component';
+import { LoginInputComponent } from './login/login-input/login-input.component';
+import { NavDrawerComponent } from './menu/nav-drawer/nav-drawer.component';
+import { NavItemComponent } from './menu/nav-item/nav-item.component';
+import { SelectLanguageComponent } from './login/select-language/select-language.component';
+import { TabsComponent } from './common/tabs/tabs.component';
+import { TabItemComponent } from './common/tab-item/tab-item.component';
 
 import { AutoScrollDirective } from './../directives/auto-scroll/auto-scroll.directive';
 import { AutoScrollGridDirective } from './../directives/auto-scroll-grid/auto-scroll-grid.directive';
@@ -30,8 +30,8 @@ import { AutofocusDirective } from './../directives/autofocus/autofocus.directiv
 import { ScrollSpyDirective } from '../directives/scroll-spy/scroll-spy.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 
-import { GridHeaderComponent } from './grid-header/grid-header.component';
-import { GridLoadingRendererComponent } from './grid-loading/grid-loading.component';
+import { GridHeaderComponent } from './list/grid-header/grid-header.component';
+import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.component';
 
 @NgModule({
     declarations: [

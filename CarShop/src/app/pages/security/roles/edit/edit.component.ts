@@ -13,7 +13,7 @@ import { TabService } from 'src/app/shared/services/tab.service';
 export class RolesEditComponent implements OnInit {
 
     roleId: string | null = null;
-    title: string | null = null;
+    title: string = '';
 
     /* Save */
     saveClick = async () => this.save();

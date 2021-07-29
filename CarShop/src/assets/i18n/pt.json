@@ -58,6 +58,8 @@
     "RolesList-Export-Alert-Message": "As funções foram exportadas com sucesso, verifique a seção de downloads do seu navegador.",
     "RolesList-Export-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao exportar as funções.",
 
+    "RolesEdit-Details": "Details",
+
     "AlertFailure-Title": "Oops, ocorreu um erro!",
     "AlertFailure-SuffixMessage": "Se este erro continuar, por favor contate o suporte."
 }

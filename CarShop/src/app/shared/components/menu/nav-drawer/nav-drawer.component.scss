@@ -1,0 +1,213 @@
+@import "/src/app/shared/styles/variables";
+
+@import "src/app/shared/styles/background";
+@import 'src/app/shared/styles/no-select';
+@import "src/app/shared/styles/scroll";
+
+
+.menu {
+    color: darken($home-base-color, 10%);
+
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
+
+    .navbar-header {
+        @include background(darken($home-base-color3, 5%), .95);
+
+        .logo-container {
+            text-align: center;
+            position: relative;
+            height: 50px;
+
+            .logo-expanded, .logo-collapsed {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+            }
+
+            .logo-expanded {
+                width: $menu-width-expanded;
+                background: url(#{$home-expanded-logo-url}) no-repeat center center;
+                background-size: contain;
+            }
+    
+            .logo-collapsed {
+                width: $menu-width-collapsed;
+                background: url(#{$home-collapsed-logo-url}) no-repeat center center;
+                background-size: contain;
+            }
+        }
+
+        .profile-container {
+            height: 48px;
+
+            .profile-picture {
+                -webkit-flex: 0 0 48px;
+                flex: 0 0 48px;
+
+                background-color: $home-base-color;
+                border-radius: 24px;
+                max-height: 48px;
+                margin-right: .7rem;
+                margin-left: .7rem;
+                overflow: hidden;
+                width: 48px;
+
+                @include no-select();
+    
+                img {
+                    width: 48px;
+                    height: 48px;
+                }
+            }
+            
+            .user-name, .user-department {
+                flex: 0 0 50%;
+                -webkit-flex: 0 0 50%;
+                font-size: .9rem;
+                width: calc(#{$menu-width-expanded} - #{$menu-width-collapsed});
+                
+                @include no-select();
+            }
+    
+            .user-name {
+                font-weight: bold;
+            }
+    
+            .user-department {
+                font-weight: 100;
+                font-size: .8rem;
+                color: lighten($home-fore-color, 40%);
+            }
+        }
+    }
+
+    .navbar-menu {
+        overflow-y: auto;
+        @include scroll(darken($home-base-color3, 7%));
+
+        .nav {
+            z-index: 1;
+                
+            .background-fill {
+                z-index: -1;
+                @include background(darken($home-base-color3, 7%), .95);
+            }
+        }
+    }
+}
+
+
+/* Animations */
+@keyframes collapse {
+    from { width: $menu-width-expanded; }
+    to { width: $menu-width-collapsed; }
+}
+
+@keyframes expand {
+    from { width: $menu-width-collapsed; }
+    to { width: $menu-width-expanded; }
+}
+
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+.menu {
+    /* Collapsed */
+    &.collapsed {
+        width: $menu-width-collapsed;
+
+        &:not(.first-opened) {
+            animation: collapse $menu-animation-speed ease-in-out;
+
+            .logo-container {
+                .logo-expanded {
+                    animation: fadeout $opacity-animation-speed ease;
+                    animation-fill-mode: forwards;
+                }
+                .logo-collapsed {
+                    animation: fadein $opacity-animation-speed ease;
+                    animation-fill-mode: forwards;
+                }
+            }
+
+            .profile-container {
+                .user-name, .user-department {
+                    animation: fadeout $opacity-animation-speed ease;
+                    animation-fill-mode: forwards;
+                }
+            }
+        }
+
+        .logo-container {
+            .logo-expanded {
+                opacity: 0;
+            }
+        }
+
+        .profile-container {
+            .user-name, .user-department {
+                opacity: 0;
+            }
+        }
+    }
+
+    /* Expanded */
+    &.expanded {
+        width: $menu-width-expanded;
+
+        &:not(.first-opened) {
+            animation: expand $menu-animation-speed ease-in-out;
+
+            .logo-container {
+                .logo-expanded {
+                    animation: fadein $opacity-animation-speed ease;
+                    animation-fill-mode: forwards;
+                }
+                .logo-collapsed {
+                    animation: fadeout $opacity-animation-speed ease;
+                    animation-fill-mode: forwards;
+                }
+            }
+
+            .profile-container {
+                .user-name, .user-department {
+                    animation: fadein $opacity-animation-speed ease;
+                    animation-fill-mode: forwards;
+                }
+            }
+        }
+
+        .logo-container {
+            .logo-collapsed {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+
+@media (max-width:768px) {
+    .menu {
+        margin-left: -70px;
+        max-width: 70px !important;
+        width: 70px !important;
+        transition: margin-left $menu-animation-speed ease-in-out;
+
+        &.collapsed {
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+    }
+}

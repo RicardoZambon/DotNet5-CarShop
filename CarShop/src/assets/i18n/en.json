@@ -61,6 +61,8 @@
     "RolesList-Export-Alert-Message": "The roles were successfully exported, check your browser downloads section.",
     "RolesList-Export-AlertFailure-Message": "We're sorry, but something went wrong when exporting the roles.",
 
+    "RolesEdit-Details": "Details",
+
     "AlertFailure-Title": "Oops, an error occurred!",
     "AlertFailure-SuffixMessage": "If this error continues, please contact support."
 }

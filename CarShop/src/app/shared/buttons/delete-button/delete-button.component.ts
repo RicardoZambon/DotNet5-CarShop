@@ -3,7 +3,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { SelectionChangedEvent } from 'ag-grid-community';
 
 import { AlertService } from './../../services/alert.service';
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../../components/common/button/button.component';
 import { MessageModel } from './../../models/message-model';
 
 @Component({

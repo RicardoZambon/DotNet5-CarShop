@@ -1,0 +1,83 @@
+@import "/src/app/shared/styles/variables";
+
+@import "/src/app/shared/styles/scroll";
+
+@import "bootstrap";
+
+:host-context {
+    margin-top: .5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+
+    background-color: rgba($home-base-color, .6);
+
+    .content-container {
+        position: relative;
+        flex-grow: 1;
+
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            scroll-behavior: smooth;
+            padding-right: 10.5rem;
+            padding-left: 1rem;
+            font-size: .9rem;
+    
+            @include scroll(darken($home-base-color, 20%));
+
+            ::ng-deep {
+                
+                .accordion-item {
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                }
+
+                .form-control {
+                    font-size: .9rem;
+                }
+            }
+        }
+
+        .scroll-spy {
+            position: absolute;
+            top: 0.75rem;
+            right: 7px;
+            width: 9rem;
+            z-index: 2;
+
+            a {
+                cursor: pointer;
+                padding: .6rem 1rem;
+                color: $home-fore-color;
+                background-color: transparent;
+                border: 0;
+                
+                border-left: 2px solid lighten($home-fore-color, 45%);
+
+                font-size: .8rem;
+
+                &.active {
+                    color: $home-base-color3;
+                    border-left-color: $home-base-color3;
+                }
+
+                &:active {
+                    background-color: rgba($home-base-color3, .1);
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .content {
+        padding-right: .25rem !important;
+    }
+}
