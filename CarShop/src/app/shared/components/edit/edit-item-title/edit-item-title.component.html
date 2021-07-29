@@ -1,7 +1,10 @@
-<h6 data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-' + this.id" id="{{ this.id }}">
+<h6 id="{{ this.id }}"
+    [class.collapsed]="this.collapsed"
+    (click)="this.click()"
+>
     <i class="fas fa-chevron-down fa-sm"></i>{{ this.label | translate }}
 </h6>
 
-<div id="panel-{{ this.id }}" class="accordion-collapse collapse show">
+<div #panel id="panel-{{ this.id }}" class="accordion-collapse">
     <ng-content></ng-content>
 </div>
