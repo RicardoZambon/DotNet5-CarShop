@@ -35,6 +35,7 @@ export class RolesEditComponent implements OnInit {
             }
         }
         else {
+            this.title = 'RolesEdit-New-Title';
             this.tabService.openCurrentUrl('RolesEdit-New-Title');
         }
     }
