@@ -27,6 +27,7 @@
             overflow: auto;
             scroll-behavior: smooth;
             padding-right: 9.25rem;
+            padding-left: .25rem;
     
             @include scroll(darken($home-base-color, 20%));
 

@@ -4,9 +4,12 @@ import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
 
 import { ExportButtonComponent } from 'src/app/shared/buttons/export-button/export-button.component';
 import { GridHeaderComponent } from 'src/app/shared/components/grid-header/grid-header.component';
+import { GridLoadingRendererComponent } from 'src/app/shared/components/grid-loading/grid-loading.component';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
+import { from } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'app-list',
@@ -19,12 +22,16 @@ export class RolesListComponent implements OnInit {
     @ViewChild('exportButton') exportButton!: ExportButtonComponent;
 
     datasource!: IDatasource;
-    frameworkComponents: any = { agColumnHeader: GridHeaderComponent };
+    frameworkComponents: any = {
+        agColumnHeader: GridHeaderComponent,
+        loadingRenderer: GridLoadingRendererComponent
+    };
     getRowNodeId = (data: RoleListModel) => data.id;
     columnDefs: ColDef[] = [
         { colId: 'id',      field: 'id',    headerName: 'ID', hide: true },
-        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
+        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, cellRenderer: 'loadingRenderer', cellRendererParams: { loadingMessage: 'Grid-Loading' }, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
     ];
+
 
     /* New */
     newUrl = 'roles/new';

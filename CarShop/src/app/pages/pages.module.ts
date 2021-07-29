@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 
 import { GridHeaderComponent } from './../shared/components/grid-header/grid-header.component';
+import { GridLoadingRendererComponent } from './../shared/components/grid-loading/grid-loading.component';
 import { I18nModule } from './../i18n/i18n.module';
 import { ButtonsModule } from './../shared/buttons/buttons.module';
 import { ComponentsModule } from './../shared/components/components.module';
@@ -35,7 +36,11 @@ import { RolesEditComponent } from './security/roles/edit/edit.component';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AgGridModule.withComponents([GridHeaderComponent]),
+        
+        AgGridModule.withComponents([
+            GridHeaderComponent,
+            GridLoadingRendererComponent
+        ]),
 
         I18nModule,
         ButtonsModule,

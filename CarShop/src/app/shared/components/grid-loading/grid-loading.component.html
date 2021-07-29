@@ -1,0 +1,8 @@
+<span *ngIf="!this.loading">
+    {{ this.params.value }}
+</span>
+
+<span *ngIf="this.loading">
+    <i class="fas fa-spinner fa-pulse"></i>
+    <span> {{ this.params.loadingMessage | translate }} </span>
+</span>

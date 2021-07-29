@@ -31,6 +31,7 @@ import { ScrollSpyDirective } from '../directives/scroll-spy/scroll-spy.directiv
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 
 import { GridHeaderComponent } from './grid-header/grid-header.component';
+import { GridLoadingRendererComponent } from './grid-loading/grid-loading.component';
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
         TrackScrollDirective,
 
         GridHeaderComponent,
+        GridLoadingRendererComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -86,6 +88,7 @@ import { GridHeaderComponent } from './grid-header/grid-header.component';
         AutoScrollGridDirective,
 
         GridHeaderComponent,
+        GridLoadingRendererComponent,
     ]
 })
 export class ComponentsModule { }
