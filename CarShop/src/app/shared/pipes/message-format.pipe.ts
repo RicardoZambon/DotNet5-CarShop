@@ -8,6 +8,7 @@ export class MessageFormatPipe implements PipeTransform {
     transform(message: string, count: number, name: string): string {
         return message
             .replace('[SelectionCount]', count.toString())
-            .replace('[SelectionName]', name);
+            .replace('[SelectionName]', name)
+            .replace('[]', '');
     }
 }

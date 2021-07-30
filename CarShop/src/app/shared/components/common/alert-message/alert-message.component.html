@@ -13,7 +13,12 @@
         <h6 class="mb-0">{{ alertMessage.message.title | translate }}</h6>
         <div>
             {{ alertMessage.message.message | translate | messageFormat: alertMessage.message.selectionCount:alertMessage.message.selectionName }}
+            
             <span *ngIf="alertMessage.error">{{ 'AlertFailure-SuffixMessage' | translate }}</span>
+            
+            <ul *ngIf="alertMessage.validation">
+                <li *ngFor="let error of alertMessage.message.validations">{{ error | translate }};</li>
+            </ul>
         </div>
     </div>
 

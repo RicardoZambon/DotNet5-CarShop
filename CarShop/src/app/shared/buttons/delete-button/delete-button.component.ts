@@ -43,7 +43,7 @@ export class DeleteButtonComponent implements OnInit {
             const result = await this.delete(rolesToDelete);
 
             if (typeof result === 'string') {
-                this.deleteButton.cancelLoading(true);
+                this.deleteButton.cancelLoadingWithError();
 
                 let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
                 errorMessageModel.selectionCount = this.alertMessageModel.selectionCount;

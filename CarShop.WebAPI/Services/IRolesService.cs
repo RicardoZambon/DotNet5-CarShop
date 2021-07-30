@@ -9,9 +9,10 @@ namespace CarShop.WebAPI.Services
         IQueryable<RoleListModel> GetAllRoles(int startRow, int endRow);
         Task<byte[]> ExportAllRolesToCSV();
         Task<byte[]> ExportAllRolesToXLSX();
-
         Task<string> GetRoleDisplayNameAsync(int roleId);
 
         Task DeleteRolesAsync(int[] roleIds);
+
+        Task<RoleEditModel> GetRoleAsync(int roleId);
     }
 }

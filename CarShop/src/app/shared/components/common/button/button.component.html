@@ -1,13 +1,11 @@
-<div #button class="btn d-flex flex-column text-nowrap"
-    [class.btn-success]="this.isSuccess"
-    [class.btn-danger]="this.isError"
+<div #button class="btn d-flex flex-column text-nowrap {{ this.buttonClass }}"
     [attr.data-bs-toggle]="this.modalReference ? 'modal' : null"
     [attr.data-bs-target]="this.modalReference"
     [ngClass]="{ 'disabled' : this.disabled }"
     (click)="this.click($event)"
 >
     <div class="icon">
-        <i class="fas {{ this.isLoading ? 'fa-spinner fa-spin' : this.isSuccess ? 'fa-check' : this.isError ? 'fa-times' : this.icon }} {{ this.color }} fa-fw"
+        <i class="fas {{ this.displayIcon }} {{ this.color }} fa-fw"
             [class.default-color]="!this.color"
         ></i>
     </div>

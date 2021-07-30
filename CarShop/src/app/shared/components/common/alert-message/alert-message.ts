@@ -5,6 +5,7 @@ export class AlertMessage {
     message!: MessageModel;
     
     error = false;
+    validation = false;
 
     show = false;
 }

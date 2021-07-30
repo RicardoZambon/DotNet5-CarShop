@@ -4,8 +4,20 @@
 @import "../button/button.component.scss";
 
 .btn {
-    &.hover {
-        background-color: rgba($home-fore-color, .15);
+    &:not(.btn-danger):not(.btn-success):not(.btn-warning) {
+        &.hover {
+            background-color: rgba($home-fore-color, .15);
+        }
+    }
+
+    &.btn-success, &.btn-danger, &.btn-warning {
+        &.dropdown-toggle {
+            color: white !important;
+        }
+
+        .label {
+            color: white !important;
+        }
     }
 }
 

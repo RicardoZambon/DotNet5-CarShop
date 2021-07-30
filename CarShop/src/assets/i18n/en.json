@@ -61,10 +61,21 @@
     "RolesList-Export-Alert-Message": "The roles were successfully exported, check your browser downloads section.",
     "RolesList-Export-AlertFailure-Message": "We're sorry, but something went wrong when exporting the roles.",
 
+    "RolesEdit-Load-AlertFailure-Message": "We're sorry, but something went wrong when loading the role '[SelectionName]'.",
     "RolesEdit-Section-Details": "Details",
     "RolesEdit-Group-Role": "Role",
-    "RolesEdit-Label-Name": "Name",
+    "RolesEdit-Name-Label": "Name",
+    "RolesEdit-Name-Required": "Type the role name.",
+    "RolesEdit-Name-Required-Validation": "Missing the role name",
+    "RolesEdit-Save-Alert-Title": "Role saved",
+    "RolesEdit-Save-Alert-Message": "The role '[SelectionName]' was successfully saved.",
+    "RolesEdit-Save-AlertValidation-Message": "Please, check the following issues we found when saving the role '[SelectionName]':",
+    "RolesEdit-Save-AlertValidation-Message-New": "Please, check the following issues we found when saving the new role:",
+    "RolesEdit-Save-AlertFailure-Message": "We're sorry, but something went wrong when saving the role '[SelectionName]'.",
+    "RolesEdit-Save-AlertFailure-Message-New": "We're sorry, but something went wrong when saving the new role.",
 
+    "AlertValidation-Title": "Incorrect information in your submission!",
     "AlertFailure-Title": "Oops, an error occurred!",
     "AlertFailure-SuffixMessage": "If this error continues, please contact support."
+
 }

@@ -112,5 +112,9 @@ namespace CarShop.WebAPI.Services.Handlers
                 throw;
             }
         }
+
+
+        public async Task<RoleEditModel> GetRoleAsync(int roleId)
+            => mapper.Map<RoleEditModel>(await rolesRepository.GetAsync(roleId));
     }
 }

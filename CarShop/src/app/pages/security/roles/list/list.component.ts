@@ -17,8 +17,7 @@ import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
 export class RolesListComponent implements OnInit {
 
     @ViewChild('grid') grid!: AgGridAngular;
-    @ViewChild('exportButton') exportButton!: ExportButtonComponent;
-
+    
     datasource!: IDatasource;
     frameworkComponents: any = {
         agColumnHeader: GridHeaderComponent,
@@ -43,6 +42,7 @@ export class RolesListComponent implements OnInit {
     deleteAlertMessageModel = new MessageModel('RolesList-Delete-Alert-Title', 'RolesList-Delete-Alert-Message');
 
     /* Export */
+    @ViewChild('exportButton') exportButton!: ExportButtonComponent;
     exportClick = async (option: string) => this.export(option);
     exportAlertMessageModel = new MessageModel('RolesList-Export-Alert-Title', 'RolesList-Export-Alert-Message', false, false);
 

@@ -1,8 +1,11 @@
+import { ValidationErrors } from '@angular/forms';
+
 export class MessageModel {
     private _title!: string;
     private _message!: string;
     selectionCount: number = 0;
     selectionName: string = '';
+    validations = new Array<string>();
 
     private titleHasPlural = true;
     private messageHasPlural = true;
@@ -37,6 +40,7 @@ export class MessageModel {
         
         newModel.selectionCount = messageModel.selectionCount;
         newModel.selectionName = messageModel.selectionName;
+        newModel.validations = messageModel.validations;
         
         return newModel;
     }

@@ -1,0 +1,17 @@
+<div [formGroup]="this.formGroup">
+    <input #input class="form-control rounded-end" [type]="this.type"
+        [id]="this.controlName"
+        [formControlName]="this.controlName"
+
+        [class.is-invalid]="this.isValid()"
+        [class.border-danger]="this.isValid()"
+
+        [placeholder]="this.placeholder"
+
+        [autofocus]="this.autofocus"
+    />
+
+    <div [class.d-none]="!this.isValid()" class="invalid-feedback">
+        <ng-content select="[validations]"></ng-content>
+    </div>
+</div>

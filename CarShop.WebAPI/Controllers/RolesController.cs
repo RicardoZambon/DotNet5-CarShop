@@ -76,5 +76,19 @@ namespace CarShop.WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpGet, Route("{roleId}")]
+        public async Task<ActionResult<RoleEditModel>> Get(int roleId)
+        {
+            try
+            {
+                return Ok(await rolesService.GetRoleAsync(roleId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

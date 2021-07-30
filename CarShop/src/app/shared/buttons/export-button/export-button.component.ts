@@ -38,7 +38,7 @@ export class ExportButtonComponent implements OnInit {
 
             if (typeof data === 'string') {
                 this.alertService.raiseError(new MessageModel('AlertFailure-Title', this.alertFailureMessage, false, false));
-                this.exportButton.cancelLoading(true);
+                this.exportButton.cancelLoadingWithError();
             }
             else if (data instanceof Blob) {
                 this.downloadFile(option, data);

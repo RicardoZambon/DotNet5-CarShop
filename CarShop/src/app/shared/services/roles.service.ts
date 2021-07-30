@@ -1,3 +1,4 @@
+import { RoleEditModel } from './../models/Security/role-edit-model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
@@ -65,6 +66,7 @@ export class RolesService {
             .toPromise();
     }
 
+
     public async deleteRoles(roleIds: number[]): Promise<string | boolean> {
         return this.http
             .request('DELETE', `${this.baseUrl}/Roles`, { body: roleIds })
@@ -80,4 +82,36 @@ export class RolesService {
             )
             .toPromise();
     }
+
+
+    public async getRole(roleId: number): Promise<RoleEditModel | string> {
+        return this.http
+            .get<RoleEditModel>(`${this.baseUrl}/Roles/${roleId}`)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    console.error(error);
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
+    }
+
+    public async saveRole(roleId: number, roleModel: RoleEditModel): Promise<string> {
+        return this.http
+            .post<string>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    console.error(error);
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
+    }
+
 }

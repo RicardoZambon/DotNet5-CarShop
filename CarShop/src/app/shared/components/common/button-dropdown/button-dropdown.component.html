@@ -1,13 +1,11 @@
 <div class="dropdown btn-group">
-    <div #button class="btn d-flex flex-column text-nowrap"
+    <div #button class="btn d-flex flex-column text-nowrap {{ this.buttonClass }}"
         [class.hover]="this.hover && !this.isSuccess"
-        [class.btn-success]="this.isSuccess"
-        [attr.success]="this.isSuccess ? '' : null"
         [ngClass]="{ 'disabled' : this.disabled }"
         (click)="this.buttonClick($event)"
     >
         <div class="icon">
-            <i class="fas {{ this.isLoading ? 'fa-spinner fa-spin' : this.isSuccess ? 'fa-check' : this.icon }} {{ this.color }} fa-fw"
+            <i class="fas {{ this.displayIcon }} {{ this.color }} fa-fw"
                 [class.default-color]="!this.color"
             ></i>
         </div>
@@ -18,11 +16,9 @@
     </div>
 
     <div class="btn-group">
-        <a #toggle class="btn dropdown-toggle text-nowrap {{ this.color }}" role="button" aria-expanded="false"
+        <a #toggle class="btn dropdown-toggle text-nowrap {{ this.buttonClass }} {{ this.color }}" role="button" aria-expanded="false"
             [class.hover]="this.hover && !this.isSuccess"
             [class.default-color]="!this.color"
-            [class.btn-success]="this.isSuccess"
-            [attr.success]="this.isSuccess ? '' : null"
             [ngClass]="{ 'disabled' : this.disabled }"
         ></a>
 

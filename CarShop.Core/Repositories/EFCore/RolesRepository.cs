@@ -28,14 +28,21 @@ namespace CarShop.Core.Repositories.EFCore
             return (await context.Set<Roles>().FindAsync(roleId)).Name;
         }
 
+
         public async Task DeleteAsync(int[] roleIds)
-        { 
+        {
             foreach (var roleId in roleIds)
             {
                 var role = await context.Set<Roles>().FindAsync(roleId);
                 role.IsDeleted = true;
                 context.Update(role);
             }
+        }
+
+
+        public async Task<Roles> GetAsync(int roleId)
+        {
+            return await context.Set<Roles>().FindAsync(roleId);
         }
     }
 }

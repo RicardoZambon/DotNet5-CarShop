@@ -22,7 +22,7 @@ export class AlertService {
         this.raiseAlert(messageModel, icon, 'primary');
     }
     raiseWarning(messageModel: MessageModel, icon: string = 'fa-exclamation'): void {
-        this.raiseAlert(messageModel, icon, 'warning');
+        this.raiseAlert(messageModel, icon, 'warning', false, true);
     }
     raiseError(messageModel: MessageModel, icon: string = 'fa-bug'): void {
         this.raiseAlert(messageModel, icon, 'danger', true);
@@ -32,13 +32,14 @@ export class AlertService {
     }
     
 
-    raiseAlert(messageModel: MessageModel, icon: string, color: string, error: boolean = false): void {
+    raiseAlert(messageModel: MessageModel, icon: string, color: string, error: boolean = false, validation: boolean = false): void {
         let alertMessage = new AlertMessage();
 
         alertMessage.color = color;
         alertMessage.icon = icon;
         alertMessage.message = messageModel;
         alertMessage.error = error;
+        alertMessage.validation = validation;
 
         this._raisedAlerts.push(alertMessage);
 

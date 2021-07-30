@@ -3,12 +3,14 @@
 .btn {
     transition: all 0.2s ease-in-out;
 
-    &:hover {
-        background-color: rgba($home-fore-color, .15);
+    &:not(.btn-danger):not(.btn-success):not(.btn-warning) {
+        &:hover {
+            background-color: rgba($home-fore-color, .15);
+        }
     }
 }
 
-.btn-success, .btn-danger {
+.btn-success, .btn-danger, .btn-warning {
     .icon {
         i {
             color: white !important;

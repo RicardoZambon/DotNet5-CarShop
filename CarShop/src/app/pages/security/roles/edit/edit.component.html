@@ -2,24 +2,39 @@
     <app-button-group [displayName]="'ButtonGroup-Entity' | translate" [priority]="1">
         <app-save-button #saveButton
             [alertMessageModel]="saveAlertMessageModel"
-            [alertFailureMessage]="'RolesEdit-Save-AlertFailure-Message'"
+            [alertValidationMessage]="saveAlertValidationMessage"
+            [alertFailureMessage]="saveAlertFailureMessage"
+            [formGroup]="roleForm"
+            [title]="title"
+            [validate]="validateClick"
             [save]="saveClick"></app-save-button>
     </app-button-group>
 </app-button-container>
 
 <app-edit-container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate">
     
-    <app-edit-section [id]="'details'" [label]="'RolesEdit-Section-Details' | translate">
-        <div class="row">
-            <app-edit-group class="col-6" [groupTitle]="'RolesEdit-Group-Role' | translate">
-                <div class="row mb-3 g-3">
-                    <label for="" class="col-sm-auto col-form-label text-end">{{ 'RolesEdit-Label-Name' | translate }}:</label>
-                    <div class="col-sm">
-                        <input type="text" class="form-control" value="" />
+    <form ngNoForm [formGroup]="roleForm" #form>
+
+        <app-edit-section [id]="'details'" [label]="'RolesEdit-Section-Details' | translate">
+            <div class="row">
+                <app-edit-group class="col-6" [groupTitle]="'RolesEdit-Group-Role' | translate">
+                    <div class="row mb-3 g-3">
+
+                        <label for="name" class="col-sm-auto col-form-label text-end">{{ 'RolesEdit-Name-Label' | translate }}:</label>
+                        <app-edit-input
+                            [formGroup]="roleForm" [controlName]="'name'"
+                            [autofocus]="true"
+                        >
+                            <div validations>
+                                <div [class.d-none]="!roleForm.controls['name'].errors?.required">{{ 'RolesEdit-Name-Required' | translate}}</div>
+                            </div>
+                        </app-edit-input>
+
                     </div>
-                </div>
-            </app-edit-group>
-        </div>
-    </app-edit-section>
+                </app-edit-group>
+            </div>
+        </app-edit-section>
+
+    </form>
 
 </app-edit-container>
