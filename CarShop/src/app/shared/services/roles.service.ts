@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -13,6 +13,9 @@ import { RoleEditResponse } from '../models/Security/role-edit-response';
 })
 export class RolesService {
     private baseUrl = `${environment.apiUrl}/Security`;
+
+    @Output() onRolesUpdated = new EventEmitter();
+
 
     constructor(
         private http: HttpClient
@@ -87,6 +90,10 @@ export class RolesService {
         return this.http
             .post<RoleEditResponse>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
             .pipe(
+                map(role => {
+                    this.onRolesUpdated.emit();
+                    return role;
+                }),
                 catchError((error: HttpErrorResponse) => {
                     console.error(error);
                     switch(error.status) {
@@ -102,6 +109,10 @@ export class RolesService {
         return this.http
             .put<RoleEditResponse>(`${this.baseUrl}/Roles`, roleModel)
             .pipe(
+                map(role => {
+                    this.onRolesUpdated.emit();
+                    return role;
+                }),
                 catchError((error: HttpErrorResponse) => {
                     console.error(error);
                     switch(error.status) {

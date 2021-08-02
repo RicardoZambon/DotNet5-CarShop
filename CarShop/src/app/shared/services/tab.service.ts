@@ -31,11 +31,11 @@ export class TabService {
 
 
     
-    public isTabOpen(url: string): boolean {
+    isTabOpen(url: string): boolean {
         return this.openTabs.filter(x => x.url === url).length > 0;
     }
 
-    public getTab(url: string): Tab | undefined {
+    getTab(url: string): Tab | undefined {
         if (this.isTabOpen(url)) {
             return this.openTabs.filter(x => x.url === url)[0];
         }
@@ -43,36 +43,23 @@ export class TabService {
     }
 
 
-    public openTab(title: string, url: string, loadingTitle: boolean = false): void {
+    openTab(title: string, url: string, loadingTitle: boolean = false): void {
         let tab = this.getTab(url);
         if (!tab) {
             tab = new Tab();
-            
-            tab.title = title;
             tab.url = url;
-            tab.loadingTitle = loadingTitle;
-            this.openTabs.push(tab);
 
+            this.openTabs.push(tab);
             this.tabOpened.emit(url);
         }
+        
+        tab.title = title;
+        tab.loadingTitle = loadingTitle;
+            
         this.setTabActive(tab);
     }
 
-    public openCurrentUrl(title: string) {
-        const url = this.router.url.substring(1, this.router.url.length);
-
-        const tab = this.getTab(url);
-        if (tab) {
-            tab.title = title;
-            tab.loadingTitle = false;
-            tab.updatePosition();
-        }
-        else {
-            this.openTab(title, url);
-        }
-    }
-
-    public setTabActive(tab: Tab | null): void {
+    setTabActive(tab: Tab | null): void {
         if (this.activeTab) {
             this._activeTab = null;
         }
@@ -89,7 +76,7 @@ export class TabService {
     }
 
 
-    public closeTab(tab: Tab): void {
+    closeTab(tab: Tab): void {
         const index = this.openTabs.indexOf(tab);
         if (index > -1) {
             this.openTabs.splice(index, 1);
@@ -113,12 +100,12 @@ export class TabService {
         }
     }
 
-    public closeAllTabs(): void {
+    closeAllTabs(): void {
         this.openTabs = new Array<Tab>();
         this._activeTab = null;
     }
 
-    public closeCurrentTab() {
+    closeCurrentTab(): void {
         const url = this.router.url.substring(1, this.router.url.length);
         const tab = this.getTab(url);
         if (tab) {
@@ -127,13 +114,16 @@ export class TabService {
     }
 
 
-    public redirectCurrentTab(url: string) {
+    redirectCurrentTab(url: string): void {
         const oldUrl = this.router.url.substring(1, this.router.url.length);
         const tab = this.getTab(oldUrl);
         if (tab) {
             tab.url = url;
+            console.log({oldUrl: oldUrl, newUrl: url});
             this.tabRedirected.emit({oldUrl: oldUrl, newUrl: url});
             this.router.navigate([url]);
+
+            console.log('router navigated', url);
         }
     }
 }

@@ -68,6 +68,10 @@ export class RolesListComponent implements OnInit {
                 }
             }
         }
+
+        this.rolesService.onRolesUpdated.subscribe(() => {
+            this.grid.api.refreshInfiniteCache();
+        });
     }
     
     onGridReady(params: any): void {

@@ -19,7 +19,7 @@ export class UsersEditComponent implements OnInit {
 
         if (id) {
             this.userId = id;
-            this.tabService.openCurrentUrl(`User ${this.userId}`);
+            //this.tabService.openCurrentUrl(`User ${this.userId}`);
         }
     }
 }

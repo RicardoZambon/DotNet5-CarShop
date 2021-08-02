@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouteReuseStrategy } from '@angular/router';
+import { Router, RouteReuseStrategy } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
@@ -30,6 +30,7 @@ export class TabsComponent implements OnInit, OnDestroy {
         
     constructor(
         private routeReuse: RouteReuseStrategy,
+        private router: Router,
         private tabService: TabService,
         private dragulaService: DragulaService
     ) {
@@ -67,6 +68,7 @@ export class TabsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.tabService.openTab('', this.router.url.substring(1, this.router.url.length), true);
     }
 
     ngOnDestroy(): void {

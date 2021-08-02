@@ -18,6 +18,12 @@ import { RoleEditResponse } from 'src/app/shared/models/Security/role-edit-respo
 })
 export class RolesEditComponent implements OnInit {
 
+    private _newUrl = 'roles/new';
+    private _editUrl = 'roles/{roleId}';
+    private get url() {
+        return this.roleId ? this._editUrl.replace('{roleId}', this.roleId.toString()) : this._newUrl;
+    }
+
     @ViewChild('form') formElement!: ElementRef<HTMLFormElement>;
     @ViewChildren(EditInputComponent) inputs!: QueryList<EditInputComponent>;
 
@@ -56,7 +62,7 @@ export class RolesEditComponent implements OnInit {
         if ((model as RoleEditResponse)?.id) {
             if (!this.roleId) {
                 this.roleId = (<RoleEditResponse>model).id;
-                this.tabService.redirectCurrentTab('roles/' + this.roleId);
+                this.tabService.redirectCurrentTab(this.url);
             }
 
             model = new RoleEditModel(model as RoleEditResponse);
@@ -67,6 +73,10 @@ export class RolesEditComponent implements OnInit {
                 this.roleId = parseInt(id.toString());
             }
         }
+        else if (this.roleId && model === null) {
+            this.roleId = null;
+            this.tabService.redirectCurrentTab(this.url);
+        }
         
         await this.refreshTitle();
         await this.refreshModel(model);
@@ -76,17 +86,16 @@ export class RolesEditComponent implements OnInit {
             const title = await this.roleService.getRoleDisplayName(this.roleId);
             if (!title.startsWith('InternalServerError:')) {
                 this.title = title;
-                this.tabService.openCurrentUrl(title);
             }
             else {
-                this.tabService.openCurrentUrl(`Role ID: ${this.roleId}`);
+                console.log(title);
+                return;
             }
         }
         else {
             this.title = 'RolesEdit-New-Title';
-            this.tabService.openCurrentUrl('RolesEdit-New-Title');
         }
-
+        this.tabService.openTab(this.title, this.url);
     }
     async refreshModel(model: RoleEditModel | null = null): Promise<void> {
         this.roleForm.disable();
