@@ -25,8 +25,13 @@ export class EditInputComponent implements OnInit {
     ngOnInit(): void {
     }
 
+
     focus(): void {
         this.inputElement.nativeElement.focus();
+    }
+
+    hasValue(): boolean {
+        return this.formGroup.controls[this.controlName].value !== '';
     }
 
     isValid(): boolean {

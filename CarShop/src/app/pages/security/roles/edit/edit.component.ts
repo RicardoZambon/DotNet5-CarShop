@@ -1,13 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { EditInputComponent } from 'src/app/shared/components/edit/edit-input/edit-input.component';
 import { MessageModel } from 'src/app/shared/models/message-model';
+import { RoleEditModel } from 'src/app/shared/models/Security/role-edit-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { SaveButtonComponent } from 'src/app/shared/buttons/save-button/save-button.component';
 import { TabService } from 'src/app/shared/services/tab.service';
+import { RoleEditResponse } from 'src/app/shared/models/Security/role-edit-response';
 
 @Component({
     selector: 'app-edit',
@@ -19,7 +21,7 @@ export class RolesEditComponent implements OnInit {
     @ViewChild('form') formElement!: ElementRef<HTMLFormElement>;
     @ViewChildren(EditInputComponent) inputs!: QueryList<EditInputComponent>;
 
-    roleId: string | null = null;
+    roleId: number | null = null;
     title: string = '';
 
     roleForm!: FormGroup;
@@ -31,7 +33,7 @@ export class RolesEditComponent implements OnInit {
     saveAlertMessageModel = new MessageModel('RolesEdit-Save-Alert-Title', 'RolesEdit-Save-Alert-Message', false, false);
     saveAlertValidationMessage = 'RolesEdit-Save-AlertValidation-Message';
     saveAlertFailureMessage = 'RolesEdit-Save-AlertFailure-Message';
-
+    
 
     constructor(
         private formBuilder: FormBuilder,
@@ -46,9 +48,32 @@ export class RolesEditComponent implements OnInit {
             name: ['', Validators.required]
         });
 
-        this.roleId = this.route.snapshot.paramMap.get('id');
+        await this.refresh();
+    }
+
+
+    async refresh(model: RoleEditModel | RoleEditResponse | null = null) : Promise<void> {
+        if ((model as RoleEditResponse)?.id) {
+            if (!this.roleId) {
+                this.roleId = (<RoleEditResponse>model).id;
+                this.tabService.redirectCurrentTab('roles/' + this.roleId);
+            }
+
+            model = new RoleEditModel(model as RoleEditResponse);
+        }
+        else if (!this.roleId) {
+            const id = this.route.snapshot.paramMap.get('id');
+            if (id) {
+                this.roleId = parseInt(id.toString());
+            }
+        }
+        
+        await this.refreshTitle();
+        await this.refreshModel(model);
+    }
+    async refreshTitle(): Promise<void> {
         if (this.roleId) {
-            const title = await this.roleService.getRoleDisplayName(parseInt(this.roleId));
+            const title = await this.roleService.getRoleDisplayName(this.roleId);
             if (!title.startsWith('InternalServerError:')) {
                 this.title = title;
                 this.tabService.openCurrentUrl(title);
@@ -56,25 +81,41 @@ export class RolesEditComponent implements OnInit {
             else {
                 this.tabService.openCurrentUrl(`Role ID: ${this.roleId}`);
             }
-
-            const role = await this.roleService.getRole(parseInt(this.roleId));
-            if (typeof role === 'string') {
-                let errorMessageModel = new MessageModel('AlertFailure-Title', 'RolesEdit-Save-AlertFailure-Message', false);
-                errorMessageModel.selectionName = this.title;
-                this.alertService.raiseError(errorMessageModel);
-            }
-            else {
-                this.roleForm.setValue(role);
-            }
         }
         else {
-            this.saveAlertValidationMessage += '-New';
-            this.saveAlertFailureMessage += '-New';
-
             this.title = 'RolesEdit-New-Title';
             this.tabService.openCurrentUrl('RolesEdit-New-Title');
         }
+
     }
+    async refreshModel(model: RoleEditModel | null = null): Promise<void> {
+        this.roleForm.disable();
+
+        if (this.roleId) {
+            if (model === null) {
+                const role = await this.roleService.getRole(this.roleId);
+                if (typeof role === 'string') {
+                    let errorMessageModel = new MessageModel('AlertFailure-Title', 'RolesEdit-Save-AlertFailure-Message', false);
+                    errorMessageModel.selectionName = this.title;
+                    this.alertService.raiseError(errorMessageModel);
+                    return;
+                }
+                else {
+                    model = role;
+                }
+            }
+        }
+        else {
+            model = new RoleEditModel();
+
+            this.saveAlertValidationMessage += '-New';
+            this.saveAlertFailureMessage += '-New';
+        }
+
+        this.roleForm.setValue(model);
+        this.roleForm.enable();
+    }
+
 
     validate(): string[] {
         let errors = new Array<string>();
@@ -87,12 +128,17 @@ export class RolesEditComponent implements OnInit {
         return errors;
     }
 
-    async save(): Promise<string> {
-        if (this.roleId) {
-            return await this.roleService.saveRole(parseInt(this.roleId), {
-                name: this.roleForm.get('name')?.value.toString(),
-            });
-        }
-        return 'missing roleId';
+    async save(): Promise<any> {
+        const model = {
+            name: this.roleForm.get('name')?.value.toString().trim(),
+        };
+
+        this.saveButton.title = model.name;
+        
+        const role = this.roleId
+            ? await this.roleService.updateRole(this.roleId, model)
+            : await this.roleService.insertRole(model);
+        
+        return role;
     }
 }

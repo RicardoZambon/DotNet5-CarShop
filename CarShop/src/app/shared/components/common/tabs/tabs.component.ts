@@ -47,6 +47,12 @@ export class TabsComponent implements OnInit, OnDestroy {
         );
 
         this.subs.add(
+            this.tabService.tabRedirected.subscribe(urls => {
+                (<CustomReuseStrategy>this.routeReuse).redirectRoute(urls.oldUrl, urls.newUrl);
+            })
+        );
+
+        this.subs.add(
             this.tabService.tabClosed.subscribe(url => {
                 (<CustomReuseStrategy>this.routeReuse).removeRoute(url);
             })

@@ -1,7 +1,7 @@
 <div class="dropdown btn-group">
     <div #button class="btn d-flex flex-column text-nowrap {{ this.buttonClass }}"
         [class.hover]="this.hover && !this.isSuccess"
-        [ngClass]="{ 'disabled' : this.disabled }"
+        [ngClass]="{ 'disabled' : this.isDisabled }"
         (click)="this.buttonClick($event)"
     >
         <div class="icon">
@@ -19,7 +19,7 @@
         <a #toggle class="btn dropdown-toggle text-nowrap {{ this.buttonClass }} {{ this.color }}" role="button" aria-expanded="false"
             [class.hover]="this.hover && !this.isSuccess"
             [class.default-color]="!this.color"
-            [ngClass]="{ 'disabled' : this.disabled }"
+            [ngClass]="{ 'disabled' : this.isDisabled }"
         ></a>
 
         <ul class="dropdown-menu"

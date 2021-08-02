@@ -1,12 +1,12 @@
-import { RoleEditModel } from './../models/Security/role-edit-model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { promise } from 'protractor';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { RoleListModel } from '../models/Security/RoleListModel';
+import { RoleListModel } from '../models/Security/role-list-model';
+import { RoleEditModel } from './../models/Security/role-edit-model';
+import { RoleEditResponse } from '../models/Security/role-edit-response';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +83,36 @@ export class RolesService {
             .toPromise();
     }
 
+    public async updateRole(roleId: number, roleModel: RoleEditModel): Promise<RoleEditResponse | string> {
+        return this.http
+            .post<RoleEditResponse>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    console.error(error);
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
+    }
+
+    public async insertRole(roleModel: RoleEditModel): Promise<RoleEditResponse | string> {
+        return this.http
+            .put<RoleEditResponse>(`${this.baseUrl}/Roles`, roleModel)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    console.error(error);
+                    switch(error.status) {
+                        default:
+                            return of('InternalServerError: ' + error.message);
+                    }
+                })
+            )
+            .toPromise();
+    }
+
 
     public async getRole(roleId: number): Promise<RoleEditModel | string> {
         return this.http
@@ -98,20 +128,4 @@ export class RolesService {
             )
             .toPromise();
     }
-
-    public async saveRole(roleId: number, roleModel: RoleEditModel): Promise<string> {
-        return this.http
-            .post<string>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
-            .pipe(
-                catchError((error: HttpErrorResponse) => {
-                    console.error(error);
-                    switch(error.status) {
-                        default:
-                            return of('InternalServerError: ' + error.message);
-                    }
-                })
-            )
-            .toPromise();
-    }
-
 }

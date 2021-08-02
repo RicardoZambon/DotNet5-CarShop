@@ -16,6 +16,7 @@ export class EditContainerComponent implements OnInit {
 
     @Input() icon!: string;
     @Input() title!: string;
+    @Input() loading: boolean = true;
 
     public activeSection: number = 0;
 

@@ -7,7 +7,7 @@ import { GridHeaderComponent } from 'src/app/shared/components/list/grid-header/
 import { GridLoadingRendererComponent } from 'src/app/shared/components/list/grid-loading/grid-loading.component';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
-import { RoleListModel } from 'src/app/shared/models/Security/RoleListModel';
+import { RoleListModel } from 'src/app/shared/models/Security/role-list-model';
 
 @Component({
     selector: 'app-list',

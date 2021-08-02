@@ -12,6 +12,8 @@ namespace CarShop.WebAPI.Services
         Task<string> GetRoleDisplayNameAsync(int roleId);
 
         Task DeleteRolesAsync(int[] roleIds);
+        Task<RoleEditResponse> UpdateRoleAsync(int roleId, RoleEditModel roleModel);
+        Task<RoleEditResponse> InsertRoleAsync(RoleEditModel roleModel);
 
         Task<RoleEditModel> GetRoleAsync(int roleId);
     }

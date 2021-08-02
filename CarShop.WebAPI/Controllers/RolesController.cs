@@ -77,6 +77,32 @@ namespace CarShop.WebAPI.Controllers
             }
         }
 
+        [HttpPost, Route("{roleId}")]
+        public async Task<IActionResult> Update(int roleId, RoleEditModel roleModel)
+        {
+            try
+            {
+                return Ok(await rolesService.UpdateRoleAsync(roleId, roleModel));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Insert(RoleEditModel roleModel)
+        {
+            try
+            {
+                return Ok(await rolesService.InsertRoleAsync(roleModel));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpGet, Route("{roleId}")]
         public async Task<ActionResult<RoleEditModel>> Get(int roleId)

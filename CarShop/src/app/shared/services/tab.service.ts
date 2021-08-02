@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Tab } from '../components/common/tabs/tab';
 
 @Injectable({
@@ -23,9 +24,23 @@ export class TabService {
 
 
     public tabOpened = new EventEmitter<string>();
+    public tabRedirected = new EventEmitter<{ oldUrl: string, newUrl: string }>();
     public tabClosed = new EventEmitter<string>();
 
     constructor(private router: Router) { }
+
+
+    
+    public isTabOpen(url: string): boolean {
+        return this.openTabs.filter(x => x.url === url).length > 0;
+    }
+
+    public getTab(url: string): Tab | undefined {
+        if (this.isTabOpen(url)) {
+            return this.openTabs.filter(x => x.url === url)[0];
+        }
+        return undefined;
+    }
 
 
     public openTab(title: string, url: string, loadingTitle: boolean = false): void {
@@ -41,6 +56,20 @@ export class TabService {
             this.tabOpened.emit(url);
         }
         this.setTabActive(tab);
+    }
+
+    public openCurrentUrl(title: string) {
+        const url = this.router.url.substring(1, this.router.url.length);
+
+        const tab = this.getTab(url);
+        if (tab) {
+            tab.title = title;
+            tab.loadingTitle = false;
+            tab.updatePosition();
+        }
+        else {
+            this.openTab(title, url);
+        }
     }
 
     public setTabActive(tab: Tab | null): void {
@@ -59,16 +88,6 @@ export class TabService {
         }
     }
 
-    public isTabOpen(url: string): boolean {
-        return this.openTabs.filter(x => x.url === url).length > 0;
-    }
-
-    public getTab(url: string): Tab | undefined {
-        if (this.isTabOpen(url)) {
-            return this.openTabs.filter(x => x.url === url)[0];
-        }
-        return undefined;
-    }
 
     public closeTab(tab: Tab): void {
         const index = this.openTabs.indexOf(tab);
@@ -99,17 +118,22 @@ export class TabService {
         this._activeTab = null;
     }
 
-    public openCurrentUrl(title: string) {
+    public closeCurrentTab() {
         const url = this.router.url.substring(1, this.router.url.length);
-
         const tab = this.getTab(url);
         if (tab) {
-            tab.title = title;
-            tab.loadingTitle = false;
-            tab.updatePosition();
+            this.closeTab(tab);
         }
-        else {
-            this.openTab(title, url);
+    }
+
+
+    public redirectCurrentTab(url: string) {
+        const oldUrl = this.router.url.substring(1, this.router.url.length);
+        const tab = this.getTab(oldUrl);
+        if (tab) {
+            tab.url = url;
+            this.tabRedirected.emit({oldUrl: oldUrl, newUrl: url});
+            this.router.navigate([url]);
         }
     }
 }

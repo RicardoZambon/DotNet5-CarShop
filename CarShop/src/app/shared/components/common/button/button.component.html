@@ -1,7 +1,7 @@
 <div #button class="btn d-flex flex-column text-nowrap {{ this.buttonClass }}"
     [attr.data-bs-toggle]="this.modalReference ? 'modal' : null"
     [attr.data-bs-target]="this.modalReference"
-    [ngClass]="{ 'disabled' : this.disabled }"
+    [ngClass]="{ 'disabled' : this.isDisabled }"
     (click)="this.click($event)"
 >
     <div class="icon">

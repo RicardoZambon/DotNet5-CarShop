@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AlertService } from '../../services/alert.service';
 import { ButtonComponent } from '../../components/common/button/button.component';
 import { MenuItem } from '../../components/common/button-dropdown/menu-item';
 import { MessageModel } from '../../models/message-model';
-import { delay } from 'rxjs/operators';
-import { from } from 'rxjs';
+import { TabService } from 'src/app/shared/services/tab.service';
 
 @Component({
     selector: 'app-save-button',
@@ -25,7 +24,10 @@ export class SaveButtonComponent implements OnInit {
     @Input() title!: string;
 
     @Input() validate?: () => string[];
-    @Input() save?: () => Promise<string>;
+    @Input() save?: () => Promise<any>;
+
+    @Output() onFinishedSaving = new EventEmitter<any>();
+
 
     saveOptions: Array<MenuItem> = [
         { label: 'Button-Save', icon: 'save', command: async () => { await this.click('save'); } },
@@ -34,7 +36,7 @@ export class SaveButtonComponent implements OnInit {
     ];
     
 
-    constructor(private alertService: AlertService) { }
+    constructor(private alertService: AlertService, private tabService: TabService) { }
 
     ngOnInit(): void {
     }
@@ -45,18 +47,21 @@ export class SaveButtonComponent implements OnInit {
             if (this.formGroup.valid) {
                 this.formGroup.disable();
                 
-                const data = await from(await this.save()).pipe(delay(3000)).toPromise();
+                const data = await this.save();
                 this.formGroup.enable();
 
-                if (data === '') {
-                    this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
-                    this.saveButton.completeLoading();
-                }
-                else {
+                if (typeof data === 'string') {
                     let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
                     errorMessageModel.selectionName = this.title;
                     this.alertService.raiseError(errorMessageModel);
                     this.saveButton.cancelLoadingWithError();
+                }
+                else {
+                    this.alertMessageModel.selectionName = this.title;
+                    this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
+                    this.saveButton.completeLoading();
+
+                    this.saveFinished(option, data);
                 }
 
             } else {
@@ -75,7 +80,15 @@ export class SaveButtonComponent implements OnInit {
                 this.alertService.raiseWarning(errorMessageModel);
                 this.saveButton.cancelLoadingWithWarning();
             }
+        }
+    }
 
+    saveFinished(option: string, object: any) {
+        if (option === 'close') {
+            this.tabService.closeCurrentTab();
+        }
+        else {
+            this.onFinishedSaving.emit(object);
         }
     }
 }

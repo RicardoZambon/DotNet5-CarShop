@@ -113,8 +113,53 @@ namespace CarShop.WebAPI.Services.Handlers
             }
         }
 
+        public async Task<RoleEditResponse> UpdateRoleAsync(int roleId, RoleEditModel roleModel)
+        {
+            using var transaction = await context.Database.BeginTransactionAsync();
+
+            try
+            {
+                await rolesRepository.UpdateAsync(mapper.Map(roleModel, await rolesRepository.GetAsync(roleId)));
+                await context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+
+                return await GetEditRoleAsync(roleId);
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
+        public async Task<RoleEditResponse> InsertRoleAsync(RoleEditModel roleModel)
+        {
+            using var transaction = await context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var role = mapper.Map<Roles>(roleModel);
+
+                await rolesRepository.InsertAsync(role);
+                await context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+
+                return await GetEditRoleAsync(role.ID);
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
 
         public async Task<RoleEditModel> GetRoleAsync(int roleId)
             => mapper.Map<RoleEditModel>(await rolesRepository.GetAsync(roleId));
+
+        protected async Task<RoleEditResponse> GetEditRoleAsync(int roleId)
+            => mapper.Map<RoleEditResponse>(await rolesRepository.GetAsync(roleId));
     }
 }

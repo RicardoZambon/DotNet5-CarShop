@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { Dropdown } from 'bootstrap';
 
-
 import { ButtonComponent } from '../button/button.component';
 import { MenuItem } from './menu-item';
 

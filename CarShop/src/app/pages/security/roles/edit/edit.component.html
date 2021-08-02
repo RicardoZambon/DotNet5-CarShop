@@ -7,17 +7,18 @@
             [formGroup]="roleForm"
             [title]="title"
             [validate]="validateClick"
-            [save]="saveClick"></app-save-button>
+            [save]="saveClick"
+            (onFinishedSaving)="this.refresh($event)"></app-save-button>
     </app-button-group>
 </app-button-container>
 
-<app-edit-container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate">
+<app-edit-container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate" [loading]="roleForm.disabled">
     
     <form ngNoForm [formGroup]="roleForm" #form>
 
         <app-edit-section [id]="'details'" [label]="'RolesEdit-Section-Details' | translate">
             <div class="row">
-                <app-edit-group class="col-6" [groupTitle]="'RolesEdit-Group-Role' | translate">
+                <app-edit-group class="col col-md-6" [groupTitle]="'RolesEdit-Group-Role' | translate">
                     <div class="row mb-3 g-3">
 
                         <label for="name" class="col-sm-auto col-form-label text-end">{{ 'RolesEdit-Name-Label' | translate }}:</label>

@@ -1,6 +1,7 @@
 @import "/src/app/shared/styles/variables";
 
 @import "/src/app/shared/styles/scroll";
+@import "/src/app/shared/styles/no-select";
 
 @import "bootstrap";
 
@@ -11,6 +12,7 @@
     flex-grow: 1;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.25rem;
+    overflow: hidden;
 
     background-color: rgba($home-base-color, .6);
 
@@ -51,6 +53,8 @@
             right: 7px;
             width: 9rem;
             z-index: 2;
+
+            @include no-select();
 
             a {
                 cursor: pointer;

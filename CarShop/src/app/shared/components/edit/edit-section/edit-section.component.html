@@ -1,10 +1,7 @@
-<h6 id="{{ this.id }}"
-    [class.collapsed]="this.collapsed"
-    (click)="this.click()"
->
+<h6 id="{{ this.id }}" [class.collapsed]="this.collapsed" (click)="this.click()">
     <i class="fas fa-chevron-down fa-sm"></i>{{ this.label }}
 </h6>
 
-<div #panel id="panel-{{ this.id }}" class="accordion-collapse">
+<div #panel id="panel-{{ this.id }}" class="collapse" [class.first-load]="this.firstLoad">
     <ng-content></ng-content>
 </div>

@@ -20,6 +20,7 @@ export class ButtonComponent implements OnInit {
     @Input() disabled = false;
     @Input() setLoadingOnClick = false;
 
+    protected _disabled = false;
     protected loading = false;
     protected success = false;
     protected warning = false;
@@ -34,6 +35,10 @@ export class ButtonComponent implements OnInit {
     ngOnInit(): void {
     }
 
+
+    public get isDisabled(): boolean {
+        return this._disabled || this.disabled;
+    }
 
     public get isLoading(): boolean {
         return this.loading;
@@ -95,7 +100,7 @@ export class ButtonComponent implements OnInit {
 
     startLoading() {
         this.loading = true;
-        this.disabled = true;
+        this._disabled = true;
         this.loadingAttr = '';
         this.onLoadingChange.emit(this);
     }
@@ -103,7 +108,7 @@ export class ButtonComponent implements OnInit {
     
     cancelLoading() {
         this.loading = false;
-        this.disabled = false;
+        this._disabled = false;
         this.loadingAttr = null;
         this.onLoadingChange.emit(this);
     }
@@ -142,7 +147,7 @@ export class ButtonComponent implements OnInit {
 
         setTimeout(() => {
             if (!disableButton) {
-                this.disabled = false;
+                this._disabled = false;
             }
             this.success = false;
         }, 1000);

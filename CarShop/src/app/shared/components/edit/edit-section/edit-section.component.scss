@@ -31,12 +31,16 @@
     
             transition: all .25s ease-in-out;
         }
-    
+
         &.collapsed {
             i {
                 -webkit-transform: rotate(-90deg);
                 transform: rotate(-90deg);
             }
         }
+    }
+
+    .first-load {
+        transition: none !important;
     }
 }

@@ -14,7 +14,9 @@ export class EditSectionComponent implements OnInit, AfterViewInit {
 
     @ViewChild('panel') panel!: ElementRef<HTMLDivElement>;
     collapse!: Collapse;
-    collapsed: boolean = false;
+    collapsed = false;
+
+    firstLoad = true;
 
 
     constructor() { }
@@ -25,7 +27,12 @@ export class EditSectionComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.collapse = new Collapse(this.panel.nativeElement);
         this.collapse.show();
+
+        setTimeout(() => {
+            this.firstLoad = false;
+        }, 1000);
     }
+
 
     click(): void {
         this.collapse.toggle();

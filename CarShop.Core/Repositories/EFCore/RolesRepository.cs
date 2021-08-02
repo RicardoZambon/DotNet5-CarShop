@@ -39,6 +39,22 @@ namespace CarShop.Core.Repositories.EFCore
             }
         }
 
+        public async Task UpdateAsync(Roles role)
+        {
+            await Task.Run(() =>
+            {
+                context.Set<Roles>().Update(role);
+            });
+        }
+
+        public async Task InsertAsync(Roles role)
+        {
+            await Task.Run(() =>
+            {
+                context.Set<Roles>().Add(role);
+            });
+        }
+
 
         public async Task<Roles> GetAsync(int roleId)
         {

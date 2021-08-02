@@ -5,7 +5,7 @@ import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from
 })
 export class ScrollSpyDirective {
     
-    private childElements!: Element[];
+    private childElements = new Array<Element>();
     private currentSection: number | null = null;
 
     
@@ -18,8 +18,18 @@ export class ScrollSpyDirective {
 
 
     ngAfterViewInit() {
-        const children = Array.from(this._el.nativeElement.children);
-        this.childElements = children.filter(element => this.spiedTags.some(spiedTag => spiedTag.toUpperCase() === element.tagName.toUpperCase()));
+        this.getChildElements(Array.from(this._el.nativeElement.children));
+    }
+
+    getChildElements(children: Element[]) {
+        children.forEach(el => {
+            if (this.spiedTags.some(spiedTag => spiedTag.toUpperCase() === el.tagName.toUpperCase())) {
+                this.childElements.push(el);
+            }
+            else {
+                this.getChildElements(Array.from(el.children));
+            }
+        })
     }
 
     @HostListener('scroll', ['$event'])

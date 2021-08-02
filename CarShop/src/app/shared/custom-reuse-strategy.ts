@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
 
 interface RouteStorageObject {
     snapshot: ActivatedRouteSnapshot;
@@ -72,6 +72,11 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
             handle: null
         };
         this.storedRoutes[route] = newStoredRoute;
+    }
+
+    public redirectRoute(oldUrl: string, newUrl: string) {
+        const route = this.storedRoutes[oldUrl];
+        this.storedRoutes[newUrl] = route;
     }
 
     public removeRoute(route: string): void {

@@ -11,6 +11,8 @@ namespace CarShop.Core.Repositories
         Task<string> GetDisplayNameAsync(int roleId);
 
         Task DeleteAsync(int[] roleIds);
+        Task UpdateAsync(Roles role);
+        Task InsertAsync(Roles role);
 
         Task<Roles> GetAsync(int roleId);
     }
