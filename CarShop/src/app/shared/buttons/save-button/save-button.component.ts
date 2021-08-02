@@ -84,11 +84,16 @@ export class SaveButtonComponent implements OnInit {
     }
 
     saveFinished(option: string, object: any) {
-        if (option === 'close') {
-            this.tabService.closeCurrentTab();
-        }
-        else {
-            this.onFinishedSaving.emit(object);
+        switch (option) {
+            case 'close': 
+                this.tabService.closeCurrentTab();
+                break;
+            case 'new':
+                this.onFinishedSaving.emit(null);
+                break;
+            default:
+                this.onFinishedSaving.emit(object);
+                break;
         }
     }
 }
