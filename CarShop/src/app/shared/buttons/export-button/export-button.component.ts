@@ -18,7 +18,7 @@ export class ExportButtonComponent implements OnInit {
     @Input() alertMessageModel!: MessageModel;
     @Input() alertFailureMessage!: string;
 
-    @Input() export?: (option: string) => Promise<Blob | string>;
+    @Input() export?: (option: string) => Promise<Blob>;
 
     exportOptions: Array<MenuItem> = [
         { label: 'CSV', icon: 'file-csv', command: async () => { await this.click('csv'); } },
@@ -34,18 +34,18 @@ export class ExportButtonComponent implements OnInit {
 
     async click(option: string): Promise<void> {
         if (this.export) {
-            const data = await this.export(option);
+            await this.export(option)
+                .then(data => {
+                    this.downloadFile(option, data);
 
-            if (typeof data === 'string') {
-                this.alertService.raiseError(new MessageModel('AlertFailure-Title', this.alertFailureMessage, false, false));
-                this.exportButton.cancelLoadingWithError();
-            }
-            else if (data instanceof Blob) {
-                this.downloadFile(option, data);
-
-                this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
-                this.exportButton.completeLoading();
-            }
+                    this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
+                    this.exportButton.completeLoading();
+                }, (ex: Blob) => {
+                    ex.text().then(exTxt => {
+                        this.alertService.raiseError(new MessageModel('AlertFailure-Title', this.alertFailureMessage, false, false), exTxt);
+                        this.exportButton.cancelLoadingWithError()
+                    });
+                });
         }
     }
 

@@ -6,9 +6,9 @@
             <span class="visually-hidden">Loading...</span>
         </div>
 
-        <div *ngIf="!tab.loadingTitle">
+        <span *ngIf="!tab.loadingTitle">
             {{ tab.title | translate }}
-        </div>
+        </span>
     </div>
     
     <a class="close" (click)="closeClick()">

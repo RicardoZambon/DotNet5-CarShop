@@ -47,22 +47,22 @@ export class SaveButtonComponent implements OnInit {
             if (this.formGroup.valid) {
                 this.formGroup.disable();
                 
-                const data = await this.save();
+                 await this.save()
+                    .then(data => {
+                        this.alertMessageModel.selectionName = this.title;
+                        this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
+                        this.saveButton.completeLoading();
+
+                        this.saveFinished(option, data);
+
+                    }, ex => {
+                        let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
+                        errorMessageModel.selectionName = this.title;
+                        this.alertService.raiseError(errorMessageModel, ex);
+                        this.saveButton.cancelLoadingWithError();
+                    });
+
                 this.formGroup.enable();
-
-                if (typeof data === 'string') {
-                    let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
-                    errorMessageModel.selectionName = this.title;
-                    this.alertService.raiseError(errorMessageModel);
-                    this.saveButton.cancelLoadingWithError();
-                }
-                else {
-                    this.alertMessageModel.selectionName = this.title;
-                    this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
-                    this.saveButton.completeLoading();
-
-                    this.saveFinished(option, data);
-                }
 
             } else {
                 Object.keys(this.formGroup.controls).forEach(field => {

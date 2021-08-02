@@ -22,23 +22,24 @@ export class AlertService {
         this.raiseAlert(messageModel, icon, 'primary');
     }
     raiseWarning(messageModel: MessageModel, icon: string = 'fa-exclamation'): void {
-        this.raiseAlert(messageModel, icon, 'warning', false, true);
+        this.raiseAlert(messageModel, icon, 'warning', false, '', true);
     }
-    raiseError(messageModel: MessageModel, icon: string = 'fa-bug'): void {
-        this.raiseAlert(messageModel, icon, 'danger', true);
+    raiseError(messageModel: MessageModel, internalMessage: string, icon: string = 'fa-bug'): void {
+        this.raiseAlert(messageModel, icon, 'danger', true, internalMessage);
     }
     raiseSuccess(messageModel: MessageModel, icon: string = 'fa-check'): void {
         this.raiseAlert(messageModel, icon, 'success');
     }
     
 
-    raiseAlert(messageModel: MessageModel, icon: string, color: string, error: boolean = false, validation: boolean = false): void {
+    raiseAlert(messageModel: MessageModel, icon: string, color: string, error: boolean = false, errorMessage: string = '', validation: boolean = false): void {
         let alertMessage = new AlertMessage();
 
         alertMessage.color = color;
         alertMessage.icon = icon;
         alertMessage.message = messageModel;
         alertMessage.error = error;
+        alertMessage.errorMessage = errorMessage;
         alertMessage.validation = validation;
 
         this._raisedAlerts.push(alertMessage);

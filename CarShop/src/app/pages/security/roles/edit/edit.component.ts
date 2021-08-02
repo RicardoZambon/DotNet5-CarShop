@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -37,8 +37,8 @@ export class RolesEditComponent implements OnInit {
     validateClick = () => this.validate();
     saveClick = async () => this.save();
     saveAlertMessageModel = new MessageModel('RolesEdit-Save-Alert-Title', 'RolesEdit-Save-Alert-Message', false, false);
-    saveAlertValidationMessage = 'RolesEdit-Save-AlertValidation-Message';
-    saveAlertFailureMessage = 'RolesEdit-Save-AlertFailure-Message';
+    get saveAlertValidationMessage() { return 'RolesEdit-Save-AlertValidation-Message' + (!this.roleId ? '-New' : '') };
+    get saveAlertFailureMessage() { return 'RolesEdit-Save-AlertFailure-Message' + (!this.roleId ? '-New' : '') };
     
 
     constructor(
@@ -53,7 +53,8 @@ export class RolesEditComponent implements OnInit {
         this.roleForm = this.formBuilder.group({
             name: ['', Validators.required]
         });
-
+        this.roleForm.disable();
+        
         await this.refresh();
     }
 
@@ -77,52 +78,60 @@ export class RolesEditComponent implements OnInit {
             this.roleId = null;
             this.tabService.redirectCurrentTab(this.url);
         }
-        
-        await this.refreshTitle();
+
         await this.refreshModel(model);
-    }
-    async refreshTitle(): Promise<void> {
-        if (this.roleId) {
-            const title = await this.roleService.getRoleDisplayName(this.roleId);
-            if (!title.startsWith('InternalServerError:')) {
-                this.title = title;
-            }
-            else {
-                console.log(title);
-                return;
-            }
-        }
-        else {
-            this.title = 'RolesEdit-New-Title';
-        }
-        this.tabService.openTab(this.title, this.url);
     }
     async refreshModel(model: RoleEditModel | null = null): Promise<void> {
         this.roleForm.disable();
 
         if (this.roleId) {
             if (model === null) {
-                const role = await this.roleService.getRole(this.roleId);
-                if (typeof role === 'string') {
-                    let errorMessageModel = new MessageModel('AlertFailure-Title', 'RolesEdit-Save-AlertFailure-Message', false);
-                    errorMessageModel.selectionName = this.title;
-                    this.alertService.raiseError(errorMessageModel);
+                const role = await this.roleService.getRole(this.roleId)
+                    .catch(ex => {
+                        this.alertService.raiseError(new MessageModel('AlertFailure-Title', 'RolesEdit-Load-AlertFailure-Message', false), ex);
+
+                        const tab = this.tabService.getTab(this.url);
+                        if (tab) {
+                            this.tabService.closeTab(tab);
+                        }
+                        return undefined;
+                    });
+
+                if (!role) {
                     return;
                 }
-                else {
-                    model = role;
-                }
+
+                model = role;
             }
         }
         else {
             model = new RoleEditModel();
-
-            this.saveAlertValidationMessage += '-New';
-            this.saveAlertFailureMessage += '-New';
         }
 
         this.roleForm.setValue(model);
         this.roleForm.enable();
+
+        await this.refreshTitle();
+    }
+    async refreshTitle(): Promise<void> {
+        if (this.roleId) {
+            
+            const title = await this.roleService.getRoleDisplayName(this.roleId)
+                .catch(ex => {
+                    this.alertService.raiseError(new MessageModel('AlertFailure-Title', 'RolesEdit-Title-AlertFailure-Message', false), ex);
+                    return undefined;
+                });
+            
+            if (!title) {
+                return;
+            }
+
+            this.title = title;
+        }
+        else {
+            this.title = 'RolesEdit-Title-New';
+        }
+        this.tabService.openTab(this.title, this.url);
     }
 
 

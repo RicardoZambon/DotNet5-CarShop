@@ -9,6 +9,7 @@
     "Login-Password-Required": "Por favor informe a senha",
     "Login-Password-Invalid": "O usuário ou senha informados são inválidos",
     "Login-Password-Invalid-Help": "Você pode ter digitado a senha errada, ou pode estar com o CAPS LOCK ativo.",
+    "Login-Errors-InternalServerError": "Ocorreu algum erro no servidor, por favor tente novamente.",
     "Login-RememberMe": "Lembrar de mim",
     "Login-SignIn": "Entrar",
 
@@ -42,8 +43,13 @@
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
 
-    "RolesEdit-New-Title": "Nova função",
+
+    "Error-NotFound": "O objeto não pode ser encontrado ou o seu usuário não possui as permissões para abrí-lo.",
+
+
     "RolesList-Columns-Name": "Nome",
+    "RolesList-Loading-Failure": "Aconteceu algo de errado ao carregar a lista de funções...",
+    "RolesList-Loading-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao carregar a lista de funções.",
     "RolesList-Delete-Title": "Excluir função",
     "RolesList-Delete-Title-Plural": "Excluir funções",
     "RolesList-Delete-Message": "Você está prestes a excluir '[SelectionName]' do sistema.",
@@ -58,10 +64,22 @@
     "RolesList-Export-Alert-Message": "As funções foram exportadas com sucesso, verifique a seção de downloads do seu navegador.",
     "RolesList-Export-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao exportar as funções.",
 
+    "RolesEdit-New-Title": "Nova função",
+    "RolesEdit-Title-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao carregar o título da função.",
+    "RolesEdit-Load-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao carregar a função.",
     "RolesEdit-Section-Details": "Detalhes",
     "RolesEdit-Group-Role": "Função",
     "RolesEdit-Label-Name": "Nome",
+    "RolesEdit-Name-Required": "Informe o nome da função.",
+    "RolesEdit-Name-Required-Validation": "Faltando o nome da função",
+    "RolesEdit-Save-Alert-Title": "Função foi salva",
+    "RolesEdit-Save-Alert-Message": "A função '[SelectionName]' foi salva com sucesso.",
+    "RolesEdit-Save-AlertValidation-Message": "Por favor, verifique os seguintes problemas que encontramos ao salvar a função '[SelectionName]':",
+    "RolesEdit-Save-AlertValidation-Message-New": "Por favor, verifique os seguintes problemas que encontramos ao salvar a nova função:",
+    "RolesEdit-Save-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao salvar a função '[SelectionName]'.",
+    "RolesEdit-Save-AlertFailure-Message-New": "Sentimos muito, mas aconteceu algo de errado ao salvar a nova função.",
 
+    "AlertValidation-Title": "Informação incorreta no seu formulário!",
     "AlertFailure-Title": "Oops, ocorreu um erro!",
     "AlertFailure-SuffixMessage": "Se este erro continuar, por favor contate o suporte."
 }

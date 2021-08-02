@@ -19,7 +19,7 @@ export class DeleteButtonComponent implements OnInit {
     @Input() alertMessageModel!: MessageModel;
     @Input() alertFailureMessage!: string;
 
-    @Input() delete?: (selectedIds: number[]) => Promise<string | boolean>;
+    @Input() delete?: (selectedIds: number[]) => Promise<boolean>;
 
     @ViewChild('deleteButton') deleteButton!: ButtonComponent;
 
@@ -40,24 +40,23 @@ export class DeleteButtonComponent implements OnInit {
 
         if (this.delete) {
             const rolesToDelete = this.grid.api.getSelectedNodes().map(x => Number(x.id));
-            const result = await this.delete(rolesToDelete);
+            await this.delete(rolesToDelete)
+                .then(() => {
+                    this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel), 'fa-trash-alt');
 
-            if (typeof result === 'string') {
-                this.deleteButton.cancelLoadingWithError();
+                    this.grid.api.deselectAll();
+                    this.grid.api.refreshInfiniteCache();
+                    this.deleteButton.completeLoading(true);
 
-                let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
-                errorMessageModel.selectionCount = this.alertMessageModel.selectionCount;
-                errorMessageModel.selectionName = this.alertMessageModel.selectionName;
+                }, ex => {
+                    this.deleteButton.cancelLoadingWithError();
 
-                this.alertService.raiseError(errorMessageModel);
-            }
-            else {
-                this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel), 'fa-trash-alt');
-
-                this.grid.api.deselectAll();
-                this.grid.api.refreshInfiniteCache();
-                this.deleteButton.completeLoading(true);
-            }
+                    let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
+                    errorMessageModel.selectionCount = this.alertMessageModel.selectionCount;
+                    errorMessageModel.selectionName = this.alertMessageModel.selectionName;
+    
+                    this.alertService.raiseError(errorMessageModel, ex);
+                });
         }
     }
 }

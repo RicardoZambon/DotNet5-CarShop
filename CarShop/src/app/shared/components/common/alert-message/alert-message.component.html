@@ -15,6 +15,9 @@
             {{ alertMessage.message.message | translate | messageFormat: alertMessage.message.selectionCount:alertMessage.message.selectionName }}
             
             <span *ngIf="alertMessage.error">{{ 'AlertFailure-SuffixMessage' | translate }}</span>
+            <ul *ngIf="alertMessage.error">
+                <li>{{ alertMessage.errorMessage | translate }}</li>
+            </ul>
             
             <ul *ngIf="alertMessage.validation">
                 <li *ngFor="let error of alertMessage.message.validations">{{ error | translate }};</li>

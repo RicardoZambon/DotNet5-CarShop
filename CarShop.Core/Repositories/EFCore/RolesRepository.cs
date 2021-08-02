@@ -1,4 +1,5 @@
 ﻿using CarShop.Core.BusinessEntities.Security;
+using CarShop.Core.Helper.Exceptions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,9 +25,7 @@ namespace CarShop.Core.Repositories.EFCore
                 .Take(endRow);
 
         public async Task<string> GetDisplayNameAsync(int roleId)
-        {
-            return (await context.Set<Roles>().FindAsync(roleId)).Name;
-        }
+            => (await this.GetAsync(roleId)).Name;
 
 
         public async Task DeleteAsync(int[] roleIds)
@@ -58,7 +57,13 @@ namespace CarShop.Core.Repositories.EFCore
 
         public async Task<Roles> GetAsync(int roleId)
         {
-            return await context.Set<Roles>().FindAsync(roleId);
+            var role = await context.Set<Roles>().FindAsync(roleId);
+            if (role == null)
+            {
+                throw new EntityNotFoundException();
+            }
+
+            return role;
         }
     }
 }

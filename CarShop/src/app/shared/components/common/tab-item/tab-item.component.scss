@@ -42,8 +42,15 @@
         font-size: 1rem;
         color: inherit;
         cursor: pointer;
+        overflow: hidden;
 
         @include no-select();
+
+        span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
 
         .spinner-border {
             margin: .25rem .25rem .25rem .5rem;

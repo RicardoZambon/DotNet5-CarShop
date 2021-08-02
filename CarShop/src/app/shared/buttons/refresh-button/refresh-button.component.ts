@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 
 import { ButtonComponent } from '../../components/common/button/button.component';
@@ -20,6 +20,14 @@ export class RefreshButtonComponent implements OnInit {
             if (this.refreshButton?.isLoading) {
                 this.refreshButton.completeLoading();
             }
+        });
+
+        this.grid.gridReady.subscribe(() => {
+            this.grid.api.addEventListener('failCallback', () => {
+                if (this.refreshButton?.isLoading) {
+                    this.refreshButton.cancelLoadingWithError();
+                }
+            });
         });
     }
 

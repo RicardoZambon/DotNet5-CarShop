@@ -1,4 +1,5 @@
-﻿using CarShop.WebAPI.Models.Security.Roles;
+﻿using CarShop.Core.Helper.Exceptions;
+using CarShop.WebAPI.Models.Security.Roles;
 using CarShop.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,7 +28,7 @@ namespace CarShop.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -45,7 +46,7 @@ namespace CarShop.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -55,6 +56,10 @@ namespace CarShop.WebAPI.Controllers
             try
             {
                 return Ok(await rolesService.GetRoleDisplayNameAsync(roleId));
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
             }
             catch (Exception ex)
             {
@@ -110,6 +115,10 @@ namespace CarShop.WebAPI.Controllers
             try
             {
                 return Ok(await rolesService.GetRoleAsync(roleId));
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
             }
             catch (Exception ex)
             {

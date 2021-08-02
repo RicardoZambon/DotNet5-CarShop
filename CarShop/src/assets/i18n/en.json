@@ -45,8 +45,13 @@
     "Button-Refresh": "Refresh",
     "Button-Export": "Export",
 
-    "RolesEdit-New-Title": "New role",
+
+    "Error-NotFound": "The object could not be found or your user lacks the permission to open it.",
+
+
     "RolesList-Columns-Name": "Name",
+    "RolesList-Loading-Failure": "Something went wrong when loading the roles list...",
+    "RolesList-Loading-AlertFailure-Message": "We're sorry, but something went wrong when loading the roles list.",
     "RolesList-Delete-Title": "Delete role",
     "RolesList-Delete-Title-Plural": "Delete roles",
     "RolesList-Delete-Message": "You are about to delete role '[SelectionName]' from the system.",
@@ -61,7 +66,9 @@
     "RolesList-Export-Alert-Message": "The roles were successfully exported, check your browser downloads section.",
     "RolesList-Export-AlertFailure-Message": "We're sorry, but something went wrong when exporting the roles.",
 
-    "RolesEdit-Load-AlertFailure-Message": "We're sorry, but something went wrong when loading the role '[SelectionName]'.",
+    "RolesEdit-Title-New": "New role",
+    "RolesEdit-Title-AlertFailure-Message": "We're sorry, but something went wrong when loading the role title.",
+    "RolesEdit-Load-AlertFailure-Message": "We're sorry, but something went wrong when loading the role.",
     "RolesEdit-Section-Details": "Details",
     "RolesEdit-Group-Role": "Role",
     "RolesEdit-Name-Label": "Name",
@@ -77,5 +84,4 @@
     "AlertValidation-Title": "Incorrect information in your submission!",
     "AlertFailure-Title": "Oops, an error occurred!",
     "AlertFailure-SuffixMessage": "If this error continues, please contact support."
-
 }

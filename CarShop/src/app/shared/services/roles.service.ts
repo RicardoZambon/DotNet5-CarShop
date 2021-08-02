@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -21,7 +20,7 @@ export class RolesService {
         private http: HttpClient
     ) { }
 
-    public async getRoles(startRow: number, endRow: number): Promise<string | RoleListModel[]> {        
+    public async getRoles(startRow: number, endRow: number): Promise<RoleListModel[]> {        
         return this.http
             .get<RoleListModel[]>(`${this.baseUrl}/Roles`, {
                 params: {
@@ -31,24 +30,18 @@ export class RolesService {
             })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    switch(error.status) {
-                        default:
-                            return of('InternalServerError: ' + error.message);
-                    }
+                    throw error.error as string;
                 })
             )
             .toPromise();
     }
 
-    public async exportRoles(option: string): Promise<string | Blob> {
+    public async exportRoles(option: string): Promise<Blob> {
         return this.http
             .get(`${this.baseUrl}/Roles/Export/${option}`, { responseType: 'blob' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    switch(error.status) {
-                        default:
-                            return of('InternalServerError: ' + error.message);
-                    }
+                    throw error.error as string;
                 })
             )
             .toPromise();
@@ -59,10 +52,11 @@ export class RolesService {
             .get(`${this.baseUrl}/Roles/Title/${roleId}`, { responseType: 'text' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    console.error(error);
                     switch(error.status) {
+                        case 404:
+                            throw 'Error-NotFound';
                         default:
-                            return of('InternalServerError: ' + error.message);
+                            throw error.error as string;
                     }
                 })
             )
@@ -70,23 +64,19 @@ export class RolesService {
     }
 
 
-    public async deleteRoles(roleIds: number[]): Promise<string | boolean> {
+    public async deleteRoles(roleIds: number[]): Promise<boolean> {
         return this.http
             .request('DELETE', `${this.baseUrl}/Roles`, { body: roleIds })
             .pipe(
                 map(() => true),
                 catchError((error: HttpErrorResponse) => {
-                    console.log(error);
-                    switch(error.status) {
-                        default:
-                            return of('InternalServerError: ' + error.message);
-                    }
+                    throw error.error as string;
                 })
             )
             .toPromise();
     }
 
-    public async updateRole(roleId: number, roleModel: RoleEditModel): Promise<RoleEditResponse | string> {
+    public async updateRole(roleId: number, roleModel: RoleEditModel): Promise<RoleEditResponse> {
         return this.http
             .post<RoleEditResponse>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
             .pipe(
@@ -95,17 +85,13 @@ export class RolesService {
                     return role;
                 }),
                 catchError((error: HttpErrorResponse) => {
-                    console.error(error);
-                    switch(error.status) {
-                        default:
-                            return of('InternalServerError: ' + error.message);
-                    }
+                    throw error.error as string;
                 })
             )
             .toPromise();
     }
 
-    public async insertRole(roleModel: RoleEditModel): Promise<RoleEditResponse | string> {
+    public async insertRole(roleModel: RoleEditModel): Promise<RoleEditResponse> {
         return this.http
             .put<RoleEditResponse>(`${this.baseUrl}/Roles`, roleModel)
             .pipe(
@@ -114,26 +100,23 @@ export class RolesService {
                     return role;
                 }),
                 catchError((error: HttpErrorResponse) => {
-                    console.error(error);
-                    switch(error.status) {
-                        default:
-                            return of('InternalServerError: ' + error.message);
-                    }
+                    throw error.error as string;
                 })
             )
             .toPromise();
     }
 
 
-    public async getRole(roleId: number): Promise<RoleEditModel | string> {
+    public async getRole(roleId: number): Promise<RoleEditModel> {
         return this.http
             .get<RoleEditModel>(`${this.baseUrl}/Roles/${roleId}`)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    console.error(error);
                     switch(error.status) {
+                        case 404:
+                            throw 'Error-NotFound';
                         default:
-                            return of('InternalServerError: ' + error.message);
+                            throw error.error as string;
                     }
                 })
             )

@@ -68,7 +68,10 @@ export class TabsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.tabService.openTab('', this.router.url.substring(1, this.router.url.length), true);
+        const url = this.router.url.substring(1, this.router.url.length);
+        if (url !== '') {
+            this.tabService.openTab('', this.router.url.substring(1, this.router.url.length), true);
+        }
     }
 
     ngOnDestroy(): void {

@@ -8,7 +8,8 @@ import { ICellRendererParams } from 'ag-grid-community';
 })
 export class GridLoadingRendererComponent implements AgRendererComponent {
 
-    loading: boolean = true;
+    error = false;
+    loading = true;
     params!: any;
 
     constructor() { }
@@ -20,10 +21,21 @@ export class GridLoadingRendererComponent implements AgRendererComponent {
 
     agInit(params: ICellRendererParams): void {
         this.update(params);
+
+        params.api.addEventListener('failCallback', () => {
+            if (this.loading) {
+                this.loading = false;
+                this.error = true;
+            }
+        });
     }
 
     update(params: ICellRendererParams): void {
         this.loading = params.value === undefined;
+        if (this.loading) {
+            this.error = false;
+        }
+
         params.node.selectable = !this.loading;
         this.params = params;
     }

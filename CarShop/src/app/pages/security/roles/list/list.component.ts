@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/shared/services/alert.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
@@ -18,15 +19,17 @@ export class RolesListComponent implements OnInit {
 
     @ViewChild('grid') grid!: AgGridAngular;
     
+    firstLoaded = false;
     datasource!: IDatasource;
     frameworkComponents: any = {
         agColumnHeader: GridHeaderComponent,
         loadingRenderer: GridLoadingRendererComponent
     };
     getRowNodeId = (data: RoleListModel) => data.id;
+    cellRendererParams = { loadingMessage: 'Grid-Loading', loadingMessageFailure: 'RolesList-Loading-Failure' };
     columnDefs: ColDef[] = [
         { colId: 'id',      field: 'id',    headerName: 'ID', hide: true },
-        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, cellRenderer: 'loadingRenderer', cellRendererParams: { loadingMessage: 'Grid-Loading' }, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
+        { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, cellRenderer: 'loadingRenderer', cellRendererParams: this.cellRendererParams, minWidth: 150, sort: 'asc', flex: 1, checkboxSelection: true },
     ];
 
 
@@ -47,25 +50,34 @@ export class RolesListComponent implements OnInit {
     exportAlertMessageModel = new MessageModel('RolesList-Export-Alert-Title', 'RolesList-Export-Alert-Message', false, false);
 
 
-    constructor(private rolesService: RolesService) {
+    constructor(private rolesService: RolesService, private alertService: AlertService) {
     }
 
     ngOnInit(): void {
         const comp = this;
         this.datasource = {
             getRows: async function (params) {
-                const roles = await comp.rolesService.getRoles(params.startRow, params.endRow);
-                if (typeof roles === 'string') {
-                    console.log(roles);
-                }
-                else {
-                    params.successCallback(roles, params.startRow + roles.length < params.endRow ? params.startRow + roles.length : -1);
-                    
-                    var lastRow = -1;
-                    if (roles.length <= params.endRow) {
-                        lastRow = roles.length;
-                    }
-                }
+                await comp.rolesService.getRoles(params.startRow, params.endRow)
+                    .then(roles => {
+                        comp.firstLoaded = true;
+                        params.successCallback(roles, params.startRow + roles.length < params.endRow ? params.startRow + roles.length : -1);
+                        
+                        var lastRow = -1;
+                        if (roles.length <= params.endRow) {
+                            lastRow = roles.length;
+                        }
+    
+                        params.successCallback(roles, lastRow);
+
+                    }, ex => {
+                        comp.alertService.raiseError(new MessageModel('AlertFailure-Title', 'RolesList-Loading-AlertFailure-Message', false), ex);
+
+                        if (comp.grid) {
+                            comp.grid.api.dispatchEvent({ type: 'failCallback' });
+                        }
+                        
+                        return undefined;
+                    });
             }
         }
 
@@ -91,7 +103,7 @@ export class RolesListComponent implements OnInit {
     }
 
 
-    async export(option: string): Promise<Blob | string> {
+    async export(option: string): Promise<Blob> {
         return await this.rolesService.exportRoles(option);
     }
 }
