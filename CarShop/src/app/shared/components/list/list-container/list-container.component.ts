@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-list-container',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./list-container.component.scss']
 })
 export class ListContainerComponent implements OnInit {
+
+    @Input() showFilters = false;
+    @Input() filtersWidth = 16.25;
 
     constructor() { }
 

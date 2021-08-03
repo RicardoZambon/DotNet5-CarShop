@@ -14,6 +14,8 @@
     </app-button-group>
 
     <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="2">
+        <app-filter-button [listContainer]="listContainer"></app-filter-button>
+
         <app-refresh-button [grid]="grid"></app-refresh-button>
 
         <app-export-button #exportButton
@@ -25,7 +27,7 @@
 
 </app-button-container>
 
-<app-list-container auto-scroll>    
+<app-list-container #listContainer auto-scroll>
     <ag-grid-angular #grid
         class="ag-theme-alpine flex-grow-1 border rounded mt-0 h-100"
         [columnDefs]="columnDefs"
@@ -42,8 +44,11 @@
         auto-scroll-grid
     >
     </ag-grid-angular>
-</app-list-container>
 
+    <div filters>
+        filters here
+    </div>
+</app-list-container>
 
 <app-delete-modal #deleteModal
     [modalId]="'listUserDeleteModal'"

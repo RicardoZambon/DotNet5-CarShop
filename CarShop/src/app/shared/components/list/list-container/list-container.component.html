@@ -1,1 +1,14 @@
-<ng-content></ng-content>
+<div class="row flex-grow-1 g-0">
+    <div class="col grid-container">
+        <ng-content></ng-content>
+    </div>
+
+    <div class="col-auto d-flex filter-container"
+        [class.hidden]="!showFilters"
+        [style.max-width.rem]="filtersWidth"
+    >
+        <div [style.min-width.rem]="filtersWidth">
+            <ng-content select="[filters]"></ng-content>
+        </div>
+    </div>
+</div>

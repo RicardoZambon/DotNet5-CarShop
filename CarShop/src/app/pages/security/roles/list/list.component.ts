@@ -1,12 +1,13 @@
-import { DeleteModalComponent } from './../../../../shared/modals/delete-modal/delete-modal.component';
-import { AlertService } from 'src/app/shared/services/alert.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
 
+import { AlertService } from 'src/app/shared/services/alert.service';
+import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { ExportButtonComponent } from 'src/app/shared/buttons/export-button/export-button.component';
 import { GridHeaderComponent } from 'src/app/shared/components/list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from 'src/app/shared/components/list/grid-loading/grid-loading.component';
+import { ListContainerComponent } from 'src/app/shared/components/list/list-container/list-container.component';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/role-list-model';
@@ -18,6 +19,7 @@ import { RoleListModel } from 'src/app/shared/models/Security/role-list-model';
 })
 export class RolesListComponent implements OnInit {
 
+    @ViewChild('listContainer') listContainer!: ListContainerComponent;
     @ViewChild('grid') grid!: AgGridAngular;
     
     firstLoaded = false;

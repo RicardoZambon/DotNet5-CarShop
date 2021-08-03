@@ -6,6 +6,29 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+
+    .grid-container {
+        overflow: auto;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
+
+    .filter-container {
+        margin-left: .5rem;
+        overflow: hidden;
+        background-color: rgba($home-base-color, .6);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+        transition: all ease-in-out .5s;
+
+        &.hidden {
+            max-width: 0px !important;
+            margin-left: 0px !important;
+            border-width: 0px;
+        }
+
+        div {
+            padding: .5rem;    
+        }
+    }
 }
