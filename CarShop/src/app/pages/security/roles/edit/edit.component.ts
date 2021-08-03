@@ -111,6 +111,13 @@ export class RolesEditComponent implements OnInit {
         this.roleForm.setValue(model);
         this.roleForm.enable();
 
+        this.roleForm.markAsUntouched();
+        this.roleForm.markAsPristine();
+
+        if (this.formElement) {    
+            (this.formElement.nativeElement.querySelector('input[autofocus]') as HTMLElement)?.focus();
+        }
+
         await this.refreshTitle();
     }
     async refreshTitle(): Promise<void> {

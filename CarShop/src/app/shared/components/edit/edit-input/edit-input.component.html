@@ -8,7 +8,7 @@
 
         [placeholder]="this.placeholder"
 
-        [autofocus]="this.autofocus"
+        [attr.autofocus]="this.autofocus"
     />
 
     <div *ngIf="this.formGroup.disabled && !this.hasValue()" class="loading">

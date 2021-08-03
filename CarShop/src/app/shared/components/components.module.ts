@@ -29,6 +29,7 @@ import { TabItemComponent } from './common/tab-item/tab-item.component';
 import { AutoScrollDirective } from './../directives/auto-scroll/auto-scroll.directive';
 import { AutoScrollGridDirective } from './../directives/auto-scroll-grid/auto-scroll-grid.directive';
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
+import { FormFocusInvalidInputDirective } from './../directives/form-focus-invalid-input/form-focus-invalid-input.directive';
 import { ScrollSpyDirective } from '../directives/scroll-spy/scroll-spy.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
 
@@ -59,6 +60,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         AutoScrollDirective,
         AutoScrollGridDirective,
         AutofocusDirective,
+        FormFocusInvalidInputDirective,
         ScrollSpyDirective,
         TrackScrollDirective,
 
@@ -92,6 +94,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
 
         AutoScrollDirective,
         AutoScrollGridDirective,
+        FormFocusInvalidInputDirective,
 
         GridHeaderComponent,
         GridLoadingRendererComponent,

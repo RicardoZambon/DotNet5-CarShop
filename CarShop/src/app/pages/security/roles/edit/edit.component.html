@@ -14,7 +14,7 @@
 
 <app-edit-container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate" [loading]="roleForm.disabled">
     
-    <form ngNoForm [formGroup]="roleForm" #form>
+    <form ngNoForm appFormFocusInvalidInput [formGroup]="roleForm" #form>
 
         <app-edit-section [id]="'details'" [label]="'RolesEdit-Section-Details' | translate">
             <div class="row">
@@ -22,10 +22,7 @@
                     <div class="row mb-3 g-3">
 
                         <label for="name" class="col-sm-auto col-form-label text-end">{{ 'RolesEdit-Name-Label' | translate }}:</label>
-                        <app-edit-input
-                            [formGroup]="roleForm" [controlName]="'name'"
-                            [autofocus]="true"
-                        >
+                        <app-edit-input [formGroup]="roleForm" [controlName]="'name'" [autofocus]="true">
                             <div validations>
                                 <div [class.d-none]="!roleForm.controls['name'].errors?.required">{{ 'RolesEdit-Name-Required' | translate}}</div>
                             </div>
