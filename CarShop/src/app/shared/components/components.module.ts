@@ -5,6 +5,7 @@ import { DragulaModule } from 'ng2-dragula';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { I18nModule } from './../../i18n/i18n.module';
+import { ModalsModule } from './../modals/modals.module';
 import { PipesModule } from './../pipes/pipes.module';
 
 import { AlertContainerComponent } from './common/alert-container/alert-container.component';
@@ -29,6 +30,7 @@ import { TabItemComponent } from './common/tab-item/tab-item.component';
 import { AutoScrollDirective } from './../directives/auto-scroll/auto-scroll.directive';
 import { AutoScrollGridDirective } from './../directives/auto-scroll-grid/auto-scroll-grid.directive';
 import { AutofocusDirective } from './../directives/autofocus/autofocus.directive';
+import { CloseConfirmDirective } from '../directives/close-confirm/close-confirm.directive';
 import { FormFocusInvalidInputDirective } from './../directives/form-focus-invalid-input/form-focus-invalid-input.directive';
 import { ScrollSpyDirective } from '../directives/scroll-spy/scroll-spy.directive';
 import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.directive';
@@ -60,6 +62,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         AutoScrollDirective,
         AutoScrollGridDirective,
         AutofocusDirective,
+        CloseConfirmDirective,
         FormFocusInvalidInputDirective,
         ScrollSpyDirective,
         TrackScrollDirective,
@@ -71,6 +74,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         AppRoutingModule,
         CommonModule,
         I18nModule,
+        ModalsModule,
         ReactiveFormsModule,
         DragulaModule,
         PipesModule
@@ -94,6 +98,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
 
         AutoScrollDirective,
         AutoScrollGridDirective,
+        CloseConfirmDirective,
         FormFocusInvalidInputDirective,
 
         GridHeaderComponent,

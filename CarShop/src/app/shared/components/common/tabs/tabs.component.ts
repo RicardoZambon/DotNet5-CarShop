@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CloseModalComponent } from './../../../modals/close-modal/close-modal.component';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { Router, RouteReuseStrategy } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
@@ -14,6 +15,8 @@ import { Tab } from './tab';
     host: { class: 'd-flex flex-column w-100 h-100' }
 })
 export class TabsComponent implements OnInit, OnDestroy {
+
+    @ViewChild('closeModal') closeModal!: CloseModalComponent;
 
     public get activeTab(): Tab | null {
         return this.tabService.activeTab;
@@ -88,6 +91,14 @@ export class TabsComponent implements OnInit, OnDestroy {
     }
 
     public closeTab(tab: Tab): void {
+        if (tab.changedValues) {
+            this.closeModal.show(tab);
+        } else {
+            this.tabService.closeTab(tab);
+        }
+    }
+
+    public forceCloseTab(tab: Tab): void {
         this.tabService.closeTab(tab);
     }
 

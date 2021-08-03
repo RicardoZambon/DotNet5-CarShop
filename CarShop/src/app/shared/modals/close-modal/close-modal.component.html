@@ -1,0 +1,15 @@
+<div #modal class="modal fade" id="closeModal" tabindex="-1" aria-hidden="true" aria-hidden="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="mb-2">{{ "Tab-Close-ConfirmModal-Title" | translate }}</h5>
+                <h6>{{ 'Tab-Close-ConfirmModal-Message' | translate }}</h6>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Tab-Close-ConfirmModal-Button-Cancel' | translate }}</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="confirmClick()">{{ 'Tab-Close-ConfirmModal-Button-Close' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>

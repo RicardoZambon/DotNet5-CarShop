@@ -28,6 +28,11 @@
     "Menu-Roles": "Roles",
     "Menu-Users": "Users",
 
+    "Tab-Close-ConfirmModal-Title": "Do you want to close this tab?",
+    "Tab-Close-ConfirmModal-Message": "Changes you made may not be saved.",
+    "Tab-Close-ConfirmModal-Button-Cancel": "Cancel",
+    "Tab-Close-ConfirmModal-Button-Close": "Confirm close",
+
     "Grid-Loading": "One moment please...",
     
     "ButtonGroup-Entity": "Entity",

@@ -54,6 +54,12 @@ export class RolesEditComponent implements OnInit {
             name: ['', Validators.required]
         });
         this.roleForm.disable();
+
+        this.roleForm.valueChanges.subscribe(value => {
+            if (this.roleForm.dirty) {
+                this.tabService.setChangedValues(this.url);
+            }
+        });
         
         await this.refresh();
     }
@@ -111,6 +117,7 @@ export class RolesEditComponent implements OnInit {
         this.roleForm.setValue(model);
         this.roleForm.enable();
 
+        this.tabService.clearChangedValues(this.url);
         this.roleForm.markAsUntouched();
         this.roleForm.markAsPristine();
 

@@ -26,6 +26,11 @@
     "Menu-Roles": "Funções",
     "Menu-Users": "Usuários",
 
+    "Tab-Close-ConfirmModal-Title": "Tem certeza que deseja fechar esta aba?",
+    "Tab-Close-ConfirmModal-Message": "Alterações feitas por você podem não ser salvas.",
+    "Tab-Close-ConfirmModal-Button-Cancel": "Cancelar",
+    "Tab-Close-ConfirmModal-Button-Close": "Confirmar fechar",
+
     "Grid-Loading": "Um instante, por favor...",
 
     "ButtonGroup-Entity": "Entidade",

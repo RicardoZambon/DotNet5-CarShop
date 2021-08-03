@@ -22,6 +22,10 @@ export class TabService {
         return this._activeTab;
     }
 
+    public get hasChangedTab(): boolean {
+        return this._openTabs.filter(x => x.changedValues).length > 0;
+    }
+
 
     public tabOpened = new EventEmitter<string>();
     public tabRedirected = new EventEmitter<{ oldUrl: string, newUrl: string }>();
@@ -124,6 +128,23 @@ export class TabService {
             this.router.navigate([url]);
 
             console.log('router navigated', url);
+        }
+    }
+
+
+    setChangedValues(url: string): void {
+        const tab = this.getTab(url);
+        if (tab && !tab.changedValues) {
+            tab.changedValues = true;
+            tab.updatePosition();
+        }
+    }
+
+    clearChangedValues(url: string): void {
+        const tab = this.getTab(url);
+        if (tab && tab.changedValues) {
+            tab.changedValues = false;
+            tab.updatePosition();
         }
     }
 }
