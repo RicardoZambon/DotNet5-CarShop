@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 
+import { IModal } from 'src/app/shared/modals/IModal';
+
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
@@ -15,7 +17,7 @@ export class ButtonComponent implements OnInit {
     @Input() icon!: string;
     @Input() label!: string;
     @Input() dropdownLabel!: string;
-    @Input() modalId?: string;
+    @Input() modal?: IModal;
     @Input() priority = 0;
     @Input() disabled = false;
     @Input() setLoadingOnClick = false;
@@ -48,14 +50,6 @@ export class ButtonComponent implements OnInit {
         return this.success;
     }
 
-    public get modalReference(): string | null {
-        if (this.modalId && this.modalId != '') {
-            return '#' + this.modalId;
-        }
-        return null;
-    }
-
-
     public get displayIcon(): string {
         if (this.loading) {
             return 'fa-spinner fa-spin';
@@ -87,15 +81,20 @@ export class ButtonComponent implements OnInit {
 
 
     click(event: Event): void {
-        if (this.setLoadingOnClick) {
-            this.startLoading();
+        if (this.modal) {
+            this.modal.show(null);
         }
+        else {
+            if (this.setLoadingOnClick) {
+                this.startLoading();
+            }
 
-        setTimeout(() => {
-            this.buttonElement.nativeElement.blur();
-        }, 200);
-        
-        this.onClick.emit(this);
+            setTimeout(() => {
+                this.buttonElement.nativeElement.blur();
+            }, 200);
+            
+            this.onClick.emit(this);
+        }
     }
 
     startLoading() {

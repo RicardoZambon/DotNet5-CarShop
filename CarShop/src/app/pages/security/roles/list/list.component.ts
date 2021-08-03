@@ -1,3 +1,4 @@
+import { DeleteModalComponent } from './../../../../shared/modals/delete-modal/delete-modal.component';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -40,6 +41,7 @@ export class RolesListComponent implements OnInit {
     editUrl = 'roles/{id}';
 
     /* Delete */
+    @ViewChild('deleteModal') deleteModal!: DeleteModalComponent;
     deleteClick = async (roleIds: number[]) => this.rolesService.deleteRoles(roleIds);
     deleteConfirmMessageModel = new MessageModel('RolesList-Delete-Title', 'RolesList-Delete-Message');
     deleteAlertMessageModel = new MessageModel('RolesList-Delete-Alert-Title', 'RolesList-Delete-Alert-Message');

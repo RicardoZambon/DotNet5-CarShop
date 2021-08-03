@@ -5,6 +5,7 @@ import { SelectionChangedEvent } from 'ag-grid-community';
 import { AlertService } from './../../services/alert.service';
 import { ButtonComponent } from '../../components/common/button/button.component';
 import { MessageModel } from './../../models/message-model';
+import { IModal } from '../../modals/IModal';
 
 @Component({
     selector: 'app-delete-button',
@@ -13,7 +14,7 @@ import { MessageModel } from './../../models/message-model';
 })
 export class DeleteButtonComponent implements OnInit {
 
-    @Input() modalId!: string;
+    @Input() modal!: IModal;
     @Input() grid!: AgGridAngular;
 
     @Input() alertMessageModel!: MessageModel;

@@ -2,13 +2,14 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, AfterVi
 import { Modal } from 'bootstrap';
 
 import { Tab } from './../../components/common/tabs/tab';
+import { IModal } from '../IModal';
 
 @Component({
   selector: 'app-close-modal',
   templateUrl: './close-modal.component.html',
   styleUrls: ['./close-modal.component.scss']
 })
-export class CloseModalComponent implements OnInit, AfterViewInit {
+export class CloseModalComponent implements OnInit, AfterViewInit, IModal {
 
     @ViewChild('modal') modalElement!: ElementRef<HTMLDivElement>;
     modal!: Modal;

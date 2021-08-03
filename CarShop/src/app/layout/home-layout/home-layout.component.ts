@@ -1,8 +1,8 @@
-import { AlertService } from './../../shared/services/alert.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { LogoutModalComponent } from './../../shared/modals/logout-modal/logout-modal.component';
 import { MenuItem } from 'src/app/shared/components/menu/nav-drawer/menu-item';
 import { MenuService } from './../../shared/services/menu.service';
 import { NavDrawerComponent } from '../../shared/components/menu/nav-drawer/nav-drawer.component';
@@ -17,6 +17,7 @@ import { TabService } from './../../shared/services/tab.service';
 export class HomeLayoutComponent implements OnInit, AfterViewInit {
 
     @ViewChild('menu') menu!: NavDrawerComponent;
+    @ViewChild('logoutModal') logoutModal!: LogoutModalComponent;
 
     private userInfo = this.authenticationService.getInfo();
 
@@ -61,11 +62,15 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
     }
 
 
-    public toggleMenu(): void {
+    toggleMenu(): void {
         this.menu.toggleState();
     }
 
-    public signOut(): void {
+    logout(): void {
+        this.logoutModal.show();
+    }
+
+    logoutConfirmed(): void {
         this.tabService.closeAllTabs();
         this.authenticationService.signOut();
     }

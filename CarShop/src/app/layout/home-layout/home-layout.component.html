@@ -24,7 +24,7 @@
                     <i class="fas fa-bell"></i>
                 </button>
             
-                <button type="button" class="btn btn-log-out" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                <button type="button" class="btn btn-log-out" (click)="logout()">
                     <i class="fas fa-sign-out-alt me-2"></i>{{ 'TopMenu-Logout' | translate }}
                 </button>
             </div>
@@ -40,4 +40,4 @@
     </div>
 </div>
 
-<app-logout-modal (logout)="signOut()"></app-logout-modal>
+<app-logout-modal #logoutModal (logout)="logoutConfirmed()"></app-logout-modal>

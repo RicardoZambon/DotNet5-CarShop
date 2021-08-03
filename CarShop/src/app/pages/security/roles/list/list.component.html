@@ -6,8 +6,8 @@
         <app-edit-button [grid]="grid" [editUrl]="editUrl"></app-edit-button>
 
         <app-delete-button #deleteButton
-            [modalId]="'listUserDeleteModal'"
             [grid]="grid"
+            [modal]="deleteModal"
             [alertMessageModel]="deleteAlertMessageModel"
             [alertFailureMessage]="'RolesList-Delete-AlertFailure-Message'"
             [delete]="deleteClick"></app-delete-button>
@@ -45,7 +45,7 @@
 </app-list-container>
 
 
-<app-delete-modal
+<app-delete-modal #deleteModal
     [modalId]="'listUserDeleteModal'"
     [messageModel]="deleteConfirmMessageModel"
     (confirmed)="deleteButton.click()"
