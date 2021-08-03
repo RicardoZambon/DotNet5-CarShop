@@ -18,10 +18,12 @@ export class FilterButtonComponent implements OnInit {
                 : undefined;
     }
 
+    
     constructor() { }
 
     ngOnInit(): void {
     }
+
 
     filterToggle() {
         console.log(this.listContainer.showFilters);
