@@ -13,7 +13,7 @@ import { RefreshButtonComponent } from './refresh-button/refresh-button.componen
 import { SaveButtonComponent } from './save-button/save-button.component';
 
 @NgModule({
-  declarations: [
+    declarations: [
       DeleteButtonComponent,
       EditButtonComponent,
       ExportButtonComponent,

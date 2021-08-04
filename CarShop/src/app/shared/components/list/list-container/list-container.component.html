@@ -7,7 +7,7 @@
         [class.hidden]="!showFilters"
         [style.max-width.rem]="filtersWidth"
     >
-        <div [style.min-width.rem]="filtersWidth">
+        <div #filters [style.min-width.rem]="filtersWidth">
             <ng-content select="[filters]"></ng-content>
         </div>
     </div>

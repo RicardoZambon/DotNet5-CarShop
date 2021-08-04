@@ -1,0 +1,19 @@
+<div class="header d-flex justify-content-between">
+    <h5>{{ title }}</h5>
+
+    <button type="button" class="btn btn-danger" (click)="reset()">
+        <i class="fas fa-times-circle me-2"></i>{{ 'Clear' | translate }}
+    </button>
+</div>
+
+<div class="content">
+    <form appFormFocusInvalidInput [formGroup]="filterForm" (ngSubmit)="apply()" >
+        <ng-content></ng-content>
+
+        <div class="apply d-flex">
+            <button type="submit" class="btn col btn-success">
+                <i class="fas fa-filter me-2"></i>{{ 'Apply' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

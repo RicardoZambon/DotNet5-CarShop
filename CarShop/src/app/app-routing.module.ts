@@ -12,7 +12,7 @@ import { HomeLayoutComponent } from './layout/home-layout/home-layout.component'
 import { MainComponent } from './pages/home/main/main.component';
 import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
 
-import { RolesListComponent } from './pages/security/roles/list/list.component';
+import { RolesListComponent } from './pages/security/roles/list/roles-list.component';
 
 import { UsersEditComponent } from './pages/security/users/edit/edit.component';
 import { UsersListComponent } from './pages/security/users/list/list.component';

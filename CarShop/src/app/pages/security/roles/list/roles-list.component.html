@@ -13,8 +13,8 @@
             [delete]="deleteClick"></app-delete-button>
     </app-button-group>
 
-    <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="2">
-        <app-filter-button [listContainer]="listContainer"></app-filter-button>
+    <app-button-group [displayName]="'ButtonGroup-General' | translate" [priority]="3">
+        <app-filter-button #filterButton [listContainer]="listContainer"></app-filter-button>
 
         <app-refresh-button [grid]="grid"></app-refresh-button>
 
@@ -45,9 +45,11 @@
     >
     </ag-grid-angular>
 
-    <div filters>
-        filters here
-    </div>
+    <app-roles-list-filter filters #listFilters
+        [filterButton]="filterButton"
+        (filtersSet)="filtersSet()"
+        (filtersReset)="filtersReset()"
+    ></app-roles-list-filter>
 </app-list-container>
 
 <app-delete-modal #deleteModal

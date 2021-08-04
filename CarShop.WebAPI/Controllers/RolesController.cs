@@ -1,4 +1,5 @@
-﻿using CarShop.Core.Helper.Exceptions;
+﻿using CarShop.Core.Helper;
+using CarShop.Core.Helper.Exceptions;
 using CarShop.WebAPI.Models.Security.Roles;
 using CarShop.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +20,12 @@ namespace CarShop.WebAPI.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult<IQueryable<RoleListModel>> List(int startRow, int endRow)
+        [HttpPost]
+        public ActionResult<IQueryable<RoleListModel>> List(int startRow, int endRow, [FromBody] QueryParameters parameters = null)
         {
             try
             {
-                return Ok(rolesService.GetAllRoles(startRow, endRow));
+                return Ok(rolesService.GetAllRoles(startRow, endRow, parameters));
             }
             catch (Exception ex)
             {
@@ -32,15 +33,15 @@ namespace CarShop.WebAPI.Controllers
             }
         }
 
-        [HttpGet, Route(nameof(Export) + "/{option}")]
-        public async Task<ActionResult<byte[]>> Export(string option)
+        [HttpPost, Route(nameof(Export) + "/{option}")]
+        public async Task<ActionResult<byte[]>> Export(string option, [FromBody] QueryParameters parameters = null)
         {
             try
             {
                 return option switch
                 {
-                    "csv" => File(await rolesService.ExportAllRolesToCSV(), "text/csv", "usuarios.csv"),
-                    "xlsx" => File(await rolesService.ExportAllRolesToXLSX(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "usuarios.xlsx"),
+                    "csv" => File(await rolesService.ExportAllRolesToCSV(parameters), "text/csv", "usuarios.csv"),
+                    "xlsx" => File(await rolesService.ExportAllRolesToXLSX(parameters), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "usuarios.xlsx"),
                     _ => NotFound(),
                 };
             }

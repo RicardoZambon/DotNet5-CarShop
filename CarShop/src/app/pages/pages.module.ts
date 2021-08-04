@@ -15,10 +15,11 @@ import { MainComponent } from './home/main/main.component';
 
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 
-import { RolesListComponent } from './security/roles/list/list.component';
-import { UsersListComponent } from './security/users/list/list.component';
-import { UsersEditComponent } from './security/users/edit/edit.component';
 import { RolesEditComponent } from './security/roles/edit/edit.component';
+import { RolesListComponent } from './security/roles/list/roles-list.component';
+import { RolesListFilterComponent } from './security/roles/list/roles-list-filter.component';
+import { UsersEditComponent } from './security/users/edit/edit.component';
+import { UsersListComponent } from './security/users/list/list.component';
 
 @NgModule({
     declarations: [
@@ -27,11 +28,12 @@ import { RolesEditComponent } from './security/roles/edit/edit.component';
         
         DashboardComponent,
 
-        RolesListComponent,
-        UsersListComponent,
-        
         RolesEditComponent,
+        RolesListComponent,
+        RolesListFilterComponent,
+
         UsersEditComponent,
+        UsersListComponent,
     ],
     imports: [
         CommonModule,

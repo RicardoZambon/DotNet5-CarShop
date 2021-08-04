@@ -8,7 +8,7 @@ import { ButtonComponent } from '../../components/common/button/button.component
     templateUrl: './refresh-button.component.html',
     styleUrls: ['./refresh-button.component.scss']
 })
-export class RefreshButtonComponent implements OnInit {
+export class RefreshButtonComponent implements OnInit, AfterViewInit {
 
     @Input() grid!: AgGridAngular;
     @ViewChild('refreshButton') refreshButton!: ButtonComponent;
@@ -16,6 +16,9 @@ export class RefreshButtonComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+    }
+
+    ngAfterViewInit(): void {
         this.grid.paginationChanged.subscribe(() => {
             if (this.refreshButton?.isLoading) {
                 this.refreshButton.completeLoading();
@@ -30,6 +33,7 @@ export class RefreshButtonComponent implements OnInit {
             });
         });
     }
+
 
     refresh() {
         this.grid.api.refreshInfiniteCache();

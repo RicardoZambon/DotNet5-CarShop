@@ -1,0 +1,36 @@
+@import "/src/app/shared/styles/variables";
+
+@import 'bootstrap';
+
+.header {
+    margin-bottom: .5rem;
+
+    .btn {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: .8rem;
+        margin: -.25rem -.25rem .25rem .25rem;
+    }
+}
+
+.content {
+    font-size: .9rem;
+
+    ::ng-deep { 
+        .form-label {
+            margin-bottom: 0;
+        }
+
+        .form-control {
+            font-size: .9rem;
+        }
+    }
+}
+
+.apply {
+    margin-top: .5rem;
+
+    .btn {
+        font-size: .8rem;
+    }
+}

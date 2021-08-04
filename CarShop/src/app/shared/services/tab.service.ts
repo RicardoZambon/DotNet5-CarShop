@@ -123,11 +123,8 @@ export class TabService {
         const tab = this.getTab(oldUrl);
         if (tab) {
             tab.url = url;
-            console.log({oldUrl: oldUrl, newUrl: url});
             this.tabRedirected.emit({oldUrl: oldUrl, newUrl: url});
             this.router.navigate([url]);
-
-            console.log('router navigated', url);
         }
     }
 

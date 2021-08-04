@@ -19,6 +19,7 @@ import { EditGroupComponent } from './edit/edit-group/edit-group.component';
 import { EditInputComponent } from './edit/edit-input/edit-input.component';
 import { EditSectionComponent } from './edit/edit-section/edit-section.component';
 import { EditTitleComponent } from './edit/edit-title/edit-title.component';
+import { FilterContainerComponent } from './list/filter-container/filter-container.component';
 import { ListContainerComponent } from './list/list-container/list-container.component';
 import { LoginInputComponent } from './login/login-input/login-input.component';
 import { NavDrawerComponent } from './menu/nav-drawer/nav-drawer.component';
@@ -51,6 +52,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         EditInputComponent,
         EditSectionComponent,
         EditTitleComponent,
+        FilterContainerComponent,
         ListContainerComponent,
         LoginInputComponent,
         NavDrawerComponent,
@@ -89,6 +91,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
         EditGroupComponent,
         EditInputComponent,
         EditSectionComponent,
+        FilterContainerComponent,
         ListContainerComponent,
         LoginInputComponent,
         NavDrawerComponent,

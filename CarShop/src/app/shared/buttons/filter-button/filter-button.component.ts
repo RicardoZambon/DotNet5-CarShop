@@ -26,7 +26,6 @@ export class FilterButtonComponent implements OnInit {
 
 
     filterToggle() {
-        console.log(this.listContainer.showFilters);
-        this.listContainer.showFilters = !this.listContainer.showFilters;
+        this.listContainer.toggleFilters();
     }
 }

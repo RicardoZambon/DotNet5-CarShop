@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using CarShop.Core;
 using CarShop.Core.BusinessEntities.Security;
+using CarShop.Core.Helper;
 using CarShop.Core.Repositories;
 using CarShop.WebAPI.Models.Security.Roles;
 using ClosedXML.Excel;
@@ -26,16 +27,16 @@ namespace CarShop.WebAPI.Services.Handlers
             this.rolesRepository = rolesRepository;
         }
 
-        public IQueryable<RoleListModel> GetAllRoles(int startRow, int endRow)
-            => rolesRepository.GetAll(startRow, endRow).ProjectTo<RoleListModel>(mapper.ConfigurationProvider);
+        public IQueryable<RoleListModel> GetAllRoles(int startRow, int endRow, QueryParameters parameters = null)
+            => rolesRepository.GetAll(startRow, endRow, parameters).ProjectTo<RoleListModel>(mapper.ConfigurationProvider);
 
-        public async Task<byte[]> ExportAllRolesToCSV()
+        public async Task<byte[]> ExportAllRolesToCSV(QueryParameters parameters = null)
         {
             await using var memory = new MemoryStream();
             await using var stw = new StreamWriter(memory);
             await using var csv = new CsvWriter(stw, CultureInfo.InvariantCulture);
 
-            await csv.WriteRecordsAsync(rolesRepository.GetAll().ProjectTo<RoleListModel>(mapper.ConfigurationProvider));
+            await csv.WriteRecordsAsync(rolesRepository.GetAll(parameters).ProjectTo<RoleListModel>(mapper.ConfigurationProvider));
 
             await csv.FlushAsync();
             await stw.FlushAsync();
@@ -43,7 +44,7 @@ namespace CarShop.WebAPI.Services.Handlers
             return memory.ToArray();
         }
 
-        public async Task<byte[]> ExportAllRolesToXLSX()
+        public async Task<byte[]> ExportAllRolesToXLSX(QueryParameters parameters = null)
         {
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Users");
@@ -55,11 +56,13 @@ namespace CarShop.WebAPI.Services.Handlers
             worksheet.Cell(currentRow, 1).Value = "Id";
             worksheet.Cell(currentRow, 2).Value = "Name";
 
-            foreach (var user in rolesRepository.GetAll().ProjectTo<RoleListModel>(mapper.ConfigurationProvider))
+            var roles = rolesRepository.GetAll(parameters).ProjectTo<RoleListModel>(mapper.ConfigurationProvider);
+
+            foreach (var role in roles)
             {
                 currentRow++;
-                worksheet.Cell(currentRow, 1).Value = user.Id;
-                worksheet.Cell(currentRow, 2).Value = user.Name;
+                worksheet.Cell(currentRow, 1).Value = role.Id;
+                worksheet.Cell(currentRow, 2).Value = role.Name;
             }
 
             // Creates Table

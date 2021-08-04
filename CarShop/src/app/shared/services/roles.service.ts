@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { QueryParametersModel } from './../models/query-parameters-model';
 import { RoleListModel } from '../models/Security/role-list-model';
 import { RoleEditModel } from './../models/Security/role-edit-model';
 import { RoleEditResponse } from '../models/Security/role-edit-response';
@@ -12,6 +13,7 @@ import { RoleEditResponse } from '../models/Security/role-edit-response';
 })
 export class RolesService {
     private baseUrl = `${environment.apiUrl}/Security`;
+    private queryParameters = new QueryParametersModel();
 
     @Output() onRolesUpdated = new EventEmitter();
 
@@ -20,10 +22,21 @@ export class RolesService {
         private http: HttpClient
     ) { }
 
-    public async getRoles(startRow: number, endRow: number): Promise<RoleListModel[]> {        
+
+    applyFilter(filters: { [id: string]: any }): void {
+        this.queryParameters.Filters = filters;
+    }
+
+    clearFilters(): void {
+        this.queryParameters.Filters = {};
+    }
+
+
+    async getRoles(startRow: number, endRow: number): Promise<RoleListModel[]> {
+        
         return this.http
-            .get<RoleListModel[]>(`${this.baseUrl}/Roles`, {
-                params: {
+            .post<RoleListModel[]>(`${this.baseUrl}/Roles`, this.queryParameters, {
+                params: { 
                     'startRow': startRow.toString(),
                     'endRow': endRow.toString()
                 }
@@ -36,9 +49,9 @@ export class RolesService {
             .toPromise();
     }
 
-    public async exportRoles(option: string): Promise<Blob> {
+    async exportRoles(option: string): Promise<Blob> {
         return this.http
-            .get(`${this.baseUrl}/Roles/Export/${option}`, { responseType: 'blob' })
+            .post(`${this.baseUrl}/Roles/Export/${option}`, this.queryParameters, { responseType: 'blob' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
@@ -47,7 +60,7 @@ export class RolesService {
             .toPromise();
     }
 
-    public async getRoleDisplayName(roleId: number): Promise<string> {
+    async getRoleDisplayName(roleId: number): Promise<string> {
         return this.http
             .get(`${this.baseUrl}/Roles/Title/${roleId}`, { responseType: 'text' })
             .pipe(
@@ -64,7 +77,7 @@ export class RolesService {
     }
 
 
-    public async deleteRoles(roleIds: number[]): Promise<boolean> {
+    async deleteRoles(roleIds: number[]): Promise<boolean> {
         return this.http
             .request('DELETE', `${this.baseUrl}/Roles`, { body: roleIds })
             .pipe(
@@ -76,7 +89,7 @@ export class RolesService {
             .toPromise();
     }
 
-    public async updateRole(roleId: number, roleModel: RoleEditModel): Promise<RoleEditResponse> {
+    async updateRole(roleId: number, roleModel: RoleEditModel): Promise<RoleEditResponse> {
         return this.http
             .post<RoleEditResponse>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
             .pipe(
@@ -91,7 +104,7 @@ export class RolesService {
             .toPromise();
     }
 
-    public async insertRole(roleModel: RoleEditModel): Promise<RoleEditResponse> {
+    async insertRole(roleModel: RoleEditModel): Promise<RoleEditResponse> {
         return this.http
             .put<RoleEditResponse>(`${this.baseUrl}/Roles`, roleModel)
             .pipe(
@@ -107,7 +120,7 @@ export class RolesService {
     }
 
 
-    public async getRole(roleId: number): Promise<RoleEditModel> {
+    async getRole(roleId: number): Promise<RoleEditModel> {
         return this.http
             .get<RoleEditModel>(`${this.baseUrl}/Roles/${roleId}`)
             .pipe(

@@ -44,8 +44,11 @@
     "Button-Save-And-Close": "Salvar e fechar",
     "Button-Save-And-New": "Salvar e novo",
 
-    "ButtonGroup-General": "Geral",
+    "ButtonGroup-Filters": "Filters",
     "Button-Filter": "Filtrar",
+    "Button-Filter-Clear": "Limpar",
+
+    "ButtonGroup-General": "Geral",
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
 
@@ -56,6 +59,7 @@
     "RolesList-Columns-Name": "Nome",
     "RolesList-Loading-Failure": "Aconteceu algo de errado ao carregar a lista de funções...",
     "RolesList-Loading-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao carregar a lista de funções.",
+    "RolesList-Filter-Title": "Filtrar funções",
     "RolesList-Delete-Title": "Excluir função",
     "RolesList-Delete-Title-Plural": "Excluir funções",
     "RolesList-Delete-Message": "Você está prestes a excluir '[SelectionName]' do sistema.",

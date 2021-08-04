@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, IDatasource, SelectionChangedEvent } from 'ag-grid-community';
 
@@ -14,8 +15,8 @@ import { RoleListModel } from 'src/app/shared/models/Security/role-list-model';
 
 @Component({
     selector: 'app-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss']
+    templateUrl: './roles-list.component.html',
+    styleUrls: ['./roles-list.component.scss']
 })
 export class RolesListComponent implements OnInit {
 
@@ -54,7 +55,9 @@ export class RolesListComponent implements OnInit {
     exportAlertMessageModel = new MessageModel('RolesList-Export-Alert-Title', 'RolesList-Export-Alert-Message', false, false);
 
 
-    constructor(private rolesService: RolesService, private alertService: AlertService) {
+    constructor(
+        private rolesService: RolesService,
+        private alertService: AlertService) {
     }
 
     ngOnInit(): void {
@@ -109,5 +112,14 @@ export class RolesListComponent implements OnInit {
 
     async export(option: string): Promise<Blob> {
         return await this.rolesService.exportRoles(option);
+    }
+
+    filtersSet(): void {
+        this.grid.api.setDatasource(this.datasource);
+    }
+
+    filtersReset(): void {
+        this.grid.api.setDatasource(this.datasource);
+        this.listContainer.toggleFilters();
     }
 }
