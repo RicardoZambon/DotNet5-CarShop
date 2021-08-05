@@ -2,7 +2,7 @@
     [name]="'delete'"
     [label]="'Button-Delete' | translate"
     [icon]="'fa-trash-alt'"
-    [disabled]="disabled"
+    [disabled]="disabled || datasource.loading"
     [color]="'text-danger'"
     [modal]="modal"
 ></app-button>

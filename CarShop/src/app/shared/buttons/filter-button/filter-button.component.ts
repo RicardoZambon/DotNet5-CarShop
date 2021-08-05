@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ListContainerComponent } from './../../components/list/list-container/list-container.component';
+import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 
 @Component({
   selector: 'app-filter-button',
@@ -9,14 +9,9 @@ import { ListContainerComponent } from './../../components/list/list-container/l
 })
 export class FilterButtonComponent implements OnInit {
 
-    @Input() listContainer!: ListContainerComponent;
-    @Input() filterApplied = false;
+    @Input() datasource!: IAppDatasource;
 
-    get color(): string | undefined {
-        return this.filterApplied
-                ? 'text-success'
-                : undefined;
-    }
+    get color(): string | undefined { return this.datasource.filtersApplied ? 'text-success' : undefined; }
 
     
     constructor() { }
@@ -26,6 +21,6 @@ export class FilterButtonComponent implements OnInit {
 
 
     filterToggle() {
-        this.listContainer.toggleFilters();
+        this.datasource.toggleFiltersBox();
     }
 }

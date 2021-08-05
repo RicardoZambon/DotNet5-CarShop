@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { Component, Input, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class FilterContainerComponent implements OnInit {
 
-    @Input() title!: string;
+    @Input() datasource!: IAppDatasource;
     @Input() filterForm!: FormGroup;
 
     @Output() applyFilter = new EventEmitter();
@@ -27,5 +28,11 @@ export class FilterContainerComponent implements OnInit {
 
     reset() {
         this.resetFilter.emit();
+    }
+
+    @HostListener('keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            this.reset();
+        }
     }
 }

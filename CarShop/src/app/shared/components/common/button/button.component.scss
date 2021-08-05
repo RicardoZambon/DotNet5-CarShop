@@ -4,7 +4,7 @@
     transition: all 0.2s ease-in-out;
 
     &:not(.btn-danger):not(.btn-success):not(.btn-warning) {
-        &:hover {
+        &:hover, &.active {
             background-color: rgba($home-fore-color, .15);
         }
     }

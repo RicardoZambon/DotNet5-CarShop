@@ -61,7 +61,6 @@
     "RolesList-Columns-Name": "Name",
     "RolesList-Loading-Failure": "Something went wrong when loading the roles list...",
     "RolesList-Loading-AlertFailure-Message": "We're sorry, but something went wrong when loading the roles list.",
-    "RolesList-Filter-Title": "Filter roles",
     "RolesList-Delete-Title": "Delete role",
     "RolesList-Delete-Title-Plural": "Delete roles",
     "RolesList-Delete-Message": "You are about to delete role '[SelectionName]' from the system.",

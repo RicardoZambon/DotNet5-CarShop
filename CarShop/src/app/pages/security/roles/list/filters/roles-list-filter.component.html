@@ -1,0 +1,17 @@
+<app-filter-container
+    [datasource]="datasource"
+    [filterForm]="filterForm"
+    (applyFilter)="applyFilter()"
+    (resetFilter)="resetFilter()"
+>
+    <div class="row g-0">
+        <div class="col">
+            <label for="name" class="form-label">{{ 'RolesEdit-Name-Label' | translate }}:</label>
+            <app-edit-input [formGroup]="filterForm" [controlName]="'name'">
+                <div validations>
+                    <!-- <div [class.d-none]="!filterForm.controls['name'].errors?.required">{{ 'RolesEdit-Name-Required' | translate}}</div> -->
+                </div>
+            </app-edit-input>
+        </div>
+    </div>
+</app-filter-container>

@@ -17,9 +17,11 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 
 import { RolesEditComponent } from './security/roles/edit/edit.component';
 import { RolesListComponent } from './security/roles/list/roles-list.component';
-import { RolesListFilterComponent } from './security/roles/list/roles-list-filter.component';
+import { RolesListFilterComponent } from './security/roles/list/filters/roles-list-filter.component';
 import { UsersEditComponent } from './security/users/edit/edit.component';
 import { UsersListComponent } from './security/users/list/list.component';
+import { RolesListGridComponent } from './security/roles/list/grid/roles-list-grid.component';
+import { RolesListButtonsComponent } from './security/roles/list/buttons/roles-list-buttons.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +32,8 @@ import { UsersListComponent } from './security/users/list/list.component';
 
         RolesEditComponent,
         RolesListComponent,
+        RolesListButtonsComponent,
+        RolesListGridComponent,
         RolesListFilterComponent,
 
         UsersEditComponent,

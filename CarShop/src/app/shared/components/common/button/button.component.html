@@ -1,5 +1,6 @@
 <div #button class="btn d-flex flex-column text-nowrap {{ this.buttonClass }}"
-    [ngClass]="{ 'disabled' : this.isDisabled }"
+    [class.disabled]="this.isDisabled"
+    [class.active]="active"
     (click)="this.click($event)"
 >
     <div class="icon">

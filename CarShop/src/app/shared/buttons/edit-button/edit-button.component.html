@@ -2,7 +2,7 @@
     [name]="'edit'"
     [label]="'Button-Edit' | translate"
     [icon]="'fa-edit'"
-    [disabled]="disabled"
+    [disabled]="disabled || datasource.loading"
     [setLoadingOnClick]="true"
 
     (click)="click()"

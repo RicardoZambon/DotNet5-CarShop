@@ -59,7 +59,6 @@
     "RolesList-Columns-Name": "Nome",
     "RolesList-Loading-Failure": "Aconteceu algo de errado ao carregar a lista de funções...",
     "RolesList-Loading-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao carregar a lista de funções.",
-    "RolesList-Filter-Title": "Filtrar funções",
     "RolesList-Delete-Title": "Excluir função",
     "RolesList-Delete-Title-Plural": "Excluir funções",
     "RolesList-Delete-Message": "Você está prestes a excluir '[SelectionName]' do sistema.",

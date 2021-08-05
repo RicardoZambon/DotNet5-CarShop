@@ -1,11 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
-import { SelectionChangedEvent } from 'ag-grid-community';
 
 import { AlertService } from './../../services/alert.service';
 import { ButtonComponent } from '../../components/common/button/button.component';
-import { MessageModel } from './../../models/message-model';
 import { IModal } from '../../modals/IModal';
+import { IAppDatasource } from '../../interfaces/i-app-datasource';
+import { MessageModel } from './../../models/message-model';
 
 @Component({
     selector: 'app-delete-button',
@@ -15,7 +14,7 @@ import { IModal } from '../../modals/IModal';
 export class DeleteButtonComponent implements OnInit {
 
     @Input() modal!: IModal;
-    @Input() grid!: AgGridAngular;
+    @Input() datasource!: IAppDatasource;
 
     @Input() alertMessageModel!: MessageModel;
     @Input() alertFailureMessage!: string;
@@ -30,24 +29,31 @@ export class DeleteButtonComponent implements OnInit {
     constructor(private alertService: AlertService) { }
 
     ngOnInit(): void {
-        this.grid.selectionChanged.subscribe((event: SelectionChangedEvent) => {
-            this.disabled = event.api.getSelectedNodes().length <= 0;
+        this.datasource.selectionChanged.subscribe(event => {
+            const selectedNodes = event.api.getSelectedNodes();
+
+            this.alertMessageModel.selectionCount = selectedNodes.length;
+
+            this.disabled = this.alertMessageModel.selectionCount <= 0;
+            
+            if (this.alertMessageModel.selectionCount === 1)  {
+                this.alertMessageModel.selectionName = this.datasource.getRowNodeDisplayName(selectedNodes[0].data);
+            }
         });
     }
 
     async click(): Promise<void> {
-        
         this.deleteButton.startLoading();
 
         if (this.delete) {
-            const rolesToDelete = this.grid.api.getSelectedNodes().map(x => Number(x.id));
+            const rolesToDelete = this.datasource.getSelectedNodes().map(x => Number(x.id));
             await this.delete(rolesToDelete)
                 .then(() => {
                     this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel), 'fa-trash-alt');
 
-                    this.grid.api.deselectAll();
-                    this.grid.api.refreshInfiniteCache();
-                    this.deleteButton.completeLoading(true);
+                    this.datasource.deselectAll();
+                    this.datasource.refreshData();
+                    this.deleteButton.completeLoading();
 
                 }, ex => {
                     this.deleteButton.cancelLoadingWithError();

@@ -20,6 +20,7 @@ export class ButtonComponent implements OnInit {
     @Input() modal?: IModal;
     @Input() priority = 0;
     @Input() disabled = false;
+    @Input() active = false;
     @Input() setLoadingOnClick = false;
 
     protected _disabled = false;

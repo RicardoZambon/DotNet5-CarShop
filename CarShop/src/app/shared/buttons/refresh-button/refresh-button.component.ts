@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
 
 import { ButtonComponent } from '../../components/common/button/button.component';
+import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 
 @Component({
     selector: 'app-refresh-button',
@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../components/common/button/button.component
 })
 export class RefreshButtonComponent implements OnInit, AfterViewInit {
 
-    @Input() grid!: AgGridAngular;
+    @Input() datasource!: IAppDatasource;
     @ViewChild('refreshButton') refreshButton!: ButtonComponent;
 
     constructor() { }
@@ -19,23 +19,21 @@ export class RefreshButtonComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.grid.paginationChanged.subscribe(() => {
+        this.datasource.dataLoaded.subscribe(() => {
             if (this.refreshButton?.isLoading) {
                 this.refreshButton.completeLoading();
             }
         });
 
-        this.grid.gridReady.subscribe(() => {
-            this.grid.api.addEventListener('failCallback', () => {
-                if (this.refreshButton?.isLoading) {
-                    this.refreshButton.cancelLoadingWithError();
-                }
-            });
+        this.datasource.loadFailed.subscribe(() => {
+            if (this.refreshButton?.isLoading) {
+                this.refreshButton.cancelLoadingWithError();
+            }
         });
     }
 
 
     refresh() {
-        this.grid.api.refreshInfiniteCache();
+        this.datasource.refreshData();
     }
 }

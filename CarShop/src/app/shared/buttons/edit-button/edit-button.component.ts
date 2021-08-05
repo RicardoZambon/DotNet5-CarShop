@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
-import { SelectionChangedEvent } from 'ag-grid-community';
 
 import { ButtonComponent } from '../../components/common/button/button.component';
+import { IAppDatasource } from '../../interfaces/i-app-datasource';
 import { TabService } from './../../services/tab.service';
 
 
@@ -15,7 +14,7 @@ export class EditButtonComponent implements OnInit {
 
     @ViewChild('editButton') editButton!: ButtonComponent;
     
-    @Input() grid!: AgGridAngular;
+    @Input() datasource!: IAppDatasource;
     @Input() editUrl!: string;
     @Input() massDelete: boolean = true;
 
@@ -25,7 +24,7 @@ export class EditButtonComponent implements OnInit {
     constructor(private tabService: TabService) { }
 
     ngOnInit(): void {
-        this.grid.selectionChanged.subscribe((event: SelectionChangedEvent) => {
+        this.datasource.selectionChanged.subscribe(event => {
             const selectedNodes = event.api.getSelectedNodes();
             this.disabled = (selectedNodes.length !== 1 && this.massDelete) || (selectedNodes.length === 1 && !this.massDelete);
             this.selectedId = (!this.disabled) ? selectedNodes[0].id : undefined;

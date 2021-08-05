@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, delay, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { QueryParametersModel } from './../models/query-parameters-model';
@@ -13,7 +13,10 @@ import { RoleEditResponse } from '../models/Security/role-edit-response';
 })
 export class RolesService {
     private baseUrl = `${environment.apiUrl}/Security`;
+    
     private queryParameters = new QueryParametersModel();
+    private _filtersApplied = false;
+    public get filtersApplied() { return this._filtersApplied; }
 
     @Output() onRolesUpdated = new EventEmitter();
 
@@ -24,10 +27,12 @@ export class RolesService {
 
 
     applyFilter(filters: { [id: string]: any }): void {
+        this._filtersApplied = true;
         this.queryParameters.Filters = filters;
     }
 
     clearFilters(): void {
+        this._filtersApplied = false;
         this.queryParameters.Filters = {};
     }
 
@@ -42,6 +47,7 @@ export class RolesService {
                 }
             })
             .pipe(
+                delay(3000),
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })

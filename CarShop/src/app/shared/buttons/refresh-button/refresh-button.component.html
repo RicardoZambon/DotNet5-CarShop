@@ -2,6 +2,7 @@
     [name]="'refresh'"
     [label]="'Button-Refresh' | translate"
     [icon]="'fa-sync-alt'"
+    [disabled]="datasource.loading"
     [setLoadingOnClick]="true"
     (onClick)="refresh()"
 ></app-button>

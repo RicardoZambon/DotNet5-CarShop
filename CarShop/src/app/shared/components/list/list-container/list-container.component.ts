@@ -1,3 +1,4 @@
+import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
@@ -8,21 +9,15 @@ import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class ListContainerComponent implements OnInit {
 
     @ViewChild('filters') filtersElement!: ElementRef<HTMLElement>;
-
-    @Input() showFilters = false;
+    
+    @Input() datasource!: IAppDatasource;
     @Input() filtersWidth = 16.25;
 
     constructor() { }
 
     ngOnInit(): void {
-    }
-
-
-    toggleFilters(): void {
-        this.showFilters = !this.showFilters;
-
-        if (this.showFilters) {
+        this.datasource.filtersShown.subscribe(() => {
             (this.filtersElement.nativeElement.querySelector('.form-control') as HTMLElement)?.focus();
-        }
+        });
     }
 }

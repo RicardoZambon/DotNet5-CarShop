@@ -2,14 +2,20 @@
 
 @import 'bootstrap';
 
-.header {
+.apply {
     margin-bottom: .5rem;
 
     .btn {
-        padding-top: 0;
-        padding-bottom: 0;
         font-size: .8rem;
-        margin: -.25rem -.25rem .25rem .25rem;
+
+        &[type=submit] {
+            @include button-variant($home-base-color3, $home-base-color3);
+        }
+
+        &[type=button] {
+            @include button-variant(rgba(lighten($home-base-color3, 60%), .8), $home-base-color3,
+                $color: $home-base-color3, $hover-color: $home-base-color3, $active-color: $home-base-color3, $disabled-color: $home-base-color3);
+        }
     }
 }
 
@@ -27,10 +33,3 @@
     }
 }
 
-.apply {
-    margin-top: .5rem;
-
-    .btn {
-        font-size: .8rem;
-    }
-}
