@@ -1,1 +1,7 @@
-<div>{{ params.displayName | translate }}</div>
+<div (click)="sort()">
+    {{ params.displayName | translate }}
+    
+    <i class="fas ms-1 fa-arrow-up" *ngIf="sortAsc"></i>
+
+    <i class="fas ms-1 fa-arrow-down" *ngIf="sortDesc"></i>
+</div>

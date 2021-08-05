@@ -5,7 +5,6 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 import { QueryParametersModel } from './models/query-parameters-model';
 
-
 export abstract class BaseDatasource implements IDatasource, IAppDatasource {
     
     private grid!: AgGridAngular;
@@ -39,13 +38,39 @@ export abstract class BaseDatasource implements IDatasource, IAppDatasource {
 
         this.updateEntireDatasource();
     }
-    
 
     abstract getRowNodeId(data: any): any;
 
     abstract getRowNodeDisplayName(data: any): string;
 
-    abstract getRows(params: IGetRowsParams): void;
+    abstract getData(params: IGetRowsParams): Promise<any>;
+
+    async getRows(params: IGetRowsParams): Promise<void> {
+        if (!this.loading) {
+            this.loading = true;
+        }
+        
+        this.setSort(params.sortModel);
+
+        await this.getData(params)
+            .then(data => {
+                var lastRow = -1;
+                if (data.length <= params.endRow) {
+                    lastRow = data.length;
+                }
+
+                this.dataLoaded.emit();
+                params.successCallback(data, lastRow);
+                this.grid.api.dispatchEvent({ type: 'successCallback' });
+
+            }, ex => {
+                this.loadFailed.emit();
+                params.failCallback();
+                this.grid.api.dispatchEvent({ type: 'failCallback' });
+            });
+
+        this.loading = false;
+    }
 
 
     deselectAll(): void {
@@ -100,5 +125,13 @@ export abstract class BaseDatasource implements IDatasource, IAppDatasource {
         if (this.showFilters) {
             this.filtersShown.emit();
         }
+    }
+
+
+    setSort(sortArray: [ { sort: 'asc' | 'desc', colId: string } ]): void {
+        this.queryParameters.Sort = {};
+        sortArray.forEach(x => {
+            this.queryParameters.Sort[x.colId] = x.sort;
+        });
     }
 }

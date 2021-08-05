@@ -21,23 +21,11 @@ export class RolesListDatasource extends BaseDatasource {
         return data.name;
     }
 
-    async getRows(params: IGetRowsParams) {
-        await this.rolesService.getRoles(params.startRow, params.endRow, this.queryParameters)
-            .then(roles => {
-                var lastRow = -1;
-                if (roles.length <= params.endRow) {
-                    lastRow = roles.length;
-                }
-
-                this.dataLoaded.emit();
-                params.successCallback(roles, lastRow);
-
-            }, ex => {
+    async getData(params: IGetRowsParams): Promise<RoleListModel[]> {
+        return await this.rolesService.getRoles(params.startRow, params.endRow, this.queryParameters)
+            .catch(ex => {
                 this.alertService.raiseError(new MessageModel('AlertFailure-Title', 'RolesList-Loading-AlertFailure-Message', false), ex);
-
-                this.loadFailed.emit();
+                throw ex;
             });
-        
-        this.loading = false;
     }
 }

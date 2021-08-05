@@ -2,10 +2,10 @@
 using CarShop.Core.Helper;
 using CarShop.Core.Helper.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
 
 namespace CarShop.Core.Repositories.EFCore
 {
@@ -38,7 +38,11 @@ namespace CarShop.Core.Repositories.EFCore
             {
                 var sort = new Dictionary<string, string>(parameters.Sort, StringComparer.InvariantCultureIgnoreCase);
 
-                //Todo
+                if (sort.ContainsKey(nameof(Roles.Name)))
+                {
+                    const string V = "asc";
+                    list = sort[nameof(Roles.Name)] == V ? list.OrderBy(x => x.Name) : list.OrderByDescending(x => x.Name);
+                }
             }
 
             return list;
