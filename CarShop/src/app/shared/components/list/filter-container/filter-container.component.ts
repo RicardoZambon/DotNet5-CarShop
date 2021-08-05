@@ -1,6 +1,7 @@
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 import { Component, Input, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 
 @Component({
     selector: 'app-filter-container',
@@ -31,7 +32,7 @@ export class FilterContainerComponent implements OnInit {
     }
 
     @HostListener('keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' && !this.datasource.loading) {
             this.reset();
         }
     }
