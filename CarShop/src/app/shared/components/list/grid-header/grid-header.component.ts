@@ -4,7 +4,8 @@ import { IHeaderParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-grid-header',
-  templateUrl: './grid-header.component.html'
+  templateUrl: './grid-header.component.html',
+  styleUrls: ['./grid-header.component.scss']
 })
 export class GridHeaderComponent implements IHeaderAngularComp {
     

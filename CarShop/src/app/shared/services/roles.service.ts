@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { catchError, delay, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { QueryParametersModel } from './../models/query-parameters-model';
@@ -32,7 +32,6 @@ export class RolesService {
                 }
             })
             .pipe(
-                delay(3000),
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })
