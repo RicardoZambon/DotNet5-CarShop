@@ -11,7 +11,7 @@ export class ListContainerComponent implements OnInit {
     @ViewChild('filters') filtersElement!: ElementRef<HTMLElement>;
     
     @Input() datasource!: IAppDatasource;
-    @Input() filtersWidth = 16.25;
+    @Input() filtersWidth = 14.25;
 
     constructor() { }
 
