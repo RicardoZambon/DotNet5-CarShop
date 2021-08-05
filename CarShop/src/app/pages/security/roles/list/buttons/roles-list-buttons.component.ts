@@ -36,6 +36,6 @@ export class RolesListButtonsComponent {
 
 
     async export(option: string): Promise<Blob> {
-        return await this.rolesService.exportRoles(option);
+        return await this.rolesService.exportRoles(option, this.datasource.queryParameters);
     }
 }

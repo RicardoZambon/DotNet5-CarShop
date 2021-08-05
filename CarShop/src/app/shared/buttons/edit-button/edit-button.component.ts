@@ -4,7 +4,6 @@ import { ButtonComponent } from '../../components/common/button/button.component
 import { IAppDatasource } from '../../interfaces/i-app-datasource';
 import { TabService } from './../../services/tab.service';
 
-
 @Component({
     selector: 'app-edit-button',
     templateUrl: './edit-button.component.html',
@@ -34,7 +33,9 @@ export class EditButtonComponent implements OnInit {
 
     async click(): Promise<void> {
         if (this.selectedId) {
-            this.tabService.openTab('', this.editUrl.replace('{id}', this.selectedId), true);
+            const tabUrl = this.editUrl.replace('{id}', this.selectedId);
+            const loadingTitle = !this.tabService.isTabOpen(tabUrl);
+            this.tabService.openTab(undefined, tabUrl, loadingTitle);
         }
         this.editButton.completeLoading();
     }

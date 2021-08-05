@@ -22,7 +22,8 @@ export class NewButtonComponent implements OnInit {
 
 
     async click(): Promise<void> {
-        this.tabService.openTab('', this.newUrl, true);
+        const loadingTitle = !this.tabService.isTabOpen(this.newUrl);
+        this.tabService.openTab(undefined, this.newUrl, loadingTitle);
         this.newButton.completeLoading();
     }
 }

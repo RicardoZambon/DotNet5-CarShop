@@ -1,16 +1,19 @@
 import { EventEmitter } from '@angular/core';
 import { RowNode, SelectionChangedEvent } from 'ag-grid-community';
+import { QueryParametersModel } from '../models/query-parameters-model';
 
 export interface IAppDatasource {
     
-    showFilters: boolean;
     loading: boolean;
-    filtersApplied: boolean;
+    showFilters: boolean;
 
     dataLoaded: EventEmitter<any>;
     filtersShown: EventEmitter<any>;
     loadFailed: EventEmitter<any>;
     selectionChanged: EventEmitter<SelectionChangedEvent>;
+
+    queryParameters: QueryParametersModel;
+    filtersApplied: boolean;
 
     deselectAll(): void;
     getRowNodeId(data: any): any;

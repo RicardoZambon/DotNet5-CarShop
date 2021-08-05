@@ -47,17 +47,21 @@ export class TabService {
     }
 
 
-    openTab(title: string, url: string, loadingTitle: boolean = false): void {
+    openTab(title: string | undefined, url: string, loadingTitle: boolean = false): void {
         let tab = this.getTab(url);
         if (!tab) {
             tab = new Tab();
+            tab.title = '';
             tab.url = url;
 
             this.openTabs.push(tab);
             this.tabOpened.emit(url);
         }
         
-        tab.title = title;
+        if (title) {
+            tab.title = title;
+        }
+
         tab.loadingTitle = loadingTitle;
             
         this.setTabActive(tab);

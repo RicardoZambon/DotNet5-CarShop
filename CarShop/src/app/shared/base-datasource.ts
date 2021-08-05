@@ -3,6 +3,7 @@ import { IDatasource, IGetRowsParams, RowNode, SelectionChangedEvent } from 'ag-
 import { AgGridAngular } from 'ag-grid-angular';
 
 import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { QueryParametersModel } from './models/query-parameters-model';
 
 
 export abstract class BaseDatasource implements IDatasource, IAppDatasource {
@@ -18,7 +19,11 @@ export abstract class BaseDatasource implements IDatasource, IAppDatasource {
     filtersShown = new EventEmitter();
     selectionChanged = new EventEmitter<SelectionChangedEvent>();
 
-    abstract get filtersApplied(): boolean;
+    private _queryParameters = new QueryParametersModel();
+    get queryParameters(): QueryParametersModel { return this._queryParameters; }
+
+    private _filtersApplied = false;
+    get filtersApplied(): boolean { return this._filtersApplied; }
 
 
     constructor() {
@@ -69,16 +74,18 @@ export abstract class BaseDatasource implements IDatasource, IAppDatasource {
     }
 
 
-    abstract serviceApplyFilters(filters: any): void;
-    applyFilters(filters: any): void {
-        this.serviceApplyFilters(filters);
+    applyFilters(filters: { [id: string]: any }): void {
+        this._filtersApplied = true;
+        this._queryParameters.Filters = filters;
+
         this.updateEntireDatasource();
     }
 
-    abstract serviceClearFilters(): void;
     clearFilters(): void {
         if (this.filtersApplied) {
-            this.serviceClearFilters();
+            this._filtersApplied = false;
+            this._queryParameters.Filters = {};
+
             this.updateEntireDatasource();
         }
         

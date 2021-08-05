@@ -6,11 +6,8 @@ import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/role-list-model';
 
-
 export class RolesListDatasource extends BaseDatasource {
     
-    get filtersApplied(): boolean { return this.rolesService.filtersApplied; }
-
     constructor(private rolesService: RolesService, private alertService: AlertService) {
         super();
     }
@@ -25,7 +22,7 @@ export class RolesListDatasource extends BaseDatasource {
     }
 
     async getRows(params: IGetRowsParams) {
-        await this.rolesService.getRoles(params.startRow, params.endRow)
+        await this.rolesService.getRoles(params.startRow, params.endRow, this.queryParameters)
             .then(roles => {
                 var lastRow = -1;
                 if (roles.length <= params.endRow) {
@@ -42,13 +39,5 @@ export class RolesListDatasource extends BaseDatasource {
             });
         
         this.loading = false;
-    }
-    
-    serviceApplyFilters(filters: any): void {
-        this.rolesService.applyFilter(filters);
-    }
-
-    serviceClearFilters(): void {
-        this.rolesService.clearFilters();
     }
 }
