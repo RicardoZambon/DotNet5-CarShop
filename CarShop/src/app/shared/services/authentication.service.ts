@@ -107,6 +107,7 @@ export class AuthenticationService {
                         case 401:
                             return of('InvalidUsernamePassword').pipe(delay(5000));
                         default:
+                            console.log(error);
                             return of('InternalServerError').pipe(delay(5000));
                     }
                 })

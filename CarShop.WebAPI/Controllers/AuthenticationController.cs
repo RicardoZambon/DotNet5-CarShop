@@ -4,6 +4,7 @@ using CarShop.WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace CarShop.WebAPI.Controllers
@@ -30,9 +31,9 @@ namespace CarShop.WebAPI.Controllers
             {
                 return Unauthorized();
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -51,9 +52,9 @@ namespace CarShop.WebAPI.Controllers
             {
                 return Unauthorized();
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return BadRequest(ex.Message);
             }
         }
 
