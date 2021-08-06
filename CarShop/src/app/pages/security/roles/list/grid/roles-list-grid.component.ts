@@ -27,7 +27,6 @@ export class RolesListGridComponent implements OnInit {
     getRowNodeId = (data: RoleListModel) => data.id;
     cellRendererParams = { loadingMessage: 'Grid-Loading', loadingMessageFailure: 'RolesList-Loading-Failure' };
     columnDefs: ColDef[] = [
-        { colId: 'id',      field: 'id',    headerName: 'ID', hide: true },
         { colId: 'name',    field: 'name',  headerName: 'RolesList-Columns-Name', suppressMovable: true, cellRenderer: 'loadingRenderer', cellRendererParams: this.cellRendererParams, minWidth: 150, sortable: true, flex: 1, checkboxSelection: true },
     ];
     

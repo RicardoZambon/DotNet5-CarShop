@@ -10,6 +10,15 @@
     & ::ng-deep {
         .ag-body-viewport {
             @include scroll(darken($home-base-color, 20%));
+
+            .ag-center-cols-container {
+                width: auto !important;
+                overflow: hidden;
+
+                .ag-row {
+                    width: 100% !important;
+                }
+            }
         }
     }
 }
