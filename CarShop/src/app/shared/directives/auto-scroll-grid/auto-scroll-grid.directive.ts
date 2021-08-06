@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridAngular } from '@ag-grid-community/angular';
 import { filter } from 'rxjs/operators';
 
 @Directive({

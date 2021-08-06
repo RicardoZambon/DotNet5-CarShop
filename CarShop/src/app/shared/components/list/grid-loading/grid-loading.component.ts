@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AgRendererComponent } from 'ag-grid-angular';
-import { ICellRendererParams } from 'ag-grid-community';
+import { AgRendererComponent } from '@ag-grid-community/angular';
+import { ICellRendererParams } from '@ag-grid-community/core';
 
 @Component({
   selector: 'app-grid-loading',

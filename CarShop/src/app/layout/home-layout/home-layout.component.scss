@@ -1,9 +1,6 @@
-@import "../../shared/styles/variables";
-
-@import "../../shared/styles/background";
-
-@import "bootstrap";
-
+@import "src/app/shared/styles/variables";
+@import "src/app/shared/styles/background";
+@import "src/app/shared/styles/bootstrap";
 
 .main {
     overflow: hidden;

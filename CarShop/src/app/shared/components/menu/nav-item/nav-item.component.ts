@@ -6,7 +6,10 @@ import { MenuItem } from '../nav-drawer/menu-item';
 @Component({
     selector: 'app-nav-item',
     templateUrl: './nav-item.component.html',
-    styleUrls: ['./nav-item.component.scss'],
+    styleUrls: [
+        './nav-item.component.scss',
+        './nav-item.component-animations.scss',
+    ],
     encapsulation: ViewEncapsulation.None
 })
 export class NavItemComponent implements OnInit {

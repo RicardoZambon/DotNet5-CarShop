@@ -1,4 +1,4 @@
-import { IGetRowsParams } from 'ag-grid-community';
+import { IGetRowsParams } from '@ag-grid-community/core';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { BaseDatasource } from 'src/app/shared/base-datasource';

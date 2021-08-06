@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AgGridModule } from 'ag-grid-angular';
+import { AgGridModule } from '@ag-grid-community/angular';
 
 import { GridHeaderComponent } from '../shared/components/list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from '../shared/components/list/grid-loading/grid-loading.component';
@@ -22,6 +22,7 @@ import { UsersEditComponent } from './security/users/edit/edit.component';
 import { UsersListComponent } from './security/users/list/list.component';
 import { RolesListGridComponent } from './security/roles/list/grid/roles-list-grid.component';
 import { RolesListButtonsComponent } from './security/roles/list/buttons/roles-list-buttons.component';
+
 
 @NgModule({
     declarations: [

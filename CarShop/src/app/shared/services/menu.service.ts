@@ -1,12 +1,12 @@
-import { MenuResponse } from './../models/menu-response';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { MenuItem } from '../components/menu/nav-drawer/menu-item';
-import { TranslateService } from '@ngx-translate/core';
+import { MenuResponse } from './../models/menu-response';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +24,7 @@ export class MenuService {
         
         const translate = this.translateService;
         
-        return await this.http
+        return await lastValueFrom(this.http
             .get(`${this.baseUrl}/GetMenus`)
             .pipe(
                 map(res => {
@@ -58,6 +58,6 @@ export class MenuService {
                             return of('InternalServerError: ' + error.message);
                     }
                 })
-            ).toPromise();
+            ));
     }
 }

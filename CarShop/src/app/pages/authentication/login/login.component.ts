@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Popover from 'bootstrap/js/dist/popover';
+import { Popover } from 'bootstrap';
 
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 

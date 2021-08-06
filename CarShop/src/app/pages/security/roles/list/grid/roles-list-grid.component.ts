@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { ColDef } from '@ag-grid-community/core';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { GridHeaderComponent } from 'src/app/shared/components/list/grid-header/grid-header.component';

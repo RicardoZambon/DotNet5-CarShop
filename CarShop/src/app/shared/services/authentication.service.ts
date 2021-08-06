@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { of } from 'rxjs';
+import { lastValueFrom, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -84,7 +84,7 @@ export class AuthenticationService {
 
 
     public async authenticate(model: LoginModel): Promise<string> {
-        return await this.http
+        return await lastValueFrom(this.http
             .post<LoginResponse>(`${this.baseUrl}/SignIn`, model)
             .pipe(
                 map((res: LoginResponse) => {
@@ -111,11 +111,11 @@ export class AuthenticationService {
                             return of('InternalServerError').pipe(delay(5000));
                     }
                 })
-            ).toPromise();
+            ));
     }
 
     public async tryRefreshToken(): Promise<string> {
-        return await this.http
+        return await lastValueFrom(this.http
             .post<LoginResponse>(`${this.baseUrl}/RefreshToken`, {
                 username: this.username ?? '',
                 refreshToken: this.refreshToken ?? ''
@@ -133,8 +133,7 @@ export class AuthenticationService {
                 catchError(() => {
                     return of('').pipe(delay(5000));
                 })
-            )
-            .toPromise();
+            ));
     }
 
     public signOut(): void {

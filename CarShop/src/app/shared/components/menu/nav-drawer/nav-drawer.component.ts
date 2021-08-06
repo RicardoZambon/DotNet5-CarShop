@@ -9,7 +9,10 @@ import { MenuItem } from './menu-item';
 @Component({
     selector: 'app-nav-drawer',
     templateUrl: './nav-drawer.component.html',
-    styleUrls: ['./nav-drawer.component.scss']
+    styleUrls: [
+        './nav-drawer.component.scss',
+        './nav-drawer.component-animations.scss'
+    ]
 })
 export class NavDrawerComponent implements OnInit {
 

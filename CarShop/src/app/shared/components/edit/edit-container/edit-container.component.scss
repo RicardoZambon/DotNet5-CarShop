@@ -1,9 +1,7 @@
 @import "/src/app/shared/styles/variables";
-
 @import "/src/app/shared/styles/scroll";
 @import "/src/app/shared/styles/no-select";
-
-@import "bootstrap";
+@import "/src/app/shared/styles/bootstrap";
 
 :host-context {
     margin-top: .5rem;

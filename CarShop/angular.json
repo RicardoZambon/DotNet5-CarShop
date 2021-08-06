@@ -10,10 +10,10 @@
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
-                "style": "scss"
+                    "style": "scss"
                 },
                 "@schematics/angular:application": {
-                "strict": true
+                    "strict": true
                 }
             },
             "root": "",
@@ -38,6 +38,8 @@
                             "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
                             "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
                             "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+                            "node_modules/@ag-grid-community/core/dist/styles/ag-grid.scss",
+                            "node_modules/@ag-grid-community/core/dist/styles/ag-theme-alpine/sass/ag-theme-alpine.scss",
                             "src/styles.scss"
                         ],
                         "scripts": [
@@ -62,13 +64,13 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "4mb"
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "3mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
+                                    "maximumWarning": "4kb",
+                                    "maximumError": "8kb"
                                 }
                             ]
                         }

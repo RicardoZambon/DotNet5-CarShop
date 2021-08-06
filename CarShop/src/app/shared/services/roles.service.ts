@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -23,8 +24,7 @@ export class RolesService {
 
 
     async getRoles(startRow: number, endRow: number, queryParameters: QueryParametersModel): Promise<RoleListModel[]> {
-        
-        return this.http
+        return await lastValueFrom(this.http
             .post<RoleListModel[]>(`${this.baseUrl}/Roles`, queryParameters, {
                 params: { 
                     'startRow': startRow.toString(),
@@ -35,23 +35,21 @@ export class RolesService {
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })
-            )
-            .toPromise();
+            ));
     }
 
     async exportRoles(option: string, queryParameters: QueryParametersModel): Promise<Blob> {
-        return this.http
+        return await lastValueFrom(this.http
             .post(`${this.baseUrl}/Roles/Export/${option}`, queryParameters, { responseType: 'blob' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })
-            )
-            .toPromise();
+            ));
     }
 
     async getRoleDisplayName(roleId: number): Promise<string> {
-        return this.http
+        return await lastValueFrom(this.http
             .get(`${this.baseUrl}/Roles/Title/${roleId}`, { responseType: 'text' })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
@@ -62,25 +60,23 @@ export class RolesService {
                             throw error.error as string;
                     }
                 })
-            )
-            .toPromise();
+            ));
     }
 
 
     async deleteRoles(roleIds: number[]): Promise<boolean> {
-        return this.http
+        return await lastValueFrom(this.http
             .request('DELETE', `${this.baseUrl}/Roles`, { body: roleIds })
             .pipe(
                 map(() => true),
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })
-            )
-            .toPromise();
+            ));
     }
 
     async updateRole(roleId: number, roleModel: RoleEditModel): Promise<RoleEditResponse> {
-        return this.http
+        return await lastValueFrom(this.http
             .post<RoleEditResponse>(`${this.baseUrl}/Roles/${roleId}`, roleModel)
             .pipe(
                 map(role => {
@@ -90,12 +86,11 @@ export class RolesService {
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })
-            )
-            .toPromise();
+            ));
     }
 
     async insertRole(roleModel: RoleEditModel): Promise<RoleEditResponse> {
-        return this.http
+        return await lastValueFrom(this.http
             .put<RoleEditResponse>(`${this.baseUrl}/Roles`, roleModel)
             .pipe(
                 map(role => {
@@ -105,13 +100,12 @@ export class RolesService {
                 catchError((error: HttpErrorResponse) => {
                     throw error.error as string;
                 })
-            )
-            .toPromise();
+            ));
     }
 
 
     async getRole(roleId: number): Promise<RoleEditModel> {
-        return this.http
+        return await lastValueFrom(this.http
             .get<RoleEditModel>(`${this.baseUrl}/Roles/${roleId}`)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
@@ -122,7 +116,6 @@ export class RolesService {
                             throw error.error as string;
                     }
                 })
-            )
-            .toPromise();
+            ));
     }
 }

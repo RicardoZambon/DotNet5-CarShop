@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
-import { IDatasource, IGetRowsParams, RowNode, SelectionChangedEvent } from 'ag-grid-community';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { IDatasource, IGetRowsParams, RowNode, SelectionChangedEvent } from '@ag-grid-community/core';
+import { InfiniteRowModelModule } from '@ag-grid-community/infinite-row-model';
 
 import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 import { QueryParametersModel } from './models/query-parameters-model';
@@ -8,6 +9,7 @@ import { QueryParametersModel } from './models/query-parameters-model';
 export abstract class BaseDatasource implements IDatasource, IAppDatasource {
     
     private grid!: AgGridAngular;
+    modules = [ InfiniteRowModelModule ];
 
     loading = false;
     rowCount?: number | undefined;
