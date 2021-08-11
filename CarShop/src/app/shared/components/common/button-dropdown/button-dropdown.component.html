@@ -24,12 +24,13 @@
         ></a>
 
         <ul class="dropdown-menu"
-            [ngStyle]="{
-                'transform': 'translateX(' + -100 + 'px) !important'
-            }"
+            [class.dropdown-menu-end]="this.position === 'right'"
         >
             <li *ngFor="let item of this.getMenuItems(); trackBy: identify">
-                <a class="dropdown-item" (click)="this.itemClick(item, $event)">
+                <a class="dropdown-item"
+                    [class.disabled]="item.active"
+                    (click)="this.itemClick(item, $event)"
+                >
                     <i *ngIf="item.icon !== ''" class="fas fa-{{ item.icon }}"></i>
                     {{ item.label | translate }}
                 </a>

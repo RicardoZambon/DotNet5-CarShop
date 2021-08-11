@@ -17,6 +17,7 @@ export class ButtonDropdownComponent extends ButtonComponent implements OnInit, 
     @ViewChild('toggle') toggle!: ElementRef<HTMLDivElement>;
     private dropdown?: Dropdown | null = null;
 
+    @Input() position: 'left' | 'right' = 'left';
     @Input() defaultAction: MenuItem | null = null;
     @Input() menuItems: MenuItem[] = new Array<MenuItem>();
 
@@ -28,13 +29,13 @@ export class ButtonDropdownComponent extends ButtonComponent implements OnInit, 
     }
 
     ngAfterViewInit(): void {
-        this.dropdown = new Dropdown(this.toggle.nativeElement, { display: 'static', reference: this.dropdownElement.nativeElement });
+        this.dropdown = new Dropdown(this.toggle.nativeElement);
 
-        const dropdown = this.dropdown;
+        const _this = this;
         const button = this.buttonElement;
 
         this.toggle.nativeElement.addEventListener('show.bs.dropdown', function(event: Event) {
-            (dropdown as any)._config.offset[0] = button.nativeElement.clientWidth * -1;
+            (_this.dropdown as any)._config.offset[0] = _this.position === 'left' ? button.nativeElement.clientWidth * -1 : 0;
         });
     }
     

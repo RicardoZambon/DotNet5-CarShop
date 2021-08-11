@@ -1,0 +1,20 @@
+<form ngNoForm appFormFocusInvalidInput [formGroup]="dataForm" #form>
+
+    <app-edit-section [id]="'details'" [label]="'RolesEdit-Section-Details' | translate">
+        <div class="row">
+            <app-edit-group class="col col-md-6" [groupTitle]="'RolesEdit-Group-Role' | translate">
+                <div class="row mb-3 g-3">
+
+                    <label for="name" class="col-sm-auto col-form-label text-end">{{ 'RolesEdit-Name-Label' | translate }}:</label>
+                    <app-edit-input [formGroup]="dataForm" [controlName]="'name'" [autofocus]="true">
+                        <div validations>
+                            <div [class.d-none]="!dataForm.controls['name'].errors?.required">{{ 'RolesEdit-Name-Required' | translate}}</div>
+                        </div>
+                    </app-edit-input>
+
+                </div>
+            </app-edit-group>
+        </div>
+    </app-edit-section>
+
+</form>

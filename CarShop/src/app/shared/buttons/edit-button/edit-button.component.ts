@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ButtonComponent } from '../../components/common/button/button.component';
-import { IAppDatasource } from '../../interfaces/i-app-datasource';
+import { IListDatasource } from '../../interfaces/i-list-datasource';
 import { TabService } from './../../services/tab.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class EditButtonComponent implements OnInit {
 
     @ViewChild('editButton') editButton!: ButtonComponent;
     
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
     @Input() editUrl!: string;
     @Input() massDelete: boolean = true;
 

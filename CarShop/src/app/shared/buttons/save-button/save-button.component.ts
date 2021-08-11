@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { AlertService } from '../../services/alert.service';
 import { ButtonComponent } from '../../components/common/button/button.component';
+import { IDetailsDatasource } from '../../interfaces/i-details-datasource';
 import { MenuItem } from '../../components/common/button-dropdown/menu-item';
 import { MessageModel } from '../../models/message-model';
 import { TabService } from 'src/app/shared/services/tab.service';
@@ -16,70 +15,43 @@ export class SaveButtonComponent implements OnInit {
 
     @ViewChild('saveButton') saveButton!: ButtonComponent;
 
+    @Input() editDatasource!: IDetailsDatasource;
+
     @Input() alertMessageModel!: MessageModel;
     @Input() alertValidationMessage!: string;
     @Input() alertFailureMessage!: string;
-    @Input() formGroup!: FormGroup;
-
-    @Input() title!: string;
-
-    @Input() validate?: () => string[];
-    @Input() save?: () => Promise<any>;
-
-    @Output() onFinishedSaving = new EventEmitter<any>();
 
 
     saveOptions: Array<MenuItem> = [
-        { label: 'Button-Save', icon: 'save', command: async () => { await this.click('save'); } },
-        { label: 'Button-Save-And-Close', icon: 'save', command: async () => { await this.click('close'); } },
-        { label: 'Button-Save-And-New', icon: 'save', command: async () => { await this.click('new'); } }
+        new MenuItem('Button-Save', 'save', async () => { await this.click('save'); }),
+        new MenuItem('Button-Save-And-Close', 'save', async () => { await this.click('close'); }),
+        new MenuItem('Button-Save-And-New', 'save', async () => { await this.click('new'); }),
     ];
     
 
-    constructor(private alertService: AlertService, private tabService: TabService) { }
+    constructor(private tabService: TabService) { }
 
     ngOnInit(): void {
     }
 
 
     async click(option: string): Promise<void> {
-        if (this.save) {
-            if (this.formGroup.valid) {
-                this.formGroup.disable();
-                
-                 await this.save()
-                    .then(data => {
-                        this.alertMessageModel.selectionName = this.title;
-                        this.alertService.raiseSuccess(MessageModel.fromMessageModel(this.alertMessageModel));
-                        this.saveButton.completeLoading();
+        if (this.editDatasource.dataForm.valid) {
+            this.editDatasource.dataForm.disable();
+            
+                await this.editDatasource.save()
+                .then(data => {
+                    this.editDatasource.saveSuccess(data, this.alertMessageModel);
+                    this.saveButton.completeLoading();
+                    this.saveFinished(option, data);
 
-                        this.saveFinished(option, data);
-
-                    }, ex => {
-                        let errorMessageModel = new MessageModel('AlertFailure-Title', this.alertFailureMessage, false);
-                        errorMessageModel.selectionName = this.title;
-                        this.alertService.raiseError(errorMessageModel, ex);
-                        this.saveButton.cancelLoadingWithError();
-                    });
-
-                this.formGroup.enable();
-
-            } else {
-                Object.keys(this.formGroup.controls).forEach(field => {
-                    const control = this.formGroup.get(field);
-                    control?.markAsTouched({ onlySelf: true });
+                }, ex => {
+                    this.editDatasource.saveFailure(ex, this.alertFailureMessage);
+                    this.saveButton.cancelLoadingWithError();
                 });
-
-                let errorMessageModel = new MessageModel('AlertValidation-Title', this.alertValidationMessage, false);
-                errorMessageModel.selectionName = this.title;
-
-                if (this.validate) {
-                    errorMessageModel.validations = this.validate();
-                }
-                
-                this.alertService.raiseWarning(errorMessageModel);
-                this.saveButton.cancelLoadingWithWarning();
-            }
+        } else {
+            this.editDatasource.saveValidation(this.alertValidationMessage);
+            this.saveButton.cancelLoadingWithWarning();
         }
     }
 
@@ -89,10 +61,10 @@ export class SaveButtonComponent implements OnInit {
                 this.tabService.closeCurrentTab();
                 break;
             case 'new':
-                this.onFinishedSaving.emit(null);
+                this.editDatasource.refresh(null);
                 break;
             default:
-                this.onFinishedSaving.emit(object);
+                this.editDatasource.refresh(object);
                 break;
         }
     }

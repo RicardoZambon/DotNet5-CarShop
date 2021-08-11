@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, delay } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { QueryParametersModel } from './../models/query-parameters-model';

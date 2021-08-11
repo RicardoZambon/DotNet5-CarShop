@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 
 @Component({
     selector: 'app-filter-container',
@@ -10,7 +10,7 @@ import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 })
 export class FilterContainerComponent implements OnInit {
 
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
     @Input() filterForm!: FormGroup;
 
     @Output() applyFilter = new EventEmitter();

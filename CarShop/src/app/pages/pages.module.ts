@@ -15,13 +15,16 @@ import { MainComponent } from './home/main/main.component';
 
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 
-import { RolesEditComponent } from './security/roles/edit/edit.component';
+import { RolesEditComponent } from './security/roles/edit/roles-edit.component';
 import { RolesListComponent } from './security/roles/list/roles-list.component';
 import { RolesListFilterComponent } from './security/roles/list/filters/roles-list-filter.component';
 import { UsersEditComponent } from './security/users/edit/edit.component';
 import { UsersListComponent } from './security/users/list/list.component';
 import { RolesListGridComponent } from './security/roles/list/grid/roles-list-grid.component';
 import { RolesListButtonsComponent } from './security/roles/list/buttons/roles-list-buttons.component';
+import { RoleViewDetailsComponent } from './security/roles/edit/views/details/role-details.component';
+import { RolesEditButtonsComponent } from './security/roles/edit/buttons/role-edit-buttons.component';
+import { RoleViewHistoryComponent } from './security/roles/edit/views/history/role-history.component';
 
 
 @NgModule({
@@ -32,6 +35,10 @@ import { RolesListButtonsComponent } from './security/roles/list/buttons/roles-l
         DashboardComponent,
 
         RolesEditComponent,
+        RolesEditButtonsComponent,
+        RoleViewDetailsComponent,
+        RoleViewHistoryComponent,
+        
         RolesListComponent,
         RolesListButtonsComponent,
         RolesListGridComponent,
@@ -39,6 +46,8 @@ import { RolesListButtonsComponent } from './security/roles/list/buttons/roles-l
 
         UsersEditComponent,
         UsersListComponent,
+        
+        
     ],
     imports: [
         CommonModule,

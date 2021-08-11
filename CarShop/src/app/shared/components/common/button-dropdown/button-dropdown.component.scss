@@ -36,10 +36,9 @@
     }
 
     .dropdown-menu {
-        min-width: 0;
+        min-width: 8rem;
         box-shadow: 0 0 5px rgb(0 0 0 / 50%);
-        
-        // @include background($home-base-color, .97);
+        font-size: .95rem;
 
         .dropdown-item {
             cursor: pointer;
@@ -48,6 +47,12 @@
             i {
                 color: $home-base-color3;
                 margin-right: 0.75rem;
+            }
+
+            &.disabled {
+                i {
+                    color: inherit;
+                }
             }
 
             &:hover, &:focus {

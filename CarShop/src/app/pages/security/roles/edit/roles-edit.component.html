@@ -1,0 +1,17 @@
+<app-button-container>
+    <app-view-role-details-buttons [details]="details"></app-view-role-details-buttons>
+    
+    <app-button-group fixed [displayName]="'ButtonGroup-Page' | translate" [priority]="1">
+        <app-views-button
+            [viewsOptions]="viewsOptions"
+        ></app-views-button>
+    </app-button-group>
+</app-button-container>
+
+<app-edit-container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate">
+    
+    <app-view-role-details #details (refreshTab)="refresh($event)" [class.d-none]="!isActiveView('details')"></app-view-role-details>
+
+    <app-view-role-history *ngIf="isActiveView('history')"></app-view-role-history>
+        
+</app-edit-container>

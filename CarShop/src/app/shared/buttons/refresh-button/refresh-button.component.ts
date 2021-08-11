@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { ButtonComponent } from '../../components/common/button/button.component';
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 
 @Component({
     selector: 'app-refresh-button',
@@ -10,7 +10,7 @@ import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 })
 export class RefreshButtonComponent implements OnInit, AfterViewInit {
 
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
     @ViewChild('refreshButton') refreshButton!: ButtonComponent;
 
     constructor() { }

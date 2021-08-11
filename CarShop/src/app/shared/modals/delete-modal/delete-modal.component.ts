@@ -1,7 +1,7 @@
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 import { MessageModel } from '../../models/message-model';
 import { IModal } from '../IModal';
 
@@ -15,7 +15,7 @@ export class DeleteModalComponent implements OnInit, IModal {
     @ViewChild('modal') modalElement!: ElementRef<HTMLDivElement>;
     modal!: Modal;
 
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
     @Input() messageModel!: MessageModel;
 
     @Output() confirmed = new EventEmitter();

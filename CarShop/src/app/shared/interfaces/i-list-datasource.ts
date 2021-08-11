@@ -3,7 +3,7 @@ import { RowNode, SelectionChangedEvent } from '@ag-grid-community/core';
 
 import { QueryParametersModel } from '../models/query-parameters-model';
 
-export interface IAppDatasource {
+export interface IListDatasource {
     
     modules: Array<any>;
 
@@ -27,5 +27,5 @@ export interface IAppDatasource {
 
     applyFilters(filters: any): void;
     clearFilters(): void;
-    toggleFiltersBox(): void
+    toggleFiltersBox(): void;
 }

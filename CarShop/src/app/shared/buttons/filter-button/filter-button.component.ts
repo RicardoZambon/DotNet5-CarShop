@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 
 @Component({
   selector: 'app-filter-button',
@@ -9,7 +9,7 @@ import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
 })
 export class FilterButtonComponent implements OnInit {
 
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
 
     get color(): string | undefined { return this.datasource.filtersApplied ? 'text-success' : undefined; }
 

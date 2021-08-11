@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { ExportButtonComponent } from 'src/app/shared/buttons/export-button/export-button.component';
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 
@@ -12,7 +12,7 @@ import { RolesService } from 'src/app/shared/services/roles.service';
 })
 export class RolesListButtonsComponent {
 
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
 
     /* New */
     newUrl = 'roles/new';

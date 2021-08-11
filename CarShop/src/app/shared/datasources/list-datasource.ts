@@ -3,10 +3,10 @@ import { AgGridAngular } from '@ag-grid-community/angular';
 import { IDatasource, IGetRowsParams, RowNode, SelectionChangedEvent } from '@ag-grid-community/core';
 import { InfiniteRowModelModule } from '@ag-grid-community/infinite-row-model';
 
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
-import { QueryParametersModel } from './models/query-parameters-model';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
+import { QueryParametersModel } from '../models/query-parameters-model';
 
-export abstract class BaseDatasource implements IDatasource, IAppDatasource {
+export abstract class ListDatasource implements IDatasource, IListDatasource {
     
     private grid!: AgGridAngular;
     modules = [ InfiniteRowModelModule ];

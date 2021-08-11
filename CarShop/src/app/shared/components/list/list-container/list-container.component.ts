@@ -1,4 +1,4 @@
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
@@ -10,7 +10,7 @@ export class ListContainerComponent implements OnInit {
 
     @ViewChild('filters') filtersElement!: ElementRef<HTMLElement>;
     
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
     @Input() filtersWidth = 14.25;
 
     constructor() { }

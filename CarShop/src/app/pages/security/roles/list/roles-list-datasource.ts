@@ -1,12 +1,12 @@
 import { IGetRowsParams } from '@ag-grid-community/core';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
-import { BaseDatasource } from 'src/app/shared/base-datasource';
+import { ListDatasource } from 'src/app/shared/datasources/list-datasource';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { RoleListModel } from 'src/app/shared/models/Security/role-list-model';
 
-export class RolesListDatasource extends BaseDatasource {
+export class RolesListDatasource extends ListDatasource {
     
     constructor(private rolesService: RolesService, private alertService: AlertService) {
         super();

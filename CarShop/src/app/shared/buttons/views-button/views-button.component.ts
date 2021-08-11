@@ -12,25 +12,11 @@ export class ViewsButtonComponent implements OnInit {
 
     @ViewChild('viewsButton') viewsButton!: ButtonComponent;
     
-    @Input() options!: Array<{ name: string, label: string, icon: string}>;
+    @Input() viewsOptions!: Array<MenuItem>;
 
-    viewsOptions = new Array<MenuItem>();
-
-
+    
     constructor() { }
 
     ngOnInit(): void {
-        this.options.forEach(option => {
-            this.viewsOptions.push({
-                label: option.label,
-                icon: option.icon,
-                command: async () => { await this.click(option.name); }
-            })
-        })
-    }
-
-
-    async click(option: string): Promise<void> {
-
     }
 }

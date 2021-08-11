@@ -94,6 +94,7 @@
     "RolesEdit-Save-AlertValidation-Message-New": "Please, check the following issues we found when saving the new role:",
     "RolesEdit-Save-AlertFailure-Message": "We're sorry, but something went wrong when saving the role '[SelectionName]'.",
     "RolesEdit-Save-AlertFailure-Message-New": "We're sorry, but something went wrong when saving the new role.",
+    "RolesEdit-Section-History": "History",
 
     "AlertValidation-Title": "Incorrect information in your submission!",
     "AlertFailure-Title": "Oops, an error occurred!",

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { RolesService } from 'src/app/shared/services/roles.service';
-import { IAppDatasource } from 'src/app/shared/interfaces/i-app-datasource';
+import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
 
 @Component({
     selector: 'app-roles-list-filter',
@@ -12,7 +12,7 @@ export class RolesListFilterComponent implements OnInit {
 
     filterForm!: FormGroup;
 
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
 
     @Output() filtersSet = new EventEmitter();
     @Output() filtersReset = new EventEmitter();

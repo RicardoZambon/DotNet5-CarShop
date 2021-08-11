@@ -92,6 +92,7 @@
     "RolesEdit-Save-AlertValidation-Message-New": "Por favor, verifique os seguintes problemas que encontramos ao salvar a nova função:",
     "RolesEdit-Save-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao salvar a função '[SelectionName]'.",
     "RolesEdit-Save-AlertFailure-Message-New": "Sentimos muito, mas aconteceu algo de errado ao salvar a nova função.",
+    "RolesEdit-Section-History": "Histórico",
 
     "AlertValidation-Title": "Informação incorreta no seu formulário!",
     "AlertFailure-Title": "Oops, ocorreu um erro!",

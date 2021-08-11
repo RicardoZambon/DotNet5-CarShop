@@ -21,8 +21,8 @@ export class ExportButtonComponent implements OnInit {
     @Input() export?: (option: string) => Promise<Blob>;
 
     exportOptions: Array<MenuItem> = [
-        { label: 'CSV', icon: 'file-csv', command: async () => { await this.click('csv'); } },
-        { label: 'XLSX', icon: 'file-excel', command: async () => { await this.click('xlsx'); } }
+        new MenuItem('CSV', 'file-csv', async () => { await this.click('csv'); }),
+        new MenuItem('XLSX', 'file-excel', async () => { await this.click('xlsx'); })
     ];
     
 

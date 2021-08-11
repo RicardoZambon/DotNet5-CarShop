@@ -3,7 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from './../../services/alert.service';
 import { ButtonComponent } from '../../components/common/button/button.component';
 import { IModal } from '../../modals/IModal';
-import { IAppDatasource } from '../../interfaces/i-app-datasource';
+import { IListDatasource } from '../../interfaces/i-list-datasource';
 import { MessageModel } from './../../models/message-model';
 
 @Component({
@@ -14,7 +14,7 @@ import { MessageModel } from './../../models/message-model';
 export class DeleteButtonComponent implements OnInit {
 
     @Input() modal!: IModal;
-    @Input() datasource!: IAppDatasource;
+    @Input() datasource!: IListDatasource;
 
     @Input() alertMessageModel!: MessageModel;
     @Input() alertFailureMessage!: string;

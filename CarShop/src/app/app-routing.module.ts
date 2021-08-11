@@ -16,7 +16,7 @@ import { RolesListComponent } from './pages/security/roles/list/roles-list.compo
 
 import { UsersEditComponent } from './pages/security/users/edit/edit.component';
 import { UsersListComponent } from './pages/security/users/list/list.component';
-import { RolesEditComponent } from './pages/security/roles/edit/edit.component';
+import { RolesEditComponent } from './pages/security/roles/edit/roles-edit.component';
 
 
 const routes: Routes = [
