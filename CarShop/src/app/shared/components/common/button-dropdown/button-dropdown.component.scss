@@ -39,7 +39,7 @@
         min-width: 0;
         box-shadow: 0 0 5px rgb(0 0 0 / 50%);
         
-        @include background($home-base-color, .97);
+        // @include background($home-base-color, .97);
 
         .dropdown-item {
             cursor: pointer;

@@ -39,6 +39,12 @@ export class RolesEditComponent implements OnInit {
     saveAlertMessageModel = new MessageModel('RolesEdit-Save-Alert-Title', 'RolesEdit-Save-Alert-Message', false, false);
     get saveAlertValidationMessage() { return 'RolesEdit-Save-AlertValidation-Message' + (!this.roleId ? '-New' : '') };
     get saveAlertFailureMessage() { return 'RolesEdit-Save-AlertFailure-Message' + (!this.roleId ? '-New' : '') };
+
+    /* Views */
+    viewsOptions = [
+        { name: 'details', label: 'Button-Views-Details', icon: '' },
+        { name: 'history', label: 'Button-Views-History', icon: '' }
+    ];
     
 
     constructor(

@@ -19,12 +19,16 @@
     &:first-child {
         padding-left: 0.3rem !important;
     }
-}
 
-.label {
-    font-size: 0.75rem;
-    color: $home-fore-color;
-    padding-top: 0.05rem;
+    .items {
+        height: 4.45rem;
+    }
 
-    @include no-select();
+    .label {
+        font-size: 0.75rem;
+        color: $home-fore-color;
+        padding-top: 0.05rem;
+    
+        @include no-select();
+    }
 }

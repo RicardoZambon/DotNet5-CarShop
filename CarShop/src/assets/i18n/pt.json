@@ -52,6 +52,11 @@
     "Button-Refresh": "Atualizar",
     "Button-Export": "Exportar",
 
+    "ButtonGroup-Page": "Página",
+    "Button-Views": "Visualizações",
+    "Button-Views-Details": "Detalhes",
+    "Button-Views-History": "Histórico",
+
 
     "Error-NotFound": "O objeto não pode ser encontrado ou o seu usuário não possui as permissões para abrí-lo.",
 

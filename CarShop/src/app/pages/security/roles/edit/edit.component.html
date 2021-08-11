@@ -10,6 +10,12 @@
             [save]="saveClick"
             (onFinishedSaving)="this.refresh($event)"></app-save-button>
     </app-button-group>
+
+    <app-button-group fixed [displayName]="'ButtonGroup-Page' | translate" [priority]="1">
+        <app-views-button
+            [options]="viewsOptions"
+        ></app-views-button>
+    </app-button-group>
 </app-button-container>
 
 <app-edit-container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate" [loading]="roleForm.disabled">

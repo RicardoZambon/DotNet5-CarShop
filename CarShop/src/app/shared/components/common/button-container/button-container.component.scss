@@ -11,6 +11,11 @@
     padding: .2rem;
     flex-shrink: 0;
 
+    .col-auto ::ng-deep > app-button-group::after {
+        left: 0 !important;
+        right: auto !important;
+    }
+
     .container-background {
         position: absolute !important;
         top: 0;

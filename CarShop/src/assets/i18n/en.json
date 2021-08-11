@@ -54,6 +54,11 @@
     "Button-Refresh": "Refresh",
     "Button-Export": "Export",
 
+    "ButtonGroup-Page": "Page",
+    "Button-Views": "Views",
+    "Button-Views-Details": "Details",
+    "Button-Views-History": "History",
+
 
     "Error-NotFound": "The object could not be found or your user lacks the permission to open it.",
 

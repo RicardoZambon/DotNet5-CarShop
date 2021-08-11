@@ -13,6 +13,7 @@ export class ButtonDropdownComponent extends ButtonComponent implements OnInit, 
 
     hover: boolean = false;
 
+    @ViewChild('dropdown') dropdownElement!: ElementRef<HTMLDivElement>;
     @ViewChild('toggle') toggle!: ElementRef<HTMLDivElement>;
     private dropdown?: Dropdown | null = null;
 
@@ -27,7 +28,7 @@ export class ButtonDropdownComponent extends ButtonComponent implements OnInit, 
     }
 
     ngAfterViewInit(): void {
-        this.dropdown = new Dropdown(this.toggle.nativeElement);
+        this.dropdown = new Dropdown(this.toggle.nativeElement, { display: 'static', reference: this.dropdownElement.nativeElement });
 
         const dropdown = this.dropdown;
         const button = this.buttonElement;
@@ -83,6 +84,10 @@ export class ButtonDropdownComponent extends ButtonComponent implements OnInit, 
         else {
             this.dropdown?.toggle();
         }
+    }
+
+    dropdownToggle() {
+        this.dropdown?.toggle();
     }
 
 

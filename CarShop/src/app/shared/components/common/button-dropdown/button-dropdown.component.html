@@ -1,4 +1,4 @@
-<div class="dropdown btn-group">
+<div #dropdown class="dropdown btn-group">
     <div #button class="btn d-flex flex-column text-nowrap {{ this.buttonClass }}"
         [class.hover]="this.hover && !this.isSuccess"
         [ngClass]="{ 'disabled' : this.isDisabled }"
@@ -20,6 +20,7 @@
             [class.hover]="this.hover && !this.isSuccess"
             [class.default-color]="!this.color"
             [ngClass]="{ 'disabled' : this.isDisabled }"
+            (click)="this.dropdownToggle()"
         ></a>
 
         <ul class="dropdown-menu"
