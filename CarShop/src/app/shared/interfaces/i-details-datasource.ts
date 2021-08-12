@@ -1,8 +1,9 @@
 import { FormGroup } from '@angular/forms';
 
 import { MessageModel } from '../models/message-model';
+import { IViewBaseDatasource } from './i-view-base-datasource';
 
-export interface IDetailsDatasource {
+export interface IDetailsDatasource extends IViewBaseDatasource {
     entityId: number | null;
     get title(): string;
 

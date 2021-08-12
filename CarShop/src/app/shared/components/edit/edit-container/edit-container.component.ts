@@ -11,7 +11,7 @@ import { ScrollSpyDirective } from '../../../directives/scroll-spy/scroll-spy.di
 })
 export class EditContainerComponent implements OnInit {
 
-    @ContentChildren(EditSectionComponent, { descendants: true }) titles!: QueryList<EditSectionComponent>;
+    titles!: EditSectionComponent[];
     @ViewChild(ScrollSpyDirective) scrollSpy!: ScrollSpyDirective;
 
     @Input() icon!: string;

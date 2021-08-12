@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { RoleEditModel } from 'src/app/shared/models/Security/role-edit-model';
 import { RoleEditResponse } from 'src/app/shared/models/Security/role-edit-response';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { TabService } from 'src/app/shared/services/tab.service';
+import { EditSectionComponent } from 'src/app/shared/components/edit/edit-section/edit-section.component';
 
 @Component({
     selector: 'app-view-role-details',
@@ -30,6 +31,7 @@ export class RoleViewDetailsComponent extends DetailsDatasource implements OnIni
     
     @ViewChild('form') formElement!: ElementRef<HTMLFormElement>;
     @ViewChildren(EditInputComponent) inputs!: QueryList<EditInputComponent>;
+    @ViewChildren(EditSectionComponent) titles!: QueryList<EditSectionComponent>;
 
     @Output() refreshTab = new EventEmitter<{ entityId: string | null, url: string }>()
 

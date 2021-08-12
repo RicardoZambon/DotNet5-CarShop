@@ -1,15 +1,20 @@
 import { ActivatedRoute } from '@angular/router';
-import { MenuItem } from '../components/common/button-dropdown/menu-item';
 
+import { EditContainerComponent } from '../components/edit/edit-container/edit-container.component';
 import { IDetailsDatasource } from '../interfaces/i-details-datasource';
 import { IEditDatasource } from '../interfaces/i-edit-datasource';
+import { MenuItem } from '../components/common/button-dropdown/menu-item';
 import { MessageModel } from '../models/message-model';
 import { AlertService } from '../services/alert.service';
 import { TabService } from '../services/tab.service';
+import { ViewBaseDatasource } from 'src/app/shared/datasources/view-base-datasource';
 
 export abstract class EditDatasource implements IEditDatasource {
     
+    abstract editContainer: EditContainerComponent;
     abstract details: IDetailsDatasource;
+    abstract history: ViewBaseDatasource;
+
 
     abstract failureMessage: string;
 
@@ -98,5 +103,22 @@ export abstract class EditDatasource implements IEditDatasource {
         this.activeView = newView;
         this.activeView.active = true;
         this.activeViewName = newViewName;
+
+        this.refreshScrollSpy();
+    }
+
+    refreshScrollSpy(): void {
+        if (this.editContainer) {
+            setTimeout(() => {
+                switch (this.activeViewName) {
+                    case 'history': 
+                        this.editContainer.titles = this.history.titles.toArray();
+                        break;
+                    default:
+                        this.editContainer.titles = this.details.titles.toArray();
+                        break;
+                }
+            }, 10);
+        }
     }
 }

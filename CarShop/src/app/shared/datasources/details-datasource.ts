@@ -7,8 +7,9 @@ import { EditInputComponent } from '../components/edit/edit-input/edit-input.com
 import { IDetailsDatasource } from '../interfaces/i-details-datasource';
 import { TabService } from 'src/app/shared/services/tab.service';
 import { MessageModel } from '../models/message-model';
+import { ViewBaseDatasource } from './view-base-datasource';
 
-export abstract class DetailsDatasource implements IDetailsDatasource {
+export abstract class DetailsDatasource extends ViewBaseDatasource implements IDetailsDatasource {
     
     abstract get url(): string;
     abstract formElement: ElementRef<HTMLFormElement>
@@ -25,8 +26,9 @@ export abstract class DetailsDatasource implements IDetailsDatasource {
     constructor(
         protected alertService: AlertService,
         protected tabService: TabService,
-        protected route: ActivatedRoute) {
-
+        protected route: ActivatedRoute
+    ) {
+        super()
     }
 
     abstract dataFormSetup(): FormGroup;
