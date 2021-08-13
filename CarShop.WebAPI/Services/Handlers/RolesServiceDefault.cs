@@ -18,14 +18,17 @@ namespace CarShop.WebAPI.Services.Handlers
     {
         private readonly CarShopDbContext context;
         private readonly IMapper mapper;
+        private readonly IAuditHistoryService auditHistoryService;
         private readonly IRolesRepository rolesRepository;
 
-        public RolesServiceDefault(CarShopDbContext context, IMapper mapper, IRolesRepository rolesRepository)
+        public RolesServiceDefault(CarShopDbContext context, IMapper mapper, IAuditHistoryService auditHistoryService, IRolesRepository rolesRepository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.auditHistoryService = auditHistoryService;
             this.rolesRepository = rolesRepository;
         }
+
 
         public IQueryable<RoleListModel> GetAllRoles(int startRow, int endRow, QueryParameters parameters = null)
             => rolesRepository.GetAll(startRow, endRow, parameters).ProjectTo<RoleListModel>(mapper.ConfigurationProvider);
@@ -104,6 +107,8 @@ namespace CarShop.WebAPI.Services.Handlers
 
             try
             {
+                await auditHistoryService.BeginNewServiceAuditHistoryAsync(nameof(RolesServiceDefault), nameof(DeleteRolesAsync));
+
                 await rolesRepository.DeleteAsync(roleIds);
                 await context.SaveChangesAsync();
 
@@ -122,6 +127,8 @@ namespace CarShop.WebAPI.Services.Handlers
 
             try
             {
+                await auditHistoryService.BeginNewServiceAuditHistoryAsync(nameof(RolesServiceDefault), nameof(UpdateRoleAsync));
+
                 await rolesRepository.UpdateAsync(mapper.Map(roleModel, await rolesRepository.GetAsync(roleId)));
                 await context.SaveChangesAsync();
 
@@ -142,6 +149,8 @@ namespace CarShop.WebAPI.Services.Handlers
 
             try
             {
+                await auditHistoryService.BeginNewServiceAuditHistoryAsync(nameof(RolesServiceDefault), nameof(InsertRoleAsync));
+
                 var role = mapper.Map<Roles>(roleModel);
 
                 await rolesRepository.InsertAsync(role);

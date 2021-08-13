@@ -23,7 +23,7 @@ namespace CarShop.Core.BusinessEntities.Security
         public virtual ICollection<UserRefreshTokens> RefreshTokens { get; set; }
     }
 
-    public class UsersConfiguration : BaseConfiguration<Users>
+    public class UsersConfiguration : EntityConfiguration<Users>
     {
         public override void Configure(EntityTypeBuilder<Users> builder)
         {

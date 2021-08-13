@@ -9,6 +9,7 @@ namespace CarShop.Core.Helper.DependencyInjection
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
             return services
+                .AddTransient<IAuditHandler, AuditHandler>()
                 .AddSingleton<IBlobStorage, BlobStorageDefault>();
         }
     }

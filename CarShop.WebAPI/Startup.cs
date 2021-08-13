@@ -99,6 +99,8 @@ namespace CarShop.WebAPI
 
 
             //Repositories and Services
+            services.AddHttpContextAccessor();
+
             services
                 .AddRepositories()
                 .AddCoreServices()

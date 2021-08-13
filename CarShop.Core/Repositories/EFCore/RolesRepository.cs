@@ -54,7 +54,6 @@ namespace CarShop.Core.Repositories.EFCore
         public async Task<string> GetDisplayNameAsync(int roleId)
             => (await this.GetAsync(roleId)).Name;
 
-
         public async Task DeleteAsync(int[] roleIds)
         {
             foreach (var roleId in roleIds)
@@ -64,7 +63,6 @@ namespace CarShop.Core.Repositories.EFCore
                 context.Update(role);
             }
         }
-
         public async Task UpdateAsync(Roles role)
         {
             await Task.Run(() =>
@@ -72,7 +70,6 @@ namespace CarShop.Core.Repositories.EFCore
                 context.Set<Roles>().Update(role);
             });
         }
-
         public async Task InsertAsync(Roles role)
         {
             await Task.Run(() =>
@@ -80,7 +77,6 @@ namespace CarShop.Core.Repositories.EFCore
                 context.Set<Roles>().Add(role);
             });
         }
-
 
         public async Task<Roles> GetAsync(int roleId)
         {

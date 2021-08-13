@@ -22,7 +22,7 @@ namespace CarShop.Core.BusinessEntities.Security
         public virtual ICollection<Menus> ChildMenus { get; set; }
     }
 
-    public class MenusConfiguration : BaseConfiguration<Menus>
+    public class MenusConfiguration : EntityConfiguration<Menus>
     {
         public override void Configure(EntityTypeBuilder<Menus> builder)
         {
