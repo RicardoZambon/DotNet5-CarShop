@@ -1,16 +1,23 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef, HostBinding } from '@angular/core';
 import { Collapse } from 'bootstrap';
 
 @Component({
     selector: 'app-edit-section',
     templateUrl: './edit-section.component.html',
     styleUrls: ['./edit-section.component.scss'],
-    host: { class: 'accordion-item' }
+    host: {
+        '[class.accordion-item]': 'fullHeight',
+        '[class.d-flex]': 'fullHeight',
+        '[class.h-100]': 'fullHeight',
+        '[class.flex-column]': 'fullHeight',
+        '[class.pb-1]': 'fullHeight'
+    }
 })
 export class EditSectionComponent implements OnInit, AfterViewInit {
 
     @Input('id') id!: string;
     @Input() label!: string;
+    @Input() fullHeight: boolean = false;
 
     @ViewChild('panel') panel!: ElementRef<HTMLDivElement>;
     collapse!: Collapse;
@@ -35,7 +42,9 @@ export class EditSectionComponent implements OnInit, AfterViewInit {
 
 
     click(): void {
-        this.collapse.toggle();
-        this.collapsed = !this.collapsed;
+        if (!this.fullHeight) {
+            this.collapse.toggle();
+            this.collapsed = !this.collapsed;
+        }
     }
 }

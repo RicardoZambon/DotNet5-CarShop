@@ -63,7 +63,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
             path = path.replace(':' + k, route.paramMap.get(k) ?? '');
         });
 
-        return parentRoute + path
+        return parentRoute + path;
     }
 
     public storeNewRoute(route: string): void {

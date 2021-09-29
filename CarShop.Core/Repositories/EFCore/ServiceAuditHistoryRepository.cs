@@ -1,4 +1,6 @@
 ﻿using CarShop.Core.BusinessEntities.Audit;
+using CarShop.Core.BusinessEntities.Base;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarShop.Core.Repositories.EFCore
@@ -10,6 +12,18 @@ namespace CarShop.Core.Repositories.EFCore
         public ServiceAuditHistoryRepository(CarShopDbContext context)
         {
             this.context = context;
+        }
+
+
+        public IQueryable<ServiceAuditHistory> GetAllServices<TEntity>(int entityID) where TEntity : BaseEntity
+        {
+            return context.Set<ServiceAuditHistory>().Where(x => x.Operations.Any(x => x.EntityName == typeof(TEntity).Name && x.EntityID == entityID));
+        }
+        public async Task<IQueryable<OperationAuditHistory>> GetAllOperationsAsync(int serviceId)
+        {
+            var service = await context.FindAsync<ServiceAuditHistory>(serviceId);
+
+            return service.Operations.AsQueryable();
         }
 
 

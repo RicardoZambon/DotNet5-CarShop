@@ -8,6 +8,7 @@ import { QueryParametersModel } from './../models/query-parameters-model';
 import { RoleListModel } from '../models/Security/role-list-model';
 import { RoleEditModel } from './../models/Security/role-edit-model';
 import { RoleEditResponse } from '../models/Security/role-edit-response';
+import { ServiceAuditHistoryListModel } from '../models/Audit/service-audit-history-list-model';
 
 @Injectable({
   providedIn: 'root'
@@ -117,5 +118,17 @@ export class RolesService {
                     }
                 })
             ));
+    }
+
+    async getRoleHistory(roleId: number): Promise<ServiceAuditHistoryListModel[]> {
+        return await lastValueFrom(
+            this.http
+                .get<ServiceAuditHistoryListModel[]>(`${this.baseUrl}/Roles/History/${roleId}`)
+                .pipe(
+                    catchError((error: HttpErrorResponse) => {
+                        throw error.error as string;
+                    })
+                )
+        );
     }
 }

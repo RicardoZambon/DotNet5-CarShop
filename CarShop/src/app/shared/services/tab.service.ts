@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { IBaseView } from '../interfaces/i-base-view';
 import { Tab } from '../components/common/tabs/tab';
 
 @Injectable({
@@ -35,35 +36,57 @@ export class TabService {
 
 
     
-    isTabOpen(url: string): boolean {
-        return this.openTabs.filter(x => x.url === url).length > 0;
+    isOpen(url: string): boolean {
+        return this.openTabs.some(x => x.url === url);
     }
 
-    getTab(url: string): Tab | undefined {
-        if (this.isTabOpen(url)) {
-            return this.openTabs.filter(x => x.url === url)[0];
-        }
-        return undefined;
+    getTab(url: string): Tab {
+        return this.openTabs.filter(x => x.url === url)[0];
     }
 
 
-    openTab(title: string | undefined, url: string, loadingTitle: boolean = false): void {
-        let tab = this.getTab(url);
-        if (!tab) {
+    openUrl(url: string): void {
+        let tab: Tab;
+
+        if (!this.isOpen(url)) {
             tab = new Tab();
-            tab.title = '';
             tab.url = url;
 
             this.openTabs.push(tab);
             this.tabOpened.emit(url);
         }
-        
-        if (title) {
-            tab.title = title;
+        else {
+            tab = this.getTab(url);
+        }
+            
+        this.setTabActive(tab);
+    }
+
+    openView(view: IBaseView, url: string): void {
+        let tab: Tab;
+
+        if (!this.isOpen(url)) {
+            tab = new Tab();
+            tab.url = url;
+
+            this.openTabs.push(tab);
+            this.tabOpened.emit(url);
+        }
+        else {
+            tab = this.getTab(url);
         }
 
-        tab.loadingTitle = loadingTitle;
-            
+        if (tab.view) {
+            //tab.view.titleUpdated.unsubscribe();
+        }
+
+        tab.view = view;
+        tab.view.titleUpdated.subscribe(x => tab?.updatePosition());
+        
+        setTimeout(() => {
+            tab.view.currentUrl = tab.url;
+        });
+
         this.setTabActive(tab);
     }
 
@@ -84,7 +107,68 @@ export class TabService {
     }
 
 
+    isTabValid(url: string): boolean {
+        const tab = this.getTab(url);
+        if (tab && tab.view) {
+            return tab.view.isValid();
+        }
+        return false;
+    }
+
+    isTabFormDisabled(url: string) : boolean {
+        const tab = this.getTab(url);
+        if (tab && tab.view) {
+            return tab.view.formDisabled;
+        }
+        return false;
+    }
+
+
+    refreshTabModel(url: string, model?: any) {
+        const tab = this.getTab(url);
+        if (tab && tab.view) {
+            tab.view.refreshModel(model);
+        }
+    }
+
+    redirectTab(oldUrl: string, newUrl: string): void {
+        const tab = this.getTab(oldUrl);
+        if (tab) {
+            tab.url = newUrl;
+            tab.view.currentUrl = newUrl;
+            this.tabRedirected.emit({oldUrl: oldUrl, newUrl: newUrl});
+            this.router.navigate([newUrl]);
+        }
+    }
+
+    showTabValidation(url: string): void {
+        const tab = this.getTab(url);
+        if (tab && tab.view) {
+            return tab.view.showValidation();
+        }
+    }
+
+    disableTabForm(url: string): void {
+        const tab = this.getTab(url);
+        if (tab && tab.view) {
+            return tab.view.disableForm();
+        }
+    }
+
+    async saveTab(url: string): Promise<any> {
+        const tab = this.getTab(url);
+        if (tab && tab.view) {
+            return await tab.view.saveView();
+        }
+    }
+
+
     closeTab(tab: Tab): void {
+
+        if (tab.view) {
+            tab.view.titleUpdated.unsubscribe();
+        }
+
         const index = this.openTabs.indexOf(tab);
         if (index > -1) {
             this.openTabs.splice(index, 1);
@@ -122,15 +206,7 @@ export class TabService {
     }
 
 
-    redirectCurrentTab(url: string): void {
-        const oldUrl = this.router.url.substring(1, this.router.url.length);
-        const tab = this.getTab(oldUrl);
-        if (tab) {
-            tab.url = url;
-            this.tabRedirected.emit({oldUrl: oldUrl, newUrl: url});
-            this.router.navigate([url]);
-        }
-    }
+    
 
 
     setChangedValues(url: string): void {

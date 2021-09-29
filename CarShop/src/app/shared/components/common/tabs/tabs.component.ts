@@ -1,9 +1,9 @@
-import { CloseModalComponent } from './../../../modals/close-modal/close-modal.component';
-import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
-import { Router, RouteReuseStrategy } from '@angular/router';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { RouteReuseStrategy } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
+import { CloseModalComponent } from './../../../modals/close-modal/close-modal.component';
 import { CustomReuseStrategy } from '../../../custom-reuse-strategy';
 import { TabService } from '../../../services/tab.service';
 import { Tab } from './tab';
@@ -14,7 +14,7 @@ import { Tab } from './tab';
     styleUrls: ['./tabs.component.scss'],
     host: { class: 'd-flex flex-column w-100 h-100' }
 })
-export class TabsComponent implements OnInit, OnDestroy {
+export class TabsComponent implements OnDestroy {
 
     @ViewChild('closeModal') closeModal!: CloseModalComponent;
 
@@ -33,11 +33,9 @@ export class TabsComponent implements OnInit, OnDestroy {
         
     constructor(
         private routeReuse: RouteReuseStrategy,
-        private router: Router,
         private tabService: TabService,
         private dragulaService: DragulaService
     ) {
-        
         if (!this.dragulaService.find('TABS')) {
             this.dragulaService.createGroup("TABS", {
                 direction: 'horizontal'
@@ -70,21 +68,10 @@ export class TabsComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit(): void {
-        const url = this.router.url.substring(1, this.router.url.length);
-        if (url !== '') {
-            this.tabService.openTab('', this.router.url.substring(1, this.router.url.length), true);
-        }
-    }
-
     ngOnDestroy(): void {
         this.subs.unsubscribe();
     }
 
-
-    public openTab(title: string, url: string): void {
-        this.tabService.openTab(title, url);
-    }
 
     public setTabActive(tab: Tab | null): void {
         this.tabService.setTabActive(tab);

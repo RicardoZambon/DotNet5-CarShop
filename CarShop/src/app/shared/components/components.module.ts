@@ -39,6 +39,7 @@ import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.di
 
 import { GridHeaderComponent } from './list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.component';
+import { AuditCellRendererComponent } from './grid/audit-cell-renderer/audit-cell-renderer.component';
 
 @NgModule({
     declarations: [
@@ -73,6 +74,7 @@ import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.c
 
         GridHeaderComponent,
         GridLoadingRendererComponent,
+        AuditCellRendererComponent,
         
     ],
     imports: [

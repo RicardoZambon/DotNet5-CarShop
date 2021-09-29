@@ -1,4 +1,5 @@
 {
+    "locale": "pt_BR",
     "Copyright": "Copyright &copy; 2021 Ricardo Zambon. Todos os direitos reservados",
     "DesignBy": "Design por Ricardo Zambon",
     
@@ -93,6 +94,8 @@
     "RolesEdit-Save-AlertFailure-Message": "Sentimos muito, mas aconteceu algo de errado ao salvar a função '[SelectionName]'.",
     "RolesEdit-Save-AlertFailure-Message-New": "Sentimos muito, mas aconteceu algo de errado ao salvar a nova função.",
     "RolesEdit-Section-History": "Histórico",
+
+    "AuditList-Columns-Services": "Histórico de serviços",
 
     "AlertValidation-Title": "Informação incorreta no seu formulário!",
     "AlertFailure-Title": "Oops, ocorreu um erro!",

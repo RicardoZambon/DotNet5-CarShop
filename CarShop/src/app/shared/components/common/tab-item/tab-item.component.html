@@ -1,14 +1,14 @@
 <li #tabItem class="tab-item d-flex align-items-center rounded-top" [class.active]="isActive">
     <div class="label py-2 ps-2 d-flex flex-row align-items-center" (click)="itemClick()">
         <div class="spinner-border spinner-border-sm me-2" role="status"
-            *ngIf="tab.loadingTitle"
+            *ngIf="!this.hasTitle"
         >
             <span class="visually-hidden">Loading...</span>
         </div>
 
-        <span *ngIf="!tab.loadingTitle">
+        <span *ngIf="this.hasTitle">
             <span *ngIf="tab.changedValues">*</span>
-            {{ tab.title | translate }}
+            {{ (tab.view.title ?? '') | translate }}
         </span>
     </div>
     

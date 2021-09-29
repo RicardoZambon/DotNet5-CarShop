@@ -1,4 +1,5 @@
 {
+    "locale": "en-US",
     "Copyright": "Copyright &copy; 2021 Ricardo Zambon. All Rights Reserved",
     "DesignBy": "Design by Ricardo Zambon",
     
@@ -95,6 +96,9 @@
     "RolesEdit-Save-AlertFailure-Message": "We're sorry, but something went wrong when saving the role '[SelectionName]'.",
     "RolesEdit-Save-AlertFailure-Message-New": "We're sorry, but something went wrong when saving the new role.",
     "RolesEdit-Section-History": "History",
+
+    "AuditList-Columns-Services": "Service history",
+    "AuditList-DateTime-Format": "dd/MMM/yyyy hh:mm a",
 
     "AlertValidation-Title": "Incorrect information in your submission!",
     "AlertFailure-Title": "Oops, an error occurred!",

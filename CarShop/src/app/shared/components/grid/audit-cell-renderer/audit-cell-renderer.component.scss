@@ -1,0 +1,59 @@
+
+@import "/src/app/shared/styles/variables";
+
+:host-context {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+
+    div {
+        line-height: normal !important;
+    }
+
+    .icon-container {
+        position: relative;
+        padding-right: 17px;
+
+        &:not(.first-row)::before {
+            content: '';
+            background-color: lighten($home-base-color2, 30%);
+            position: absolute;
+            top: -2px;
+            left: $connector-left;
+            width: $connector-width;
+            height: 50%;
+        }
+
+        &:not(.last-row)::after {
+            content: '';
+            background-color: lighten($home-base-color2, 30%);
+            position: absolute;
+            bottom: -2px;
+            left: $connector-left;
+            width: $connector-width;
+            height: 50%;
+        }
+
+        .icon {
+            background-color: $home-base-color3;
+            border-radius: 50%;
+            width: $icon-size;
+            height: $icon-size;
+            z-index: 1;
+        }
+    }
+
+    .service {
+        font-weight: bold;
+    }
+
+    .username {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .username, .date-time {
+        font-size: .8rem;
+    }
+}

@@ -34,8 +34,7 @@ export class EditButtonComponent implements OnInit {
     async click(): Promise<void> {
         if (this.selectedId) {
             const tabUrl = this.editUrl.replace('{id}', this.selectedId);
-            const loadingTitle = !this.tabService.isTabOpen(tabUrl);
-            this.tabService.openTab(undefined, tabUrl, loadingTitle);
+            this.tabService.openUrl(tabUrl);
         }
         this.editButton.completeLoading();
     }

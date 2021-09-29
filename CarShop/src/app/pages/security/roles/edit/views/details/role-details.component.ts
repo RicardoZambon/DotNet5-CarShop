@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
-import { DetailsDatasource } from 'src/app/shared/datasources/details-datasource';
+import { DetailsView } from 'src/app/shared/views/details-view';
 import { EditInputComponent } from 'src/app/shared/components/edit/edit-input/edit-input.component';
 import { MessageModel } from 'src/app/shared/models/message-model';
 import { RoleEditModel } from 'src/app/shared/models/Security/role-edit-model';
@@ -16,17 +16,13 @@ import { EditSectionComponent } from 'src/app/shared/components/edit/edit-sectio
     selector: 'app-view-role-details',
     templateUrl: './role-details.component.html'
 })
-export class RoleViewDetailsComponent extends DetailsDatasource implements OnInit {
-    
-    private _newUrl = 'roles/new';
-    private _editUrl = 'roles/{roleId}';
-    get url() {
-        return this.entityId ? this._editUrl.replace('{roleId}', this.entityId.toString()) : this._newUrl;
-    }
+export class RoleViewDetailsComponent extends DetailsView implements OnInit {
 
-    get title(): string {
-        return this.model?.name ?? '';
-    }
+    saveMessageModel = new MessageModel('RolesEdit-Save-Alert-Title', 'RolesEdit-Save-Alert-Message', false, false);
+    get saveValidationMessage() { return 'RolesEdit-Save-AlertValidation-Message' + (!this.entityId ? '-New' : '') };
+    get saveFailureMessage() { return 'RolesEdit-Save-AlertFailure-Message' + (!this.entityId ? '-New' : '') };
+
+    
     model!: RoleEditModel;
     
     @ViewChild('form') formElement!: ElementRef<HTMLFormElement>;
@@ -39,16 +35,21 @@ export class RoleViewDetailsComponent extends DetailsDatasource implements OnIni
     constructor(
         private formBuilder: FormBuilder,
         private roleService: RolesService,
-        protected alertService: AlertService,
-        protected tabService: TabService,
-        protected route: ActivatedRoute
+        alertService: AlertService,
+        tabService: TabService,
+        route: ActivatedRoute
     ) {
         super(alertService, tabService, route);
     }
 
 
     ngOnInit(): void {
-        this.initDetails();
+        this.initTab();
+    }
+
+
+    async getTitle(): Promise<string> {
+        return this.model?.name ?? '';
     }
 
     dataFormSetup(): FormGroup {
@@ -65,7 +66,7 @@ export class RoleViewDetailsComponent extends DetailsDatasource implements OnIni
         return model;
     }
 
-    async getModel(entityId: number | null): Promise<any> {
+    async getModel(entityId?: number): Promise<any> {
         if (entityId) {
             return await this.roleService.getRole(entityId)
                 .catch(ex => {

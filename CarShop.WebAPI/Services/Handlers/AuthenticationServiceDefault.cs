@@ -139,10 +139,7 @@ namespace CarShop.WebAPI.Services.Handlers
 
         private UserRefreshTokens CreateRefreshToken(Users user)
         {
-            using var generator = new RNGCryptoServiceProvider();
-
-            var randomNumber = new byte[32];
-            generator.GetBytes(randomNumber);
+            var randomNumber = RandomNumberGenerator.GetBytes(32);
 
             return dbContext.CreateProxy<UserRefreshTokens>(x =>
             {

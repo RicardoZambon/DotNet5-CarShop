@@ -4,6 +4,7 @@ using CarShop.Core;
 using CarShop.Core.BusinessEntities.Security;
 using CarShop.Core.Helper;
 using CarShop.Core.Repositories;
+using CarShop.WebAPI.Models.Audit.ServiceAuditHistory;
 using CarShop.WebAPI.Models.Security.Roles;
 using ClosedXML.Excel;
 using CsvHelper;
@@ -95,11 +96,6 @@ namespace CarShop.WebAPI.Services.Handlers
             return memory.ToArray();
         }
 
-        public async Task<string> GetRoleDisplayNameAsync(int roleId)
-        {
-            return await this.rolesRepository.GetDisplayNameAsync(roleId);
-        }
-
 
         public async Task DeleteRolesAsync(int[] roleIds)
         {
@@ -168,10 +164,21 @@ namespace CarShop.WebAPI.Services.Handlers
         }
 
 
+        public async Task<string> GetRoleDisplayNameAsync(int roleId)
+        {
+            return await this.rolesRepository.GetDisplayNameAsync(roleId);
+        }
+
         public async Task<RoleEditModel> GetRoleAsync(int roleId)
             => mapper.Map<RoleEditModel>(await rolesRepository.GetAsync(roleId));
 
         protected async Task<RoleEditResponse> GetEditRoleAsync(int roleId)
             => mapper.Map<RoleEditResponse>(await rolesRepository.GetAsync(roleId));
+
+
+        public IQueryable<ServiceAuditHistoryListModel> GetRoleHistoryServices(int roleId)
+        {
+            return auditHistoryService.GetEntityHistoryServices<Roles>(roleId);
+        }
     }
 }

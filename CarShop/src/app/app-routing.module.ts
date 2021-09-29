@@ -31,12 +31,18 @@ const routes: Routes = [
             { path: 'roles', children: [
                 { path: '', component: RolesListComponent, pathMatch: 'full' },
                 { path: 'new', component: RolesEditComponent },
-                { path: ':id', component: RolesEditComponent },
+                { path: ':id', children: [
+                    { path: '', component: RolesEditComponent, pathMatch: 'full' },
+                    { path: ':view', component: RolesEditComponent }
+                ] }
             ]},
 
             { path: 'users', children: [
                 { path: '', component: UsersListComponent, pathMatch: 'full' },
-                { path: ':id', component: UsersEditComponent },
+                { path: ':id', children: [
+                    { path: '', component: UsersListComponent, pathMatch: 'full' },
+                    { path: ':view', component: UsersEditComponent }
+                ] },
             ]}
         ],
         canActivate: [AuthGuard]

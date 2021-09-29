@@ -56,7 +56,7 @@ export class ButtonDropdownComponent extends ButtonComponent implements OnInit, 
     
 
     getMenuItems() {
-        return this.menuItems.filter(x => x !== this.defaultAction);
+        return this.menuItems.filter(x => x !== this.defaultAction && x.visible);
     }
 
     identify(index: number, item: MenuItem){

@@ -1,13 +1,13 @@
+import { IBaseView } from '../../../interfaces/i-base-view';
 import { EventEmitter } from '@angular/core';
 
 export class Tab {
-    title!: string;
+    view!: IBaseView;
     url!: string;
     
     x!: number;
     width!: number;
 
-    loadingTitle = false;
     changedValues = false;
 
     updatedPosition = new EventEmitter();

@@ -1,7 +1,27 @@
-<app-edit-section [id]="'details'" [label]="'RolesEdit-Section-History' | translate">
-    <div class="row">
+<app-edit-section [id]="'details'" [label]="'RolesEdit-Section-History' | translate" [fullHeight]="true">
+    <div class="row h-100">
+        <div class="col-4">
+            <ag-grid-angular #grid auto-scroll-grid
+                class="ag-theme-alpine flex-grow-1 border cell-overflow-visible rounded mt-0 h-100"
+                [columnDefs]="datasource.columnDefs"
+
+                [modules]="datasource.modules"
+                [frameworkComponents]="datasource.frameworkComponents"
+                [getRowNodeId]="datasource.getRowNodeId"
+                
+                [immutableData]="true"
+                [rowHeight]="50"
+                [rowSelection]="'single'"
+                [rowModelType]="'infinite'"
+                [suppressDragLeaveHidesColumns]="true"
+
+                (gridReady)="onGridReady()"
+            >
+            </ag-grid-angular>
+        </div>
+
         <div class="col">
-            [History component here]
+            [Service operations here]
         </div>
     </div>
 </app-edit-section>

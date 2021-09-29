@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateCacheModule, TranslateCacheSettings, TranslateCacheService } from 'ngx-translate-cache';
 
@@ -16,12 +16,15 @@ import { TranslateCacheModule, TranslateCacheSettings, TranslateCacheService } f
         }),
         TranslateCacheModule.forRoot({
             cacheService: {
-              provide: TranslateCacheService,
-              useFactory: translateCacheFactory,
-              deps: [TranslateService, TranslateCacheSettings]
+                provide: TranslateCacheService,
+                useFactory: translateCacheFactory,
+                deps: [TranslateService, TranslateCacheSettings]
             },
             cacheMechanism: 'Cookie'
         })
+    ],
+    providers: [
+        { provide: LOCALE_ID, deps: [TranslateService], useFactory: (ts: TranslateService) => ts.currentLang }
     ],
     exports: [TranslateModule]
 })

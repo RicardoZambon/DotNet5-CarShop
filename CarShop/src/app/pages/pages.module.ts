@@ -5,6 +5,7 @@ import { AgGridModule } from '@ag-grid-community/angular';
 
 import { GridHeaderComponent } from '../shared/components/list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from '../shared/components/list/grid-loading/grid-loading.component';
+import { AuditCellRendererComponent } from '../shared/components/grid/audit-cell-renderer/audit-cell-renderer.component';
 import { I18nModule } from './../i18n/i18n.module';
 import { ButtonsModule } from './../shared/buttons/buttons.module';
 import { ComponentsModule } from './../shared/components/components.module';
@@ -55,7 +56,8 @@ import { RoleViewHistoryComponent } from './security/roles/edit/views/history/ro
         
         AgGridModule.withComponents([
             GridHeaderComponent,
-            GridLoadingRendererComponent
+            GridLoadingRendererComponent,
+            AuditCellRendererComponent
         ]),
 
         I18nModule,

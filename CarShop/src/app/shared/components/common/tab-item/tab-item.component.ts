@@ -20,6 +20,10 @@ export class TabItemComponent implements OnInit, OnDestroy {
 
     subs = new Subscription();
 
+    public get hasTitle(): boolean {
+        return this.tab?.view?.title !== undefined;
+    }
+
 
     constructor() { }
 

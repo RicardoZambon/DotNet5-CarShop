@@ -1,17 +1,19 @@
 <app-button-container>
-    <app-view-role-details-buttons [details]="details"></app-view-role-details-buttons>
+    <app-view-role-details-buttons
+        [tabCurrentUrl]="this.currentUrl"
+    ></app-view-role-details-buttons>
     
     <app-button-group fixed [displayName]="'ButtonGroup-Page' | translate" [priority]="1">
         <app-views-button
-            [viewsOptions]="viewsOptions"
+            [viewsOptions]="viewOptions"
         ></app-views-button>
     </app-button-group>
 </app-button-container>
 
 
-<app-edit-container #container auto-scroll [icon]="'fa-tag'" [title]="this.title | translate">
+<app-edit-container #container auto-scroll [icon]="'fa-tag'" [title]="this.title ?? '' | translate">
     
-    <app-view-role-details #details (refreshTab)="refresh($event)" [class.d-none]="!isActiveView('details')"></app-view-role-details>
+    <app-view-role-details #details (refreshTab)="refresh()" [class.d-none]="!isActiveView('details')"></app-view-role-details>
 
     <app-view-role-history #history [class.d-none]="!isActiveView('history')"></app-view-role-history>
         

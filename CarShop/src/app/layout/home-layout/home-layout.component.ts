@@ -57,7 +57,7 @@ export class HomeLayoutComponent implements OnInit, AfterViewInit {
 
     navigateItem(menu: MenuItem): void {
         if (menu.url) {
-            this.tabService.openTab(menu.label, menu.url);
+            this.tabService.openUrl(menu.url);
         }
     }
 

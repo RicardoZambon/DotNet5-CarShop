@@ -1,25 +1,28 @@
-import { EditContainerComponent } from './../../../../shared/components/edit/edit-container/edit-container.component';
-import { Component, OnInit, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
+import { EditContainerComponent } from 'src/app/shared/components/edit/edit-container/edit-container.component';
+import { MultiView } from 'src/app/shared/views/multi-view';
 import { RolesService } from 'src/app/shared/services/roles.service';
-import { TabService } from 'src/app/shared/services/tab.service';
-import { EditDatasource } from 'src/app/shared/datasources/edit-datasource';
 import { RoleViewDetailsComponent } from './views/details/role-details.component';
 import { RoleViewHistoryComponent } from './views/history/role-history.component';
+import { TabService } from 'src/app/shared/services/tab.service';
+import { SubViewItem } from 'src/app/shared/views/sub-view-item';
 
 @Component({
     selector: 'app-edit',
     templateUrl: './roles-edit.component.html'
 })
-export class RolesEditComponent extends EditDatasource implements OnInit, AfterViewInit {
+export class RolesEditComponent extends MultiView implements OnInit, AfterViewInit {
     
     @ViewChild('container') editContainer!: EditContainerComponent;
     @ViewChild('details') details!: RoleViewDetailsComponent;
     @ViewChild('history') history!: RoleViewHistoryComponent;
 
-    failureMessage = 'RolesEdit-Title-AlertFailure-Message';
+    titleFailureMessage = 'RolesEdit-Title-AlertFailure-Message';
+
+    get formDisabled(): boolean { return this.details.formDisabled; }
 
     
     constructor(
@@ -32,11 +35,17 @@ export class RolesEditComponent extends EditDatasource implements OnInit, AfterV
     }
 
     async ngOnInit(): Promise<void> {
-        await this.initTab();
+        this.viewOptions = [
+            new SubViewItem('details', 'Button-Views-Details', 'dice-d6', async () => { await this.changeView('details'); }),
+            new SubViewItem('history', 'Button-Views-History', 'history', async () => { await this.changeView('history'); })
+        ];
     }
 
-    ngAfterViewInit(): void {
-        this.refreshScrollSpy();
+    async ngAfterViewInit(): Promise<void> {
+        this.viewOptions[0].view = this.details;
+        this.viewOptions[1].view = this.history;
+
+        await this.initTab();
     }
 
 
@@ -45,5 +54,28 @@ export class RolesEditComponent extends EditDatasource implements OnInit, AfterV
             return await this.roleService.getRoleDisplayName(this.entityId);
         }
         return 'RolesEdit-Title-New';
+    }
+
+    refreshViews(): void {
+        this.viewOptions[1].visible = (this.entityId !== undefined);
+        
+        super.refreshViews();
+    }
+
+
+    isValid(): boolean {
+        return this.details.isValid();
+    }
+
+    showValidation(): void {
+        this.details.showValidation();        
+    }
+
+    disableForm(): void {
+        this.details.disableForm();
+    }    
+
+    async saveView(): Promise<any> {
+        return await this.details.saveView();
     }
 }
