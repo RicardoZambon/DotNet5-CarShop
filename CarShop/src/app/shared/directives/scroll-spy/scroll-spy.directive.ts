@@ -29,7 +29,7 @@ export class ScrollSpyDirective {
             else {
                 this.getChildElements(Array.from(el.children));
             }
-        })
+        });
     }
 
     @HostListener('scroll', ['$event'])

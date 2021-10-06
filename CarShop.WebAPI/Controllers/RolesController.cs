@@ -4,6 +4,9 @@ using CarShop.WebAPI.Models.Audit.ServiceAuditHistory;
 using CarShop.WebAPI.Models.Security.Roles;
 using CarShop.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarShop.WebAPI.Controllers
 {
@@ -125,12 +128,26 @@ namespace CarShop.WebAPI.Controllers
             }
         }
 
+
         [HttpGet, Route(nameof(History) + "/{roleId}")]
         public ActionResult<IQueryable<ServiceAuditHistoryListModel>> History(int roleId)
         {
             try
             {
                 return Ok(rolesService.GetRoleHistoryServices(roleId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route(nameof(HistoryService)  + "/{serviceId}")]
+        public async Task<ActionResult<IQueryable<ServiceAuditHistoryListModel>>> HistoryService(int serviceId)
+        {
+            try
+            {
+                return Ok(await rolesService.GetRoleServiceOperationsAsync(serviceId));
             }
             catch (Exception ex)
             {

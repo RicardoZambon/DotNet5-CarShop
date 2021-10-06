@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CarShop.Core.Repositories
 {
-    public interface IServiceAuditHistoryRepository
+    public interface IAuditHistoryRepository
     {
         IQueryable<ServiceAuditHistory> GetAllServices<TEntity>(int entityID) where TEntity : BaseEntity;
 

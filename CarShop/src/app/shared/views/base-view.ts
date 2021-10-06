@@ -81,8 +81,13 @@ export abstract class BaseView implements IBaseView {
             params = {};
         }
 
+        let hasView = false;
         while (route != null) {
             let routePath = route.routeConfig?.path ?? '';
+
+            if (route.paramMap.has('view')) {
+                hasView = true;
+            }
 
             route.paramMap.keys.forEach(k => {
                 routePath = routePath.replace(':' + k,
@@ -98,7 +103,7 @@ export abstract class BaseView implements IBaseView {
             route = route.parent;
         }
 
-        const viewPath = 'view' in params && params['view'] !== ''
+        const viewPath = !hasView && 'view' in params && params['view'] !== ''
             ? '/' + params['view']
             : '';
 

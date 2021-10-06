@@ -8,9 +8,9 @@ namespace CarShop.WebAPI.Services
 {
     public interface IAuditHistoryService
     {
-        IQueryable<ServiceAuditHistoryListModel> GetEntityHistoryServices<TEntity>(int entityId) where TEntity : BaseEntity;
+        IQueryable<ServiceAuditHistoryListModel> GetHistoryServices<TEntity>(int entityId) where TEntity : BaseEntity;
 
-        Task<IQueryable<OperationAuditHistoryListModel>> GetServiceHistoryOperationsAsync(int serviceId);
+        Task<IQueryable<OperationAuditHistoryListModel>> GetHistoryOperationsAsync(int serviceId);
 
         Task BeginNewServiceAuditHistoryAsync(string serviceName, string methodName);
     }

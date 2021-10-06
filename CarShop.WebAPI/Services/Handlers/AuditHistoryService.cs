@@ -15,9 +15,9 @@ namespace CarShop.WebAPI.Services.Handlers
     {
         private readonly IMapper mapper;
         private readonly IAuditUserProvider auditUserProvider;
-        private readonly IServiceAuditHistoryRepository serviceAuditHistoryRepository;
+        private readonly IAuditHistoryRepository serviceAuditHistoryRepository;
 
-        public AuditHistoryService(IMapper mapper, IAuditUserProvider auditUserProvider, IServiceAuditHistoryRepository serviceAuditHistoryRepository)
+        public AuditHistoryService(IMapper mapper, IAuditUserProvider auditUserProvider, IAuditHistoryRepository serviceAuditHistoryRepository)
         {
             this.mapper = mapper;
             this.auditUserProvider = auditUserProvider;
@@ -25,12 +25,12 @@ namespace CarShop.WebAPI.Services.Handlers
         }
 
 
-        public IQueryable<ServiceAuditHistoryListModel> GetEntityHistoryServices<TEntity>(int entityId) where TEntity : BaseEntity
+        public IQueryable<ServiceAuditHistoryListModel> GetHistoryServices<TEntity>(int entityId) where TEntity : BaseEntity
         {
             return serviceAuditHistoryRepository.GetAllServices<TEntity>(entityId).OrderByDescending(x => x.ChangedOn).ProjectTo<ServiceAuditHistoryListModel>(mapper.ConfigurationProvider);
         }
 
-        public async Task<IQueryable<OperationAuditHistoryListModel>> GetServiceHistoryOperationsAsync(int serviceId)
+        public async Task<IQueryable<OperationAuditHistoryListModel>> GetHistoryOperationsAsync(int serviceId)
         {
             return (await serviceAuditHistoryRepository.GetAllOperationsAsync(serviceId)).ProjectTo<OperationAuditHistoryListModel>(mapper.ConfigurationProvider);
         }

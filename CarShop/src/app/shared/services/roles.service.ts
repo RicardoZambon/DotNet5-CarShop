@@ -9,6 +9,7 @@ import { RoleListModel } from '../models/Security/role-list-model';
 import { RoleEditModel } from './../models/Security/role-edit-model';
 import { RoleEditResponse } from '../models/Security/role-edit-response';
 import { ServiceAuditHistoryListModel } from '../models/Audit/service-audit-history-list-model';
+import { OperationAuditHistoryListModel } from '../models/Audit/operation-audit-history-list-model';
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,18 @@ export class RolesService {
         return await lastValueFrom(
             this.http
                 .get<ServiceAuditHistoryListModel[]>(`${this.baseUrl}/Roles/History/${roleId}`)
+                .pipe(
+                    catchError((error: HttpErrorResponse) => {
+                        throw error.error as string;
+                    })
+                )
+        );
+    }
+
+    async getRoleHistoryOperations(serviceId: number): Promise<OperationAuditHistoryListModel[]> {
+        return await lastValueFrom(
+            this.http
+                .get<OperationAuditHistoryListModel[]>(`${this.baseUrl}/Roles/HistoryService/${serviceId}`)
                 .pipe(
                     catchError((error: HttpErrorResponse) => {
                         throw error.error as string;

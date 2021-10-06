@@ -1,20 +1,20 @@
 import { EventEmitter } from '@angular/core';
 import { AgGridAngular } from '@ag-grid-community/angular';
-import { ColDef, IDatasource, IGetRowsParams, RowNode, SelectionChangedEvent } from '@ag-grid-community/core';
+import { ColDef, IDatasource, IGetRowsParams, RowNode, SelectionChangedEvent, ViewportChangedEvent } from '@ag-grid-community/core';
 import { InfiniteRowModelModule } from '@ag-grid-community/infinite-row-model';
 
-import { IListDatasource } from 'src/app/shared/interfaces/i-list-datasource';
-import { QueryParametersModel } from '../models/query-parameters-model';
 import { ActivatedRoute } from '@angular/router';
+import { AuditOperationCellRendererComponent } from '../components/grid/audit-operation-cell-renderer/audit-operation-cell-renderer.component';
 import { GridHeaderComponent } from '../components/list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from '../components/list/grid-loading/grid-loading.component';
-import { ServiceAuditHistoryListModel } from '../models/Audit/service-audit-history-list-model';
-import { AuditCellRendererComponent } from '../components/grid/audit-cell-renderer/audit-cell-renderer.component';
+import { OperationAuditHistoryListModel } from '../models/Audit/operation-audit-history-list-model';
 
-export abstract class AuditDatasource implements IDatasource {
+export abstract class AuditOperationsDatasource implements IDatasource {
     
-    public get entityId(): number {
-        return parseInt(this.route.snapshot.paramMap.get('id')?.toString() ?? '0');
+    private _serviceId!: number;
+
+    public get serviceId(): number {
+        return this._serviceId;
     }
 
     public get isSet(): boolean {
@@ -34,11 +34,11 @@ export abstract class AuditDatasource implements IDatasource {
     frameworkComponents: any = {
         agColumnHeader: GridHeaderComponent,
         loadingRenderer: GridLoadingRendererComponent,
-        auditCellRenderer: AuditCellRendererComponent
+        auditOperationCellRenderer: AuditOperationCellRendererComponent
     };
     cellRendererParams = { loadingMessage: 'Grid-Loading', loadingMessageFailure: 'RolesList-Loading-Failure' };
     columnDefs: ColDef[] = [
-        { colId: 'name',    field: 'name',  headerName: 'AuditList-Columns-Services', suppressMovable: true, cellRenderer: 'auditCellRenderer', cellRendererParams: this.cellRendererParams, minWidth: 150, flex: 1 },
+        { colId: 'name',    field: 'name',  headerName: 'AuditList-Columns-Services', suppressMovable: true, cellRenderer: 'auditOperationCellRenderer', cellRendererParams: this.cellRendererParams, minWidth: 150, flex: 1 },
     ];
 
 
@@ -46,17 +46,17 @@ export abstract class AuditDatasource implements IDatasource {
     }
 
 
-    setGrid(grid: AgGridAngular) {
+    setGrid(serviceId: number, grid: AgGridAngular) {
         this.grid = grid;
 
         this.grid.selectionChanged.subscribe(event => {
             this.selectionChanged.emit(event)
         });
 
-        this.updateEntireDatasource();
+        this.updateEntireDatasource(serviceId);
     }
 
-    abstract getData(params: IGetRowsParams): Promise<ServiceAuditHistoryListModel[]>;
+    abstract getData(params: IGetRowsParams): Promise<OperationAuditHistoryListModel[]>;
 
     async getRows(params: IGetRowsParams): Promise<void> {
         if (!this.loading) {
@@ -72,7 +72,7 @@ export abstract class AuditDatasource implements IDatasource {
 
                 this.dataLoaded.emit();
                 params.successCallback(data, lastRow);
-                this.grid.api.dispatchEvent({ type: 'successCallback' });
+                this.grid.api.dispatchEvent({ type: 'successCallback', firstRow: 0, lastRow: lastRow } as ViewportChangedEvent);
 
             }, ex => {
                 this.loadFailed.emit();
@@ -88,12 +88,12 @@ export abstract class AuditDatasource implements IDatasource {
         this.grid.api.deselectAll();
     }
 
-    getRowNodeId(data: ServiceAuditHistoryListModel): string {
+    getRowNodeId(data: OperationAuditHistoryListModel): string {
         return data.id.toString();
     };
 
-    getRowNodeDisplayName(data: ServiceAuditHistoryListModel): string { 
-        return data.name;
+    getRowNodeDisplayName(data: OperationAuditHistoryListModel): string { 
+        return data.entityName;
     }
 
     getSelectedNodes(): RowNode[] {
@@ -108,8 +108,10 @@ export abstract class AuditDatasource implements IDatasource {
         }
     }
 
-    updateEntireDatasource(): void {
+    updateEntireDatasource(serviceId: number): void {
         if (!this.loading) {
+            this._serviceId = serviceId;
+
             this.loading = true;
 
             this.deselectAll();

@@ -1,13 +1,13 @@
 <app-edit-section [id]="'details'" [label]="'RolesEdit-Section-History' | translate" [fullHeight]="true">
     <div class="row h-100">
         <div class="col-4">
-            <ag-grid-angular #grid auto-scroll-grid
+            <ag-grid-angular #serviceGrid auto-scroll-grid
                 class="ag-theme-alpine flex-grow-1 border cell-overflow-visible rounded mt-0 h-100"
-                [columnDefs]="datasource.columnDefs"
+                [columnDefs]="serviceDatasource.columnDefs"
 
-                [modules]="datasource.modules"
-                [frameworkComponents]="datasource.frameworkComponents"
-                [getRowNodeId]="datasource.getRowNodeId"
+                [modules]="serviceDatasource.modules"
+                [frameworkComponents]="serviceDatasource.frameworkComponents"
+                [getRowNodeId]="serviceDatasource.getRowNodeId"
                 
                 [immutableData]="true"
                 [rowHeight]="50"
@@ -15,13 +15,29 @@
                 [rowModelType]="'infinite'"
                 [suppressDragLeaveHidesColumns]="true"
 
-                (gridReady)="onGridReady()"
+                (gridReady)="onServiceGridReady()"
             >
             </ag-grid-angular>
         </div>
 
         <div class="col">
-            [Service operations here]
+            <ag-grid-angular #operationGrid auto-scroll-grid
+                class="ag-theme-alpine flex-grow-1 border cell-overflow-visible rounded mt-0 h-100"
+                [columnDefs]="operationDatasource.columnDefs"
+
+                [modules]="operationDatasource.modules"
+                [frameworkComponents]="operationDatasource.frameworkComponents"
+                [getRowNodeId]="operationDatasource.getRowNodeId"
+                
+                [immutableData]="true"
+                [rowHeight]="50"
+                [rowSelection]="'single'"
+                [rowModelType]="'infinite'"
+                [suppressDragLeaveHidesColumns]="true"
+
+                (gridReady)="onOperationGridReady()"
+            >
+            </ag-grid-angular>
         </div>
     </div>
 </app-edit-section>

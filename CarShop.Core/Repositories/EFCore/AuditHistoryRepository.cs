@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace CarShop.Core.Repositories.EFCore
 {
-    public class ServiceAuditHistoryRepository : IServiceAuditHistoryRepository
+    public class AuditHistoryRepository : IAuditHistoryRepository
     {
         private readonly CarShopDbContext context;
 
-        public ServiceAuditHistoryRepository(CarShopDbContext context)
+        public AuditHistoryRepository(CarShopDbContext context)
         {
             this.context = context;
         }
@@ -21,9 +21,7 @@ namespace CarShop.Core.Repositories.EFCore
         }
         public async Task<IQueryable<OperationAuditHistory>> GetAllOperationsAsync(int serviceId)
         {
-            var service = await context.FindAsync<ServiceAuditHistory>(serviceId);
-
-            return service.Operations.AsQueryable();
+            return (await context.FindAsync<ServiceAuditHistory>(serviceId)).Operations.AsQueryable();
         }
 
 

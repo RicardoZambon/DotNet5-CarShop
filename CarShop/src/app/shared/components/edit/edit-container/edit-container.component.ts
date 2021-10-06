@@ -11,18 +11,30 @@ import { ScrollSpyDirective } from '../../../directives/scroll-spy/scroll-spy.di
 })
 export class EditContainerComponent implements OnInit {
 
-    titles!: EditSectionComponent[];
     @ViewChild(ScrollSpyDirective) scrollSpy!: ScrollSpyDirective;
 
     @Input() icon!: string;
     @Input() title!: string;
 
+    private _titles!: EditSectionComponent[];
+    public get titles(): EditSectionComponent[] {
+        return this._titles;
+    }
+    public set titles(value: EditSectionComponent[]) {
+        console.log('hasTitles', value, (value?.length ?? 0) !== 0);
+        this.hasTitles = (value?.length ?? 0) !== 0;
+        this._titles = value;
+    }
+
+    public hasTitles: boolean = false;
     public activeSection: number = 0;
 
-    constructor() { }
+    constructor() {
+    }
 
     ngOnInit(): void {
     }
+
 
     onSectionChange(section: number | null): void {
         this.activeSection = section ?? 0;

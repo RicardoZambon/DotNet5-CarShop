@@ -11,7 +11,9 @@
         >{{ title.label }}</a>
     </div>
 
-    <div #section class="accordion content" appScrollSpy [spiedTags]="['app-edit-section']" (sectionChange)="onSectionChange($event)">
+    <div #section class="accordion content" appScrollSpy [spiedTags]="['app-edit-section']" (sectionChange)="onSectionChange($event)"
+        [class.pe-3]="!this.hasTitles"
+    >
         <ng-content></ng-content>
     </div>
 </div>

@@ -1,4 +1,5 @@
 ﻿using CarShop.Core.Helper;
+using CarShop.WebAPI.Models.Audit.OperationAuditHistory;
 using CarShop.WebAPI.Models.Audit.ServiceAuditHistory;
 using CarShop.WebAPI.Models.Security.Roles;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace CarShop.WebAPI.Services
         Task<RoleEditModel> GetRoleAsync(int roleId);
 
         IQueryable<ServiceAuditHistoryListModel> GetRoleHistoryServices(int roleId);
+        Task<IQueryable<OperationAuditHistoryListModel>> GetRoleServiceOperationsAsync(int serviceId);
     }
 }

@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { SelectionChangedEvent } from '@ag-grid-community/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { AgGridAngular } from '@ag-grid-community/angular';
 
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { BaseChildView } from 'src/app/shared/views/base-child-view';
-import { RolesHistoryDatasource } from './roles-history-datasource';
+import { RolesHistoryOperationDatasource } from './roles-history-operation-datasource';
+import { RolesHistoryServiceDatasource } from './roles-history-service-datasource';
 import { RolesService } from 'src/app/shared/services/roles.service';
 import { TabService } from 'src/app/shared/services/tab.service';
 
@@ -14,11 +16,13 @@ import { TabService } from 'src/app/shared/services/tab.service';
     templateUrl: './role-history.component.html',
     styleUrls: ['./role-history.component.scss']
 })
-export class RoleViewHistoryComponent extends BaseChildView implements OnInit {
+export class RoleViewHistoryComponent extends BaseChildView implements OnInit, AfterViewInit {
 
-    @ViewChild('grid') grid!: AgGridAngular;
+    @ViewChild('serviceGrid') serviceGrid!: AgGridAngular;
+    serviceDatasource!: RolesHistoryServiceDatasource;
 
-    datasource!: RolesHistoryDatasource;
+    @ViewChild('operationGrid') operationGrid!: AgGridAngular;
+    operationDatasource!: RolesHistoryOperationDatasource;
 
 
     constructor(
@@ -29,10 +33,17 @@ export class RoleViewHistoryComponent extends BaseChildView implements OnInit {
     ) {
         super(alertService, tabService, route);
 
-        this.datasource = new RolesHistoryDatasource(rolesService, alertService, route);
+        this.serviceDatasource = new RolesHistoryServiceDatasource(rolesService, alertService, route);
+        this.operationDatasource = new RolesHistoryOperationDatasource(rolesService, alertService, route);
     }
 
     ngOnInit(): void {
+    }
+
+    ngAfterViewInit(): void {
+        this.serviceGrid.selectionChanged.subscribe((x : SelectionChangedEvent) => {
+            console.log(x);
+        });
     }
 
 
@@ -41,17 +52,23 @@ export class RoleViewHistoryComponent extends BaseChildView implements OnInit {
     }
 
     onViewVisible(): void {
-        if (this.datasource.isSet) {   
-            this.datasource.updateEntireDatasource();
+        if (this.serviceDatasource.isSet) {   
+            this.serviceDatasource.updateEntireDatasource();
         }
-        else if (this.grid) {
-            this.datasource.setGrid(this.grid);
+        else if (this.serviceGrid) {
+            this.serviceDatasource.setGrid(this.serviceGrid);
         }
     }
 
-    onGridReady(): void {
+    onServiceGridReady(): void {
         if (this.visible) {
-            this.datasource.setGrid(this.grid);
+            this.serviceDatasource.setGrid(this.serviceGrid);
+        }
+    }
+
+    onOperationGridReady(): void {
+        if (this.visible) {
+            //this.operationDatasource.setGrid(this.operationGrid);
         }
     }
 }

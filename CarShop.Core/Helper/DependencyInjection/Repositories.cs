@@ -11,7 +11,7 @@ namespace CarShop.Core.Helper.DependencyInjection
             return services
                 .AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>()
                 .AddScoped<IMenuRepository, MenuRepository>()
-                .AddScoped<IServiceAuditHistoryRepository, ServiceAuditHistoryRepository>()
+                .AddScoped<IAuditHistoryRepository, AuditHistoryRepository>()
 
                 .AddScoped<IRolesRepository, RolesRepository>()
                 .AddScoped<IUserRepository, UserRepository>()

@@ -69,8 +69,9 @@ export abstract class MultiView extends BaseView implements IMultiView {
 
     protected async changeView(viewName: string, updateUrl?: boolean): Promise<void> {
         if (updateUrl ?? true) {
-            this.tabService.redirectTab(this.currentUrl, this.getViewRoute({ view: viewName === this.defaultViewName ? '' : viewName })
-            );
+            const newUrl = this.getViewRoute({ view: viewName === this.defaultViewName ? '' : viewName });
+            this.tabService.redirectTab(this.currentUrl, newUrl);
+            this.currentUrl = newUrl;
         }
 
         let viewOption = this.viewOptions.filter(x => x.id === viewName)[0];

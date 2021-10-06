@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ICellRendererParams } from '@ag-grid-community/core';
+import { ICellRendererParams, ViewportChangedEvent } from '@ag-grid-community/core';
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 
 import { ServiceAuditHistoryListModel } from 'src/app/shared/models/Audit/service-audit-history-list-model';
 
 @Component({
-    selector: 'app-audit-cell-renderer',
+    selector: 'app-audit-service-cell-renderer',
     template: `
     <div class="col-auto icon-container d-flex align-items-center justify-content-center"
         [class.first-row]="this.firstRow"
@@ -22,9 +22,9 @@ import { ServiceAuditHistoryListModel } from 'src/app/shared/models/Audit/servic
             <span class="col-auto date-time">{{ this.dateTime | date : ('AuditList-DateTime-Format' | translate) }}</span>
         </div>
     </div>`,
-    styleUrls: [ './audit-cell-renderer.component.scss' ]
+    styleUrls: [ './audit-service-cell-renderer.component.scss' ]
 })
-export class AuditCellRendererComponent implements ICellRendererAngularComp {
+export class AuditServiceCellRendererComponent implements ICellRendererAngularComp {
     
     public firstRow: boolean = false;
     public lastRow: boolean = false;
@@ -56,9 +56,15 @@ export class AuditCellRendererComponent implements ICellRendererAngularComp {
                 this.firstRow = true;
             }
 
-            if (params.api.isLastRowIndexKnown() && params.rowIndex === params.api.getLastRenderedRow()) {
-                this.lastRow = true;
-            }
+
+            console.log(data, params.api.isMaxRowFound(), params.api.getInfiniteRowCount());
+
+            params.api.addEventListener('successCallback', (event: ViewportChangedEvent) => {
+                if (params.rowIndex === event.lastRow - 1) {
+                    this.lastRow = true;
+                }
+                console.log(params.rowIndex, event.lastRow);
+            });
         }
     }
 }

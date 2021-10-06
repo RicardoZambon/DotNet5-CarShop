@@ -39,7 +39,8 @@ import { TrackScrollDirective } from '../directives/track-scroll/track-scroll.di
 
 import { GridHeaderComponent } from './list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from './list/grid-loading/grid-loading.component';
-import { AuditCellRendererComponent } from './grid/audit-cell-renderer/audit-cell-renderer.component';
+import { AuditServiceCellRendererComponent } from './grid/audit-service-cell-renderer/audit-service-cell-renderer.component';
+import { AuditOperationCellRendererComponent } from './grid/audit-operation-cell-renderer/audit-operation-cell-renderer.component';
 
 @NgModule({
     declarations: [
@@ -74,8 +75,8 @@ import { AuditCellRendererComponent } from './grid/audit-cell-renderer/audit-cel
 
         GridHeaderComponent,
         GridLoadingRendererComponent,
-        AuditCellRendererComponent,
-        
+        AuditServiceCellRendererComponent,
+        AuditOperationCellRendererComponent,
     ],
     imports: [
         AppRoutingModule,

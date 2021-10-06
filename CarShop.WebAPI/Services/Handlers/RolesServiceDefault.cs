@@ -4,6 +4,7 @@ using CarShop.Core;
 using CarShop.Core.BusinessEntities.Security;
 using CarShop.Core.Helper;
 using CarShop.Core.Repositories;
+using CarShop.WebAPI.Models.Audit.OperationAuditHistory;
 using CarShop.WebAPI.Models.Audit.ServiceAuditHistory;
 using CarShop.WebAPI.Models.Security.Roles;
 using ClosedXML.Excel;
@@ -178,7 +179,12 @@ namespace CarShop.WebAPI.Services.Handlers
 
         public IQueryable<ServiceAuditHistoryListModel> GetRoleHistoryServices(int roleId)
         {
-            return auditHistoryService.GetEntityHistoryServices<Roles>(roleId);
+            return auditHistoryService.GetHistoryServices<Roles>(roleId);
+        }
+
+        public async Task<IQueryable<OperationAuditHistoryListModel>> GetRoleServiceOperationsAsync(int serviceId)
+        {
+            return await auditHistoryService.GetHistoryOperationsAsync(serviceId);
         }
     }
 }
