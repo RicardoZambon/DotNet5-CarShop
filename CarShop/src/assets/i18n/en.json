@@ -98,7 +98,9 @@
     "RolesEdit-Section-History": "History",
 
     "AuditList-Columns-Services": "Service history",
-    "AuditList-DateTime-Format": "dd/MMM/yyyy hh:mm a",
+    "AuditList-DateTime-Format": "MMM/dd/yyyy hh:mm a",
+
+    "AuditList-Columns-Operations": "Operation history",
 
     "AlertValidation-Title": "Incorrect information in your submission!",
     "AlertFailure-Title": "Oops, an error occurred!",

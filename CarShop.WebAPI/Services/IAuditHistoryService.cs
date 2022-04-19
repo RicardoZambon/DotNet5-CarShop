@@ -12,6 +12,8 @@ namespace CarShop.WebAPI.Services
 
         Task<IQueryable<OperationAuditHistoryListModel>> GetHistoryOperationsAsync(int serviceId);
 
+        Task<OperationAuditHistoryViewModel> GetOperationAsync(int operationId);
+
         Task BeginNewServiceAuditHistoryAsync(string serviceName, string methodName);
     }
 }

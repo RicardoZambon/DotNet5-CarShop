@@ -96,6 +96,9 @@
     "RolesEdit-Section-History": "Histórico",
 
     "AuditList-Columns-Services": "Histórico de serviços",
+    "AuditList-DateTime-Format": "dd/MMM/yyyy hh:mm a",
+
+    "AuditList-Columns-Operations": "Histórico de operações",
 
     "AlertValidation-Title": "Informação incorreta no seu formulário!",
     "AlertFailure-Title": "Oops, ocorreu um erro!",

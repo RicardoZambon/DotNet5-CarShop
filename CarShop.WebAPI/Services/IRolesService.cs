@@ -22,5 +22,6 @@ namespace CarShop.WebAPI.Services
 
         IQueryable<ServiceAuditHistoryListModel> GetRoleHistoryServices(int roleId);
         Task<IQueryable<OperationAuditHistoryListModel>> GetRoleServiceOperationsAsync(int serviceId);
+        Task<OperationAuditHistoryViewModel> GetRoleOperationAsync(int operationId);
     }
 }

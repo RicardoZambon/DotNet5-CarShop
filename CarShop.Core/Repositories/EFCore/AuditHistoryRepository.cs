@@ -24,6 +24,11 @@ namespace CarShop.Core.Repositories.EFCore
             return (await context.FindAsync<ServiceAuditHistory>(serviceId)).Operations.AsQueryable();
         }
 
+        public async Task<OperationAuditHistory> GetOperationAsync(int operationId)
+        {
+            return await context.FindAsync<OperationAuditHistory>(operationId);
+        }
+
 
         public async Task InsertAsync(ServiceAuditHistory serviceAuditHistory)
         {

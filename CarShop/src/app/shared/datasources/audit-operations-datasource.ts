@@ -8,13 +8,13 @@ import { AuditOperationCellRendererComponent } from '../components/grid/audit-op
 import { GridHeaderComponent } from '../components/list/grid-header/grid-header.component';
 import { GridLoadingRendererComponent } from '../components/list/grid-loading/grid-loading.component';
 import { OperationAuditHistoryListModel } from '../models/Audit/operation-audit-history-list-model';
+import { ServiceAuditHistoryListModel } from '../models/Audit/service-audit-history-list-model';
 
 export abstract class AuditOperationsDatasource implements IDatasource {
     
-    private _serviceId!: number;
-
+    private _serviceId: number | undefined;
     public get serviceId(): number {
-        return this._serviceId;
+        return this._serviceId ?? 0;
     }
 
     public get isSet(): boolean {
@@ -38,7 +38,7 @@ export abstract class AuditOperationsDatasource implements IDatasource {
     };
     cellRendererParams = { loadingMessage: 'Grid-Loading', loadingMessageFailure: 'RolesList-Loading-Failure' };
     columnDefs: ColDef[] = [
-        { colId: 'name',    field: 'name',  headerName: 'AuditList-Columns-Services', suppressMovable: true, cellRenderer: 'auditOperationCellRenderer', cellRendererParams: this.cellRendererParams, minWidth: 150, flex: 1 },
+        { colId: 'name',    field: 'name',  headerName: 'AuditList-Columns-Operations', suppressMovable: true, cellRenderer: 'auditOperationCellRenderer', cellRendererParams: this.cellRendererParams, minWidth: 150, flex: 1 },
     ];
 
 
@@ -46,19 +46,39 @@ export abstract class AuditOperationsDatasource implements IDatasource {
     }
 
 
-    setGrid(serviceId: number, grid: AgGridAngular) {
-        this.grid = grid;
+    setGrid(servicesGrid: AgGridAngular, operationsGrid: AgGridAngular) {
+        servicesGrid.selectionChanged.subscribe((x: SelectionChangedEvent) => {
+            const selected = x.api.getSelectedRows() as ServiceAuditHistoryListModel[];
+
+            if (selected.length > 0) {
+                this._serviceId = selected[0].id;
+            }
+            else {
+                this._serviceId = undefined;
+            }
+            
+            this.updateEntireDatasource();
+        });
+        
+        this.grid = operationsGrid;
 
         this.grid.selectionChanged.subscribe(event => {
             this.selectionChanged.emit(event)
         });
 
-        this.updateEntireDatasource(serviceId);
+        this.updateEntireDatasource();
     }
 
     abstract getData(params: IGetRowsParams): Promise<OperationAuditHistoryListModel[]>;
 
     async getRows(params: IGetRowsParams): Promise<void> {
+        if (this._serviceId === undefined) {
+            if (this.loading) {
+                this.loading = false;
+            }
+            return;
+        }
+        
         if (!this.loading) {
             this.loading = true;
         }
@@ -69,6 +89,8 @@ export abstract class AuditOperationsDatasource implements IDatasource {
                 if (data.length <= params.endRow) {
                     lastRow = data.length;
                 }
+
+                console.log(data);
 
                 this.dataLoaded.emit();
                 params.successCallback(data, lastRow);
@@ -108,10 +130,8 @@ export abstract class AuditOperationsDatasource implements IDatasource {
         }
     }
 
-    updateEntireDatasource(serviceId: number): void {
+    updateEntireDatasource(): void {
         if (!this.loading) {
-            this._serviceId = serviceId;
-
             this.loading = true;
 
             this.deselectAll();

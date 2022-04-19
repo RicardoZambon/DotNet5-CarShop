@@ -35,6 +35,12 @@ namespace CarShop.WebAPI.Services.Handlers
             return (await serviceAuditHistoryRepository.GetAllOperationsAsync(serviceId)).ProjectTo<OperationAuditHistoryListModel>(mapper.ConfigurationProvider);
         }
 
+        public async Task<OperationAuditHistoryViewModel> GetOperationAsync(int operationId)
+        {
+            return mapper.Map<OperationAuditHistoryViewModel>(await serviceAuditHistoryRepository.GetOperationAsync(operationId));
+        }
+
+
         public async Task BeginNewServiceAuditHistoryAsync(string serviceName, string methodName)
         {
             await serviceAuditHistoryRepository.InsertAsync(new ServiceAuditHistory()

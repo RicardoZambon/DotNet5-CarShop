@@ -1,0 +1,21 @@
+
+
+:host-context {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    div {
+        line-height: normal !important;
+    }
+
+    .operation {
+        font-weight: 500;
+    }
+
+    .entity, .entity-id {
+        font-weight: 100;
+        font-size: .8rem;
+    }
+}

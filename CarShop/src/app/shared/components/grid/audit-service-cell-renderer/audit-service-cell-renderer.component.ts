@@ -13,7 +13,7 @@ import { ServiceAuditHistoryListModel } from 'src/app/shared/models/Audit/servic
     >
         <div class="icon"></div>
     </div>
-    <div class="col">
+    <div class="col d-flex flex-column justify-content-center">
         <div class="row mb-1">
             <div class="col service">{{ this.name }}</div>
         </div>
@@ -56,14 +56,10 @@ export class AuditServiceCellRendererComponent implements ICellRendererAngularCo
                 this.firstRow = true;
             }
 
-
-            console.log(data, params.api.isMaxRowFound(), params.api.getInfiniteRowCount());
-
             params.api.addEventListener('successCallback', (event: ViewportChangedEvent) => {
                 if (params.rowIndex === event.lastRow - 1) {
                     this.lastRow = true;
                 }
-                console.log(params.rowIndex, event.lastRow);
             });
         }
     }

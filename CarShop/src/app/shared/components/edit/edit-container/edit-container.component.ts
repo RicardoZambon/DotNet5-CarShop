@@ -21,7 +21,6 @@ export class EditContainerComponent implements OnInit {
         return this._titles;
     }
     public set titles(value: EditSectionComponent[]) {
-        console.log('hasTitles', value, (value?.length ?? 0) !== 0);
         this.hasTitles = (value?.length ?? 0) !== 0;
         this._titles = value;
     }

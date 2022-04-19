@@ -16,7 +16,7 @@ import { TabService } from 'src/app/shared/services/tab.service';
     templateUrl: './role-history.component.html',
     styleUrls: ['./role-history.component.scss']
 })
-export class RoleViewHistoryComponent extends BaseChildView implements OnInit, AfterViewInit {
+export class RoleViewHistoryComponent extends BaseChildView implements OnInit {
 
     @ViewChild('serviceGrid') serviceGrid!: AgGridAngular;
     serviceDatasource!: RolesHistoryServiceDatasource;
@@ -40,23 +40,18 @@ export class RoleViewHistoryComponent extends BaseChildView implements OnInit, A
     ngOnInit(): void {
     }
 
-    ngAfterViewInit(): void {
-        this.serviceGrid.selectionChanged.subscribe((x : SelectionChangedEvent) => {
-            console.log(x);
-        });
-    }
-
 
     async getTitle(): Promise<string> {
         return 'Button-Views-History';
     }
 
     onViewVisible(): void {
-        if (this.serviceDatasource.isSet) {   
-            this.serviceDatasource.updateEntireDatasource();
-        }
-        else if (this.serviceGrid) {
+        if (!this.serviceDatasource.isSet && this.serviceGrid) {
             this.serviceDatasource.setGrid(this.serviceGrid);
+        }
+        
+        if (!this.operationDatasource.isSet && this.operationGrid) {
+            this.operationDatasource.setGrid(this.serviceGrid, this.operationGrid);
         }
     }
 
@@ -68,7 +63,7 @@ export class RoleViewHistoryComponent extends BaseChildView implements OnInit, A
 
     onOperationGridReady(): void {
         if (this.visible) {
-            //this.operationDatasource.setGrid(this.operationGrid);
+            this.operationDatasource.setGrid(this.serviceGrid, this.operationGrid);
         }
     }
 }

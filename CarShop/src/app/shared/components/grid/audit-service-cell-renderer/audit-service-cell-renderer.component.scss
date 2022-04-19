@@ -45,15 +45,17 @@
     }
 
     .service {
-        font-weight: bold;
+        font-weight: 500;
     }
 
     .username {
         overflow: hidden;
         text-overflow: ellipsis;
+        font-size: .8rem;
     }
 
-    .username, .date-time {
-        font-size: .8rem;
+    .date-time {
+        font-weight: .7rem;
+        font-weight: 100;
     }
 }

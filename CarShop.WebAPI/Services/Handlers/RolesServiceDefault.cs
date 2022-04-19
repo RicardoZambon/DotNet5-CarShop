@@ -186,5 +186,10 @@ namespace CarShop.WebAPI.Services.Handlers
         {
             return await auditHistoryService.GetHistoryOperationsAsync(serviceId);
         }
+
+        public async Task<OperationAuditHistoryViewModel> GetRoleOperationAsync(int operationId)
+        {
+            return await auditHistoryService.GetOperationAsync(operationId);
+        }
     }
 }

@@ -142,12 +142,25 @@ namespace CarShop.WebAPI.Controllers
             }
         }
 
-        [HttpGet, Route(nameof(HistoryService)  + "/{serviceId}")]
+        [HttpGet, Route(nameof(HistoryService) + "/{serviceId}")]
         public async Task<ActionResult<IQueryable<ServiceAuditHistoryListModel>>> HistoryService(int serviceId)
         {
             try
             {
                 return Ok(await rolesService.GetRoleServiceOperationsAsync(serviceId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route(nameof(HistoryOperation) + "/{operationId}")]
+        public async Task<ActionResult<IQueryable<ServiceAuditHistoryListModel>>> HistoryOperation(int operationId)
+        {
+            try
+            {
+                return Ok(await rolesService.GetRoleOperationAsync(operationId));
             }
             catch (Exception ex)
             {

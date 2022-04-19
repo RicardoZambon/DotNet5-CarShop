@@ -11,6 +11,8 @@ namespace CarShop.Core.Repositories
 
         Task<IQueryable<OperationAuditHistory>> GetAllOperationsAsync(int serviceId);
 
+        Task<OperationAuditHistory> GetOperationAsync(int operationId);
+
         Task InsertAsync(ServiceAuditHistory role);
     }
 }
